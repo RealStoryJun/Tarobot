@@ -6,7 +6,7 @@
 const ALLOWED_ORIGINS = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://ai.realstoryjun.co.kr",
+  "https://tarot.realstoryjun.co.kr",
   "https://realstoryjun.co.kr",
 ];
 
