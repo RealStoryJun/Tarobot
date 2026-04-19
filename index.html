@@ -30,10 +30,11 @@
     <link rel="apple-touch-icon" href="/favicon.svg">
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Critical CSS · FOUC 방지용 최소 스타일 (style.css 로드 전) -->
+    <!-- Critical CSS · FOUC 방지용 최소 스타일 (html 에만 bg 지정 — body 는 투명해야 body::before BG 이미지가 보임) -->
     <style>
-        html,body{margin:0;padding:0;background:#0c0a18;color:#e8e6f2;font-family:system-ui,-apple-system,sans-serif;height:100dvh;overflow:hidden}
-        .hidden{display:none!important}
+        html { background: #0c0a18; color: #e8e6f2; font-family: system-ui, -apple-system, sans-serif; }
+        body { margin: 0; padding: 0; }
+        .hidden { display: none !important; }
     </style>
 
     <!-- 배경 이미지 프리로드 (최대 콘텐츠 LCP 단축) -->
@@ -116,7 +117,6 @@
                     </div>
                 </div>
                 <div id="selected-cards-area" class="opacity-0 transition-opacity duration-700"></div>
-                <button id="reshuffle-btn" class="reshuffle-btn hidden" type="button" aria-label="카드 다시 섞기 (1회)">🔀 다시 섞기</button>
             </div>
 
             <!-- Phase 3: 켈틱 크로스 결과 (자연스러운 스크롤 허용) -->

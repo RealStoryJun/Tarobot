@@ -1,3 +1,19 @@
+/**
+ * app.js — Tarobot 프론트 메인 오케스트레이터
+ *
+ * 상태 머신:  START → SELECTING → READING
+ *
+ * 의존:
+ *   - api.js (apiCall)      · Worker 호출 래퍼
+ *   - data.js               · 78장 타로 덱 + 10 포지션
+ *   - utils.js              · sleep, TIMING, shuffleDeck
+ *   - toast.js              · 토스트 + 전역 에러 핸들러
+ *
+ * 변경 시 유의 (REFACTOR_PLAN.md 5. 암묵 의존):
+ *   - gameState 는 반드시 3단계 문자열 유지
+ *   - 애니메이션 sleep 값은 안무 튜닝됨 — 바꾸면 페이즈 전환이 뚝뚝 끊김
+ *   - elements 객체는 initializeApp() 호출 후에만 유효
+ */
 import { apiCall } from './api.js';
 import { tarotDeck, spreadPositions } from './data.js';
 import { sleep, TIMING as T, shuffleDeck } from './utils.js';
@@ -18,7 +34,6 @@ let gameState = 'START';
 let shuffledDeck = [];
 let selectedCards = [];
 let sessionId = null;
-let reshuffleUsed = false;
 
 // Elements
 const getElements = () => ({
@@ -124,11 +139,12 @@ async function handleStart() {
     elements.shufflingContainer.classList.add('is-shuffling');
 
     await sleep(1500);
-    // 셔플 끝 — 라벨 "카드를 섞는 중..." 만 먼저 페이드, 덱은 제자리에 그대로 유지
+    // 셔플 끝 — 덱이 위로 상승하며 라벨 페이드
     elements.shufflingContainer.classList.remove('is-shuffling');
+    elements.shufflingContainer.classList.add('is-ascending');
     elements.shufflingContainer.classList.add('label-fading');
 
-    await sleep(300);
+    await sleep(500); // 상승 충분히 보이도록 대기
 
     // 휠을 먼저 준비 — 덱과 같은 중앙 위치에서 반경 0 으로 태어남
     renderWheel();
@@ -162,12 +178,6 @@ async function handleStart() {
     await sleep(200);
     elements.selectionInstruction.textContent = '회전하는 카드를 눌러 10장을 선택하세요.';
     elements.selectionInstruction.style.opacity = '1';
-
-    const reshuffleBtn = document.getElementById('reshuffle-btn');
-    if (reshuffleBtn && !reshuffleUsed) {
-        reshuffleBtn.classList.remove('hidden');
-    }
-
     gameState = 'SELECTING';
 }
 
@@ -195,8 +205,6 @@ function handleSelectCard() {
     if (selectedCards.length === 10) {
         gameState = 'READING';
         elements.selectionInstruction.style.opacity = '0';
-        const reshuffleBtn = document.getElementById('reshuffle-btn');
-        if (reshuffleBtn) reshuffleBtn.classList.add('hidden');
         setTimeout(() => initiateReadingProcess(), 600);
     }
 }
@@ -564,9 +572,6 @@ function initializeApp() {
     elements.cardWheelContainer.addEventListener('click', handleSelectCard);
     elements.newReadingButton.addEventListener('click', startNewReading);
 
-    const reshuffleBtn = document.getElementById('reshuffle-btn');
-    if (reshuffleBtn) reshuffleBtn.addEventListener('click', reshuffleDeckOnce);
-
     const copyBtn = document.getElementById('copy-interpretation-btn');
     if (copyBtn) copyBtn.addEventListener('click', async () => {
         const text = elements.recommendationText?.textContent || '';
@@ -589,27 +594,6 @@ function initializeApp() {
     });
 }
 
-function reshuffleDeckOnce() {
-    if (gameState !== 'SELECTING' || reshuffleUsed) return;
-    if (selectedCards.length > 0) {
-        if (!confirm('이미 선택한 카드가 초기화됩니다. 계속할까요?')) return;
-    }
-    reshuffleUsed = true;
-    selectedCards = [];
-    shuffledDeck = shuffleDeck([...tarotDeck]);
-    // 슬롯 비우기
-    initSelectionArea();
-    // 휠 카드 복구
-    document.querySelectorAll('.wheel-card.is-hidden').forEach((el) => el.classList.remove('is-hidden'));
-    elements.selectionInstruction.textContent = '새로 섞었습니다. 10장을 다시 골라 주세요.';
-    const reshuffleBtn = document.getElementById('reshuffle-btn');
-    if (reshuffleBtn) {
-        reshuffleBtn.disabled = true;
-        reshuffleBtn.textContent = '다시 섞기 사용됨';
-    }
-    toast('덱을 다시 섞었습니다.', 'info');
-}
-
 // 새 리딩 — 페이지 리로드 대신 상태 초기화 (soft reset)
 function startNewReading() {
     gameState = 'START';
@@ -625,19 +609,50 @@ function startNewReading() {
     elements.recommendationText.innerHTML = '';
     elements.recommendationTextContainer.innerHTML = '';
 
+    // 셔플 컨테이너 상태 리셋 (inline style + class)
+    const sc = elements.shufflingContainer;
+    if (sc) {
+        sc.classList.remove('is-shuffling', 'is-ascending', 'label-fading');
+        sc.style.display = 'none';
+        sc.style.opacity = '';
+    }
+    const deckEl = sc?.querySelector('.shuffling-deck');
+    if (deckEl) deckEl.classList.remove('is-transitioning');
+
+    // 휠 컨테이너 상태 리셋
+    elements.cardWheelContainer.classList.remove('is-visible', 'is-raised');
+    elements.cardWheelContainer.style.opacity = '';
+    elements.cardWheelContainer.style.transform = '';
+    elements.cardWheel.innerHTML = '';
+
+    // 선택 슬롯 리셋
+    elements.selectedCardsArea.classList.remove('is-visible');
+    elements.selectedCardsArea.innerHTML = '';
+
+    // 해석 summary 리셋
     const summaryArea = document.getElementById('interpretation-summary');
     const summaryText = document.getElementById('summary-text');
     if (summaryArea) summaryArea.classList.remove('is-visible', 'is-swapping');
     if (summaryText) summaryText.textContent = '별들의 속삭임을 듣고 있습니다...';
 
+    // 헤더 복귀
     const topHeader = document.querySelector('header');
     if (topHeader) {
         topHeader.style.display = '';
         topHeader.style.opacity = '1';
     }
 
+    // 스크롤 & body class 정상화
     document.body.classList.remove('reading-mode');
     document.body.classList.add('bg-active');
+
+    // app / selectionContainer inline style 원복 (morphCardsToGrid 가 설정한 값)
+    const appEl = document.getElementById('app');
+    if (appEl) { appEl.style.height = ''; appEl.style.overflow = ''; }
+    if (elements.selectionContainer) {
+        elements.selectionContainer.style.height = '';
+        elements.selectionContainer.style.overflow = '';
+    }
 
     elements.initialUiGroup.classList.remove('hidden');
     elements.initialUiGroup.style.opacity = '1';

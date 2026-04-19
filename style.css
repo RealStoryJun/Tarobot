@@ -1,13 +1,21 @@
 /* ============================================
-   CSS Layer order — Tailwind CDN 이 문서 끝에서 덮어쓰는 걸 방지하려면
-   토큰·베이스는 가장 약한 우선순위(layer) 로, 컴포넌트/유틸리티는 강하게.
+   style.css — Tarobot 전역 스타일
+   ============================================
+
+   레이어 순서: tokens < base < components < utilities
+
+   ── 암묵 의존 (REFACTOR_PLAN.md 5. 참조) ──
+   1. html 은 솔리드 배경, body 는 transparent — body::before(BG)가 보이려면 필수
+   2. overflow 는 body 에서만, html 에 걸면 스크롤 완전 차단됨
+   3. body.reading-mode 가 스크롤 허용 스위치
+   4. body::before · body::after 는 pointer-events:none 유지
+   5. gameState 전환 타이밍은 app.js 의 sleep(ms) + class 조합에 의존
    ============================================ */
 @layer tokens, base, components, utilities;
 
 /* ============================================
    Design Tokens — single source of truth
    ============================================ */
-@layer tokens;
 :root {
     /* 카드 뒷면 SVG — 변경 금지 */
     --card-back-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjE3MCIgdmlld0JveD0iMCAwIDEwMCAxNzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxNzAiIHJ4PSI4IiBmaWxsPSIjMGQxMTJiIi8+PGcgb3BhY2l0eT0iMC45Ij48Y2lyY2xlIGN4PSIyNSIgY3k9IjMwIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIyMCIgcj0iMC44IiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNDAiIHI9IjEuMiIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI4NSIgY3k9IjI1IiByPSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjE1IiBjeT0iNDUiIHI9IjAuNyIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI4MCIgY3k9IjEzMCIgcj0iMS4xIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjIwIiBjeT0iMTQwIiByPSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjM1IiBjeT0iMTUwIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PC9nPjxnIHRyYW5zZm9ybT0icm90YXRlKC00NSA1MCA4NSkiPjxjaXJjbGUgY3g9IjUwIiBjeT0iODUiIHI9IjM1IiBmaWxsPSIjZjBlNjhjIi8+PGNpcmNsZSBjeD0iNjIiIGN5PSI4NSIgcj0iMzUiIGZpbGw9IiMwZDExMmIiLz48L2c+PC9zdmc+');
@@ -100,17 +108,22 @@ html {
     }
 }
 
+/* html 에만 솔리드 배경. body 는 투명해야 body::before (BG 이미지) 가 보임 */
+html {
+    background-color: var(--c-bg);
+}
+
 body {
     font-family: 'Gowun Dodum', sans-serif;
     font-size: var(--font-size-base);
     line-height: var(--lh-base);
     font-feature-settings: "kern" 1, "palt" 1;
-    background-color: var(--c-bg);
     color: var(--c-text);
     width: 100%;
     height: 100dvh;
-    overflow: hidden; /* 메인 화면에서 스크롤 방지 */
+    overflow: hidden; /* 메인 화면에서 스크롤 방지 (reading-mode 시 해제) */
     position: relative;
+    background: transparent;
 }
 
 /* 글로벌 고정 배경 정책 */
@@ -275,11 +288,17 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     width: 100%;
     min-height: 200px;
     z-index: 6; /* 휠(5) 보다 살짝 위 — 휠 등장 시 자연스럽게 겹침 */
-    transition: opacity var(--d-slow) var(--ease-out);
+    transition: opacity var(--d-slow) var(--ease-out),
+                transform var(--d-ritual) var(--ease-ritual);
     flex-direction: column;
     align-items: center;
     justify-content: center;
     pointer-events: none;
+    transform: translateY(80px); /* 초기엔 약간 아래에서 — 공간감 확보 */
+}
+
+#shuffling-container.is-ascending {
+    transform: translateY(0); /* 셔플 끝나며 중앙으로 상승 */
 }
 
 .shuffling-deck {
@@ -659,17 +678,17 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     width: 100%;
     aspect-ratio: 80 / 136;
     position: relative;
-    transform-style: preserve-3d;
-    transition: transform var(--d-slow) var(--ease-in-out), opacity var(--d-snap) var(--ease-out);
+    perspective: 800px;
     opacity: 0;
+    transition: opacity var(--d-snap) var(--ease-out);
 }
 
 .final-card-container.is-visible {
     opacity: 1;
 }
 
+/* 플립 시 금빛 번쩍 (유지) */
 .final-card-container.is-flipped {
-    transform: rotateY(180deg);
     animation: reveal-glow var(--d-slow) var(--ease-ritual);
 }
 
@@ -681,9 +700,7 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
 .card-face {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+    inset: 0;
     border-radius: 8px;
     overflow: hidden;
     background-size: cover;
@@ -692,14 +709,29 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     align-items: center;
 }
 
+/* 앞면(이미지) — 항상 정면, 뒤에서 서서히 드러남 */
 .card-face--front {
-    transform: rotateY(180deg) translateZ(1px);
+    z-index: 1;
+    opacity: 1;
 }
 
+/* 뒷면 — 위에 덮고 있다가 플립 시 회전하며 페이드 */
 .card-face--back {
     background-image: var(--card-back-image);
-    border: 1px solid #f0e68c;
-    transform: rotateY(0deg) translateZ(1px);
+    border: 1px solid var(--c-gold);
+    z-index: 2;
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transition: opacity var(--d-slow) var(--ease-ritual),
+                transform var(--d-slow) var(--ease-ritual);
+    will-change: transform, opacity;
+}
+
+/* 플립 상태: 뒷면이 페이드되며 살짝 확장 → 앞면(이미지)이 서서히 드러남 */
+.final-card-container.is-flipped .card-face--back {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: brightness(1.3);
 }
 
 .card-face img {
@@ -734,8 +766,9 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 .pos9 { grid-area: 2 / 4 / 3 / 5; }
 .pos10 { grid-area: 1 / 4 / 2 / 5; }
 
+/* pos2 는 플립해도 가로 방향 유지 (is-flipped 에서 추가 rotateY 제거) */
 .pos2.is-flipped {
-    transform: rotate(90deg) rotateY(180deg) translateZ(20px);
+    transform: rotate(90deg) translateZ(20px);
 }
 
 .final-card-overlay {
@@ -1204,30 +1237,6 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 @media (max-width: 640px) {
     .advice-header { flex-direction: column; gap: 0.5rem; }
     .copy-btn { position: static; transform: none; }
-}
-
-/* ============================================
-   Reshuffle button (선택 중 1회 한정)
-   ============================================ */
-.reshuffle-btn {
-    margin: 0.75rem auto 0;
-    padding: 0.4rem 1rem;
-    background: transparent;
-    color: var(--c-gold-soft);
-    border: 1px solid rgba(240, 230, 140, 0.25);
-    border-radius: 999px;
-    font-size: var(--font-size-xs);
-    cursor: pointer;
-    transition: all var(--d-snap) var(--ease-out);
-}
-.reshuffle-btn:hover {
-    color: var(--c-gold);
-    border-color: var(--c-gold);
-    background: rgba(240, 230, 140, 0.05);
-}
-.reshuffle-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
 }
 
 /* ============================================

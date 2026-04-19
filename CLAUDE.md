@@ -26,6 +26,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **동일 파일이 두 군데** 있을 때 주의: `supabase/functions/handle-auth/index.ts` 가 Supabase CLI 가 실제로 배포하는 파일. 과거 `handle-auth.ts` 같은 평평한 파일이 있었고 지금은 제거됨 — 다시 생기지 않게.
 
+## 렌더링 불변 조건 (수정 전 반드시 확인)
+
+> 아래 9개 중 하나라도 어기면 BG / 스크롤 / 플립 / 페이즈 전환이 깨짐. 최근 30 페이즈 중 5곳에서 실제 회귀 발생했음. 상세 근거는 `REFACTOR_PLAN.md §5`.
+
+1. **`html` 은 솔리드 배경 (`var(--c-bg)`), `body` 는 `background: transparent`** — body::before 가 BG 이미지를 덮기 위해 필요
+2. **`overflow: hidden` 은 `body` 에만**. `html` 에는 걸지 말 것. 걸면 `body.reading-mode { overflow-y: auto }` 가 무력화되어 리딩 결과 스크롤 불가
+3. **`body.reading-mode`** 가 스크롤 허용 스위치. `morphCardsToGrid()` 가 add, `startNewReading()` 이 remove
+4. **`body::before`** (BG 이미지) 는 `z-index: -1`, `body.bg-active` 에서 opacity 1
+5. **`body::after`** (별빛 커튼) 는 `z-index: 0`, `pointer-events: none` 필수
+6. **`gameState`** 3단계 상수 `'START' | 'SELECTING' | 'READING'` — 다른 값 사용 금지
+7. **카드 플립은 container 회전 없음** — `.card-face--back` 의 opacity + scale 페이드만. `backface-visibility: hidden` 절대 금지 (50% 지점 "팍" 튐)
+8. **셔플 → 휠 전환** 은 `#shuffling-container { position: absolute; inset: 0 }` 로 같은 중앙에 겹침. `is-ascending` 으로 살짝 상승
+9. **Master's Insight (`#interpretation-summary`)** 는 처음부터 렌더 (display:none 금지). 텍스트만 `is-swapping` 클래스로 크로스페이드
+
 ## 보안 불변 조건 (절대 깨지 말 것)
 
 1. **`user_id` 는 서버에서만 결정**. 클라이언트 payload 의 `user_id` 는 무시 — `handle-readings/index.ts` 에서 JWT 검증 성공한 경우에만 `row.user_id = user.id` 로 덮어씀.
