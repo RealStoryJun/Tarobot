@@ -76,6 +76,24 @@ html {
     scroll-behavior: smooth;
 }
 
+/* ─── Accessibility · reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ─── Accessibility · high contrast ─── */
+@media (prefers-contrast: more) {
+    :root {
+        --c-text:      #ffffff;
+        --c-text-soft: #d0d4e0;
+    }
+}
+
 body {
     font-family: 'Gowun Dodum', sans-serif;
     font-size: var(--font-size-base);
