@@ -1,6 +1,14 @@
 import { apiCall } from './api.js';
 import { tarotDeck, spreadPositions } from './data.js';
 
+// Motion timing — style.css 의 --d-* 토큰과 대응
+const T = {
+    SNAP: 200,    // --d-snap
+    BASE: 500,    // --d-base
+    SLOW: 900,    // --d-slow
+    RITUAL: 1400, // --d-ritual
+};
+
 // State
 let gameState = 'START';
 let shuffledDeck = [];
