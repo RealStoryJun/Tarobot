@@ -326,7 +326,13 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 #card-wheel-container.is-visible {
     display: block;
     opacity: 1;
-    transform: rotateX(15deg) scale(1.05); /* 휠 크기 소폭 확대 (변경 크기 반영) */
+    transform: rotateX(15deg) scale(1.05);
+    animation: wheel-aura 6s ease-in-out infinite;
+}
+
+@keyframes wheel-aura {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(240, 230, 140, 0.10)); }
+    50%      { filter: drop-shadow(0 0 22px rgba(240, 230, 140, 0.25)); }
 }
 
 #card-wheel-container.is-raised {
@@ -441,10 +447,10 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 }
 
 .card-slot:hover {
-    border-color: var(--accent-gold);
+    border-color: var(--c-gold);
     background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px var(--accent-gold-glow);
-    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--c-gold-glow);
+    transform: translateY(-3px) rotate(-0.5deg);
 }
 
 .card-slot img {
@@ -523,8 +529,14 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     right: 20px;
     font-size: 3rem;
     opacity: 0.05;
-    color: var(--accent-gold);
+    color: var(--c-gold);
     pointer-events: none;
+    animation: sigil-breathe 5s ease-in-out infinite;
+}
+
+@keyframes sigil-breathe {
+    0%, 100% { opacity: 0.05; transform: scale(1); }
+    50%      { opacity: 0.12; transform: scale(1.08); }
 }
 
 .interpretation-scroll {
@@ -752,18 +764,26 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 }
 
 .loader {
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #f0e68c;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin-loader 1s linear infinite;
+    width: 34px;
+    height: 34px;
     margin: 15px auto;
+    color: var(--c-gold);
+    font-size: 34px;
+    line-height: 1;
+    text-align: center;
+    animation: star-loader 1.8s linear infinite;
+    filter: drop-shadow(0 0 8px var(--c-gold-glow));
 }
 
-@keyframes spin-loader {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.loader::before {
+    content: '✦';
+    display: inline-block;
+}
+
+@keyframes star-loader {
+    0%   { transform: rotate(0deg)   scale(0.9); opacity: 0.7; }
+    50%  { transform: rotate(180deg) scale(1.1); opacity: 1;   }
+    100% { transform: rotate(360deg) scale(0.9); opacity: 0.7; }
 }
 
 #recommendationText .cursor {
@@ -780,7 +800,7 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
 /* Custom scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
@@ -788,6 +808,10 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: rgba(240, 230, 140, 0.3);
     border-radius: 2px;
+    transition: background var(--d-snap) var(--ease-out);
+}
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(240, 230, 140, 0.7);
 }
 
 /* ============================================
@@ -863,6 +887,49 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
     .final-card-name { font-size: var(--font-size-xs); text-shadow: 1px 1px 2px rgba(0,0,0,0.85); font-weight: 700; }
     .final-card-orientation { font-size: 0.65rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.85); color: var(--c-text-soft); }
+}
+
+/* ============================================
+   Question input wrapper · focus glow
+   ============================================ */
+.question-input-wrap {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(240, 230, 140, 0.25);
+    transition: border-color var(--d-snap) var(--ease-out),
+                box-shadow var(--d-snap) var(--ease-out),
+                background var(--d-snap) var(--ease-out);
+}
+
+.question-input-wrap:focus-within {
+    border-color: var(--c-gold);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 1px var(--c-gold-glow), 0 0 20px var(--c-gold-glow);
+}
+
+.question-input-wrap input::placeholder {
+    color: var(--c-text-dim);
+    transition: opacity var(--d-snap) var(--ease-out);
+}
+.question-input-wrap:focus-within input::placeholder {
+    opacity: 0.5;
+}
+
+/* ============================================
+   Hero title · 메인 h1 앰비언트 호흡
+   ============================================ */
+.hero-title {
+    color: var(--c-gold);
+    text-shadow:
+        0 0 12px rgba(240, 230, 140, 0.25),
+        0 0 32px rgba(240, 230, 140, 0.08),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+    animation: hero-breathe 4s ease-in-out infinite;
+    letter-spacing: 0.04em;
+}
+
+@keyframes hero-breathe {
+    0%, 100% { opacity: 0.94; text-shadow: 0 0 12px rgba(240, 230, 140, 0.18), 0 0 28px rgba(240, 230, 140, 0.06), 0 2px 4px rgba(0,0,0,0.5); }
+    50%      { opacity: 1;    text-shadow: 0 0 18px rgba(240, 230, 140, 0.35), 0 0 44px rgba(240, 230, 140, 0.12), 0 2px 4px rgba(0,0,0,0.5); }
 }
 
 /* ============================================
