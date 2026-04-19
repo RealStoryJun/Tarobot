@@ -559,12 +559,13 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
 .interpretation-scroll {
     flex: 1;
-    overflow-y: hidden; /* 스크롤 제거, 한 화면에 다 들어오도록 유도 */
+    min-height: 0; /* flex child 가 overflow 계산에 참여할 수 있도록 */
+    overflow: hidden;
     padding-right: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px; /* 간격 축소 */
-    align-content: start;
+    grid-template-rows: repeat(5, 1fr);  /* 10칸 동등 분배 — 전부 보이게 강제 */
+    gap: 6px;
 }
 
 .interpretation-scroll::-webkit-scrollbar {
@@ -723,16 +724,18 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
 /* Interpretation Item Styles - 초압축 버전 보완 */
 .interpretation-item {
-    margin-bottom: 0px;
-    padding: 0.8rem 1rem;
+    margin-bottom: 0;
+    padding: 0.5rem 0.75rem;
     background: var(--c-bg-ink);
-    border-radius: 12px;
+    border-radius: 10px;
     border: none;
     transition: background var(--d-snap) var(--ease-out);
     display: flex;
     flex-direction: column;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-width: 0;
 }
 
 .interpretation-item:hover {
@@ -742,43 +745,70 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
 .interpretation-item .pos-title {
     color: var(--c-gold);
-    font-size: var(--font-size-xs);
+    font-size: 0.65rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
     opacity: 0.75;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .interpretation-item .card-name-line {
-    font-size: var(--font-size-sm);
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--c-text);
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
     word-break: keep-all;
-    line-height: var(--lh-tight);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .interpretation-item .meaning-line {
-    font-size: var(--font-size-xs);
+    font-size: 0.7rem;
     color: var(--c-text-soft);
-    line-height: 1.45;
+    line-height: 1.35;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* Interpretation Summary Animation */
+/* Interpretation Summary — 공간 선예약, 텍스트만 페이드 */
 #interpretation-summary {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity var(--d-slow) var(--ease-ritual), transform var(--d-slow) var(--ease-ritual);
+    flex-shrink: 0;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(240, 230, 140, 0.18);
+    border-radius: var(--r-md);
 }
 
-#interpretation-summary.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+#interpretation-summary .insight-label {
+    font-size: var(--font-size-xs);
+    color: var(--c-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    opacity: 0.85;
+}
+
+#interpretation-summary .insight-text {
+    font-size: var(--font-size-sm);
+    color: var(--c-text-soft);
+    font-style: italic;
+    line-height: var(--lh-base);
+    min-height: 3em; /* 2~3줄 높이 선예약 — 레이아웃 시프트 방지 */
+    transition: color var(--d-slow) var(--ease-out);
+}
+
+#interpretation-summary.is-visible .insight-text {
+    color: var(--c-text);
 }
 
 .loader {

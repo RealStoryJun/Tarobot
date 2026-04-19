@@ -237,14 +237,7 @@ async function initiateReadingProcess() {
         const summaryText = document.getElementById('summary-text');
         if (summaryArea && summaryText) {
             summaryText.textContent = data.interpretation.split('\n')[0] || "운명의 흐름이 당신을 새로운 방향으로 안내하고 있습니다.";
-            
-            // 자연스럽게 띄우기 (hidden 제거 후 트랜지션 클래스 추가)
-            summaryArea.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    summaryArea.classList.add('is-visible');
-                });
-            });
+            summaryArea.classList.add('is-visible');
         }
 
         saveReadingToSupabase(elements.questionInput.value, selectedCards, data.interpretation);
