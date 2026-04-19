@@ -48,3 +48,10 @@ build/
 # ===== Logs =====
 *.log
 logs/
+
+# ===== graphify-ts =====
+# 큰 캐시와 시각화 HTML 은 제외, 쿼리용 graph.json / GRAPH_REPORT.md / manifest.json 은 커밋
+graphify-out/cache/
+graphify-out/graph.html
+graphify-out/wiki/
+graphify-out/memory/

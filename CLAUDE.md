@@ -95,3 +95,13 @@ READING → 결과 표시 + `/api/readings` 저장 → '새로운 점사 보기'
 ## 데이터 고정값
 
 `data.js` 의 `tarotDeck` (78장) / `spreadPositions` (10장 켈틱크로스) 는 서버에도 보관되지 않음 — 프론트가 카드 객체를 Worker 로 그대로 전달하고, Worker 가 프롬프트에 박아 Groq 로 보냄. 카드 meta 변경은 `data.js` 만 수정하면 전 파이프에 반영됨.
+
+## graphify-ts
+
+This project has a graphify-ts knowledge graph at graphify-out/.
+
+Rules:
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- Use only Node.js / TypeScript tooling in this repository. Do not install or invoke Python, pip, a legacy Python package, or a deleted reference checkout.
+- After modifying code files in this session, refresh graph artifacts with this repository's TypeScript graphify-ts workflow only.
