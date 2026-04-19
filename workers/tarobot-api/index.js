@@ -6,12 +6,26 @@
 const ALLOWED_ORIGINS = [
   "http://localhost:3000",
   "http://localhost:5173",
+  "https://ai.realstoryjun.co.kr",
   "https://realstoryjun.co.kr",
-  "http://realstoryjun.co.kr",
 ];
 
+// Pages 미리보기/기본 도메인 (*.pages.dev) 도 허용
+const ALLOWED_ORIGIN_SUFFIXES = [".pages.dev"];
+
+function isOriginAllowed(origin) {
+  if (!origin) return false;
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  try {
+    const host = new URL(origin).hostname;
+    return ALLOWED_ORIGIN_SUFFIXES.some((suffix) => host.endsWith(suffix));
+  } catch {
+    return false;
+  }
+}
+
 function buildCors(origin) {
-  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allowOrigin = isOriginAllowed(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
     "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
