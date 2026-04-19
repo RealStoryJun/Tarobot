@@ -10,12 +10,17 @@
     <style>
         :root {
             --accent-gold: #f0e68c;
-            --deep-purple: #1a1535;
+            --accent-gold-soft: #d4c76a;
+            --deep-purple: #0c0a18;
+            --bg-raised: #15122b;
+            --text: #e8e6f2;
+            --text-soft: #9ca3b5;
+            --danger: #f3a3a3;
         }
         body {
             font-family: 'Gowun Dodum', sans-serif;
-            background-color: #0c0a18;
-            color: #e0e0e0;
+            background-color: var(--deep-purple);
+            color: var(--text);
         }
         .font-title { font-family: 'Nanum Myeongjo', serif; }
         .admin-card {
@@ -93,8 +98,8 @@
             font-size: 0.65rem;
             font-weight: 600;
         }
-        .badge-member { background: rgba(59,130,246,0.2); color: #60a5fa; }
-        .badge-anon { background: rgba(156,163,175,0.2); color: #9ca3af; }
+        .badge-member { background: rgba(240, 230, 140, 0.18); color: var(--accent-gold); border: 1px solid rgba(240, 230, 140, 0.3); }
+        .badge-anon { background: rgba(156,163,175,0.15); color: var(--text-soft); border: 1px solid rgba(156,163,175,0.2); }
         .page-btn {
             padding: 0.4rem 0.8rem;
             border-radius: 6px;

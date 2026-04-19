@@ -30,8 +30,8 @@
             <span id="user-display-name" class="text-xs text-gray-400"></span>
             <button id="nav-history-btn" class="text-xs text-[#f0e68c] hover:underline">내 이력</button>
             <button id="nav-profile-btn" class="text-xs text-[#f0e68c] hover:underline">프로필</button>
-            <a id="nav-admin-link" href="admin.html" class="text-xs text-orange-400 hover:underline hidden">관리</a>
-            <button id="nav-logout-btn" class="text-xs text-red-400 hover:underline">로그아웃</button>
+            <a id="nav-admin-link" href="admin.html" class="text-xs hover:underline hidden" style="color: var(--c-gold-soft);">관리</a>
+            <button id="nav-logout-btn" class="text-xs hover:underline" style="color: var(--c-danger);">로그아웃</button>
         </div>
     </div>
 </header>
@@ -57,7 +57,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <button id="controlButton" class="w-full bg-[#2563eb] text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all duration-300 disabled:opacity-50">
+                        <button id="controlButton" class="btn-primary w-full">
                             리딩 시작하기
                         </button>
                     </div>
@@ -113,7 +113,7 @@
                     </section>
 
                     <div id="new-reading-bar" class="hidden text-center pb-12">
-                        <button id="newReading" class="bg-[#2563eb] text-white font-bold py-4 px-10 rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-2xl border border-blue-500 hover:scale-105 active:scale-95">
+                        <button id="newReading" class="btn-primary btn-lg">
                             새로운 점사 보기
                         </button>
                     </div>

@@ -866,6 +866,48 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 }
 
 /* ============================================
+   Buttons · 단일 비주얼 언어 (3 variant)
+   ============================================ */
+.btn-primary {
+    background: linear-gradient(135deg, var(--c-gold) 0%, var(--c-gold-soft) 100%);
+    color: var(--c-bg);
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--r-md);
+    border: 1px solid rgba(240, 230, 140, 0.5);
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    transition: transform var(--d-snap) var(--ease-out),
+                box-shadow var(--d-snap) var(--ease-out),
+                filter var(--d-snap) var(--ease-out);
+    letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px var(--c-gold-glow);
+    filter: brightness(1.05);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+}
+
+.btn-primary.btn-lg {
+    padding: 1rem 2.5rem;
+    font-size: var(--font-size-base);
+    border-radius: var(--r-lg);
+}
+
+.btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    filter: grayscale(0.3);
+}
+
+/* ============================================
    Auth Modals & Header 
    ============================================ */
 .modal-overlay {
@@ -888,14 +930,17 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 }
 
 .auth-modal {
-    background: var(--deep-purple);
+    background: rgba(21, 18, 43, 0.72);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     width: 100%;
     max-width: 400px;
     margin: 1rem;
-    border: 1px solid rgba(240, 230, 140, 0.3);
+    border: 1px solid rgba(240, 230, 140, 0.22);
     padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(240, 230, 140, 0.08);
     transform: translateY(20px);
     transition: transform var(--d-base) var(--ease-out);
 }
@@ -922,20 +967,23 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
 .auth-btn {
     width: 100%;
-    background: var(--accent-gold);
-    color: var(--deep-purple);
+    background: linear-gradient(135deg, var(--c-gold) 0%, var(--c-gold-soft) 100%);
+    color: var(--c-bg);
     font-weight: 700;
     padding: 0.8rem;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform var(--d-snap) var(--ease-out), background-color var(--d-snap) var(--ease-out);
-    border: none;
+    transition: transform var(--d-snap) var(--ease-out),
+                box-shadow var(--d-snap) var(--ease-out),
+                filter var(--d-snap) var(--ease-out);
+    border: 1px solid rgba(240, 230, 140, 0.5);
     margin-top: 0.5rem;
 }
 
 .auth-btn:hover {
-    background-color: #ffe55c;
-    transform: scale(1.02);
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px var(--c-gold-glow);
 }
 
 header {
@@ -977,10 +1025,6 @@ header {
     opacity: 1;
     border-color: rgba(240, 230, 140, 1) !important;
     background-color: rgba(240, 230, 140, 0.1) !important;
-}
-
-#nav-join-btn:hover {
-    background-color: #1d4ed8 !important;
 }
 
 .auth-link {
