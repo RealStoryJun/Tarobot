@@ -1,0 +1,50 @@
+# ===== Secrets — NEVER commit =====
+API's.md
+*.secrets
+*.secret
+.env
+.env.*
+!.env.example
+secrets.json
+credentials.json
+*.key
+*.pem
+
+# ===== Node / JS =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===== Cloudflare Wrangler =====
+.wrangler/
+.dev.vars
+workers/*/.dev.vars
+workers/*/.wrangler/
+
+# ===== Supabase =====
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# ===== Editors / OS =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+desktop.ini
+
+# ===== Build / cache =====
+dist/
+build/
+.cache/
+.parcel-cache/
+.next/
+.output/
+
+# ===== Logs =====
+*.log
+logs/

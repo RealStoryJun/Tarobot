@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <title>AI 타로 마스터 - 프리미엄 리딩</title>
+    
+    <!-- SEO 및 메타태그 -->
+    <meta name="description" content="AI 타로 마스터와 함께하는 깊이 있는 운세 상담. 켈틱 크로스 배열을 통해 당신의 과거, 현재, 미래를 분석합니다.">
+    
+    <!-- CSS 및 폰트 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 마크다운 파서 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+<header>
+    <div class="logo"></div>
+    <div id="auth-nav" class="flex gap-4">
+        <!-- 로그인 상태에 따라 변화함 -->
+        <button id="nav-login-btn" class="text-sm text-[#f0e68c] hover:underline">로그인</button>
+        <button id="nav-join-btn" class="text-xs md:text-sm bg-[#f0e68c] text-[#1a1a2e] px-3 py-1 rounded font-bold hover:bg-yellow-300">회원가입</button>
+        
+        <div id="nav-user-info" class="hidden items-center gap-3">
+            <span id="user-display-name" class="text-xs text-gray-400"></span>
+            <button id="nav-history-btn" class="text-xs text-[#f0e68c] hover:underline">내 이력</button>
+            <button id="nav-profile-btn" class="text-xs text-[#f0e68c] hover:underline">프로필</button>
+            <a id="nav-admin-link" href="admin.html" class="text-xs text-orange-400 hover:underline hidden">관리</a>
+            <button id="nav-logout-btn" class="text-xs text-red-400 hover:underline">로그아웃</button>
+        </div>
+    </div>
+</header>
+
+<main id="app" class="w-full max-w-6xl mx-auto" style="height: 100dvh; overflow: hidden;">
+    <!-- 모든 것이 담기는 단일 풀스크린 컨테이너 -->
+    <section id="selection-container" class="stage-container">
+        <div id="main-area" class="stage-inner">
+
+            <!-- Phase 1: 질문 입력 UI -->
+            <div id="initial-ui-group" class="phase-panel transition-opacity duration-500">
+                <div id="initial-ui">
+                    <h1 class="text-3xl md:text-4xl font-title mb-3 text-[#f0e68c]">AI 타로 마스터</h1>
+                    <p id="status-message" class="mb-3 text-lg min-h-[2.5rem] flex items-center justify-center">당신의 질문을 입력하고 리딩을 시작하세요.</p>
+
+                    <div class="w-full max-w-xs mx-auto space-y-4">
+                        <div class="flex items-center gap-2 p-2 rounded-lg bg-gray-700 border border-gray-500 focus-within:ring-2 focus-within:ring-[#f0e68c]">
+                            <input id="questionInput" type="text" class="w-full bg-transparent border-none focus:outline-none focus:ring-0 text-white" placeholder="예: 저의 현재 연애운은 어떤가요?">
+                            <button id="micButton" type="button" class="flex-shrink-0 flex items-center text-gray-400 hover:text-white transition-colors" title="음성으로 질문하기">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M7 4a3 3 0 016 0v6a3 3 0 11-6 0V4z"></path>
+                                    <path d="M5.5 9.5a.5.5 0 00-1 0v1a5 5 0 005 5v2.5a.5.5 0 001 0V15a5 5 0 005-5v-1a.5.5 0 00-1 0v1a4 4 0 01-8 0v-1z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- 질문 확인 표시 영역 -->
+                        <div id="question-confirm" class="hidden text-center">
+                            <p class="text-[#f0e68c] text-sm mb-1">당신의 질문:</p>
+                            <p id="confirmed-question" class="text-white font-bold text-lg italic mb-2"></p>
+                            <p class="text-gray-400 text-xs">Enter를 다시 누르면 시작 · 아무 키로 수정</p>
+                        </div>
+                        <button id="controlButton" class="w-full bg-[#2563eb] text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all duration-300 disabled:opacity-50">
+                            리딩 시작하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: 카드 선택 영역 (같은 공간에 표시) -->
+            <div id="selection-zone" class="phase-panel hidden">
+                <p id="selection-instruction" class="opacity-0 mb-3 text-lg min-h-[2.5rem] flex items-center justify-center transition-opacity duration-700"></p>
+                <div id="animation-stage" class="wheel-stage">
+                    <div id="shuffling-container" class="w-full h-full flex-col items-center justify-center">
+                        <div class="shuffling-deck">
+                            <div class="card"></div>
+                            <div class="card" style="transform: translateZ(-1px);"></div>
+                            <div class="card" style="transform: translateZ(-2px);"></div>
+                            <div class="card" style="transform: translateZ(-3px);"></div>
+                            <div class="card" style="transform: translateZ(-4px);"></div>
+                        </div>
+                        <p class="mt-4 text-lg text-[#f0e68c]">카드를 섞는 중...</p>
+                    </div>
+                    <div id="card-wheel-container">
+                        <div id="card-wheel"></div>
+                    </div>
+                </div>
+                <div id="selected-cards-area" class="opacity-0 transition-opacity duration-700"></div>
+            </div>
+
+            <!-- Phase 3: 켈틱 크로스 결과 (자연스러운 스크롤 허용) -->
+            <div id="reading-phase" class="phase-panel hidden flex flex-col w-full">
+                <div class="reading-layout flex flex-col md:flex-row w-full gap-8">
+                    <div class="reading-grid-side">
+                        <div id="celticCross" class="celtic-cross-grid"></div>
+                    </div>
+                    <div class="reading-text-side">
+                        <h3 class="text-lg font-title text-center text-[#f0e68c] mb-2 font-bold">카드 해석</h3>
+                        <!-- 핵심 요약 영역 추가 -->
+                        <div id="interpretation-summary" class="mb-2 p-3 bg-white bg-opacity-5 rounded-xl border border-[#f0e68c] border-opacity-20 hidden">
+                            <p class="text-xs text-[#f0e68c] uppercase tracking-widest mb-1 font-bold">Master's Insight</p>
+                            <p id="summary-text" class="text-sm text-gray-200 italic leading-relaxed"></p>
+                        </div>
+                        <div id="interpretationText" class="interpretation-scroll custom-scrollbar"></div>
+                    </div>
+                </div>
+
+                <!-- AI 상세 조언 (자연스러운 하단 영역) -->
+                <div id="reading-footer-area" class="mt-12 w-full max-w-6xl mx-auto border-t border-gray-700 border-opacity-30 pt-10 px-4 md:px-8">
+                    <section id="ai-advice-section" class="hidden w-full p-6 md:p-8 bg-black bg-opacity-30 rounded-2xl border border-[#f0e68c] border-opacity-30 backdrop-blur-xl mb-10 shadow-3xl">
+                        <h3 class="text-2xl font-title text-center mb-6 text-[#f0e68c] font-bold">타로 마스터의 조언</h3>
+                        <p id="finalAdviceQuestion" class="text-lg font-bold text-[#f0e68c] text-center mb-6 italic"></p>
+                        <div id="recommendationTextContainer" class="min-h-[100px] flex flex-col items-start justify-start text-left w-full">
+                            <div id="recommendationText" class="text-lg leading-relaxed text-gray-200 w-full"></div>
+                        </div>
+                    </section>
+
+                    <div id="new-reading-bar" class="hidden text-center pb-12">
+                        <button id="newReading" class="bg-[#2563eb] text-white font-bold py-4 px-10 rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-2xl border border-blue-500 hover:scale-105 active:scale-95">
+                            새로운 점사 보기
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </section>
+
+
+</main>
+
+<!-- 인증 모달 오버레이 -->
+<div id="auth-modal-overlay" class="modal-overlay">
+    <!-- 로그인 모달 -->
+    <div id="login-modal" class="auth-modal hidden">
+        <h2 class="text-2xl font-title text-[#f0e68c] mb-6 text-center">로그인</h2>
+        <input type="email" id="login-email" class="auth-input" placeholder="이메일 주소">
+        <input type="password" id="login-password" class="auth-input" placeholder="비밀번호">
+        <button id="do-login-btn" class="auth-btn mb-4">로그인</button>
+        <div class="flex justify-between px-1">
+            <span class="auth-link text-xs" id="go-reset-btn">비밀번호 찾기</span>
+            <span class="auth-link text-xs" id="go-join-btn">회원가입 하러가기</span>
+        </div>
+        <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div id="signup-modal" class="auth-modal hidden">
+        <h2 class="text-2xl font-title text-[#f0e68c] mb-6 text-center">회원가입</h2>
+        <input type="email" id="signup-email" class="auth-input" placeholder="이메일 주소">
+        <input type="password" id="signup-password" class="auth-input" placeholder="비밀번호 (영문+숫자+특수문자 8자↑)">
+        <input type="password" id="signup-password-confirm" class="auth-input" placeholder="비밀번호 확인">
+        <p id="signup-error" class="text-xs text-red-400 mb-2 hidden"></p>
+        <button id="do-signup-btn" class="auth-btn mb-4">가입하기</button>
+        <p class="text-center text-xs text-gray-400">이미 계정이 있으신가요? <span class="auth-link" id="go-login-btn">로그인</span></p>
+        <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
+    </div>
+
+    <!-- 비밀번호 재설정 모달 -->
+    <div id="reset-modal" class="auth-modal hidden">
+        <h2 class="text-2xl font-title text-[#f0e68c] mb-6 text-center">비밀번호 찾기</h2>
+        <p class="text-xs text-gray-400 mb-4 text-center">가입하신 이메일로 초기화 링크를 보내드립니다.</p>
+        <input type="email" id="reset-email" class="auth-input" placeholder="이메일 주소">
+        <button id="do-reset-btn" class="auth-btn mb-4">초기화 메일 보내기</button>
+        <p class="text-center text-xs text-gray-400"><span class="auth-link" id="back-to-login">로그인으로 돌아가기</span></p>
+        <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
+    </div>
+
+    <!-- 프로필/비밀번호 변경 모달 -->
+    <div id="profile-modal" class="auth-modal hidden">
+        <h2 class="text-2xl font-title text-[#f0e68c] mb-6 text-center">회원 정보 관리</h2>
+        <div class="mb-6 p-4 bg-black bg-opacity-20 rounded-lg">
+            <p class="text-xs text-gray-400 mb-1">내 이메일</p>
+            <p id="profile-email-display" class="text-sm font-bold text-white"></p>
+        </div>
+        <hr class="border-gray-700 mb-6">
+        <h3 class="text-sm text-[#f0e68c] mb-3">비밀번호 변경</h3>
+        <input type="password" id="change-password" class="auth-input" placeholder="새 비밀번호 (영문+숫자+특수문자 8자↑)">
+        <input type="password" id="change-password-confirm" class="auth-input" placeholder="비밀번호 확인">
+        <button id="do-change-pw-btn" class="auth-btn mb-4">비밀번호 변경하기</button>
+        <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
+    </div>
+</div>
+
+<!-- 질문 포커스 오버레이 -->
+<div id="question-focus-display" class="hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 transition-opacity duration-500 opacity-0 backdrop-blur-sm">
+    <div class="text-center p-8">
+        <h2 class="text-xl font-title text-gray-300 mb-4">당신의 질문</h2>
+        <p id="focusQuestionText" class="text-3xl md:text-5xl font-bold text-[#f0e68c] drop-shadow-lg"></p>
+    </div>
+</div>
+
+<!-- 내 리딩 이력 모달 -->
+<div id="history-modal-overlay" class="modal-overlay">
+    <div class="auth-modal" style="max-width: 550px; max-height: 80vh; overflow-y: auto;">
+        <h2 class="text-xl font-title text-[#f0e68c] mb-4 text-center">내 리딩 이력</h2>
+        <div id="history-list" class="space-y-3">
+            <p class="text-center text-gray-400 py-8">로딩 중...</p>
+        </div>
+        <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white" onclick="document.getElementById('history-modal-overlay').classList.remove('is-active')">✕</button>
+    </div>
+</div>
+
+<!-- 전이 암전 오버레이 -->
+<div id="transition-overlay" class="fixed inset-0 bg-black bg-opacity-0 pointer-events-none z-[1500] transition-all duration-1000 backdrop-blur-0"></div>
+
+<!-- 스크립트 모듈 로드 -->
+<script type="module" src="auth.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
