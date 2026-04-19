@@ -49,26 +49,40 @@ npm run dev   # 정적 파일 서빙 (http://localhost:3000)
 
 ## 배포
 
-### 자동 배포 (GitHub Actions)
+### 자동 배포 — 이원화
 
-`main` 에 push 하면 `.github/workflows/deploy.yml` 이 변경 경로를 감지해 자동 배포:
+| 대상 | 트리거 | 담당 |
+|---|---|---|
+| Cloudflare Worker | push (자동) | **Cloudflare Workers Builds** (네이티브 Git 연동) |
+| Supabase Edge Functions | push (자동) | GitHub Actions (`.github/workflows/deploy.yml`) |
 
-- `workers/**` 변경 → Cloudflare Worker 재배포 (+ 시크릿 동기화)
-- `supabase/functions/**` 또는 `supabase/config.toml` 변경 → Edge Functions 배포
-- 수동 실행: GitHub → Actions → Deploy → Run workflow (target: all/worker/functions)
+**왜 이원화**: Cloudflare 는 자체 Git 연동으로 시크릿을 대시보드에 두고 관리 가능 (안전·단순). Supabase 는 비슷한 기능이 없어서 Actions 로 처리.
 
-**필요한 GitHub Secrets** (Settings → Secrets and variables → Actions):
+#### 1) Cloudflare Workers Builds 설정 (최초 1회)
+
+Cloudflare Dashboard → **Workers & Pages → `taroai` → Settings → Build → Connect** 클릭 후:
+
+| 항목 | 값 |
+|---|---|
+| Repository | `RealStoryJun/Tarobot` |
+| Branch | `main` |
+| Root directory | `/` (repo root) |
+| Build command | `npm install` |
+| Deploy command | `npx wrangler deploy --config workers/tarobot-api/wrangler.toml` |
+| Path filters (optional) | `workers/**` |
+
+시크릿은 이미 Worker Settings → Variables 에 등록되어 있어 빌드 시 자동 주입 (`AI_API_KEY`, `AI_MODEL_NAME`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`).
+
+#### 2) Supabase Edge Functions — GitHub Actions
+
+GitHub → **Settings → Secrets and variables → Actions** 에 2개만 등록:
 
 | 이름 | 값 |
 |---|---|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare → My Profile → API Tokens → `Edit Cloudflare Workers` 템플릿 |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 대시보드 오른쪽 사이드바 |
 | `SUPABASE_ACCESS_TOKEN` | https://supabase.com/dashboard/account/tokens |
-| `SUPABASE_PROJECT_REF` | 프로젝트 ref (예: `uugspizbsnbzwwgqowel`) |
-| `SUPABASE_URL` | `https://<ref>.supabase.co` |
-| `SUPABASE_ANON_KEY` | Supabase → Settings → API → `anon public` |
-| `AI_API_KEY` | Groq 콘솔 API 키 |
-| `AI_MODEL_NAME` | 예: `openai/gpt-oss-120b` |
+| `SUPABASE_PROJECT_REF` | 예: `uugspizbsnbzwwgqowel` |
+
+`supabase/functions/**` 또는 `supabase/config.toml` 변경 시 자동 배포. `workflow_dispatch` 로 수동 재배포도 가능.
 
 ### 수동 배포 (로컬)
 
