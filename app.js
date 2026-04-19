@@ -121,42 +121,42 @@ async function handleStart() {
     elements.shufflingContainer.classList.add('is-shuffling');
 
     await sleep(1500);
-    elements.shufflingContainer.style.opacity = '0'; // 셔플이 끝나기 시작할 때 텍스트부터 서서히 숨김
+    // 셔플 끝 — 라벨 "카드를 섞는 중..." 만 먼저 페이드, 덱은 제자리에 그대로 유지
     elements.shufflingContainer.classList.remove('is-shuffling');
+    elements.shufflingContainer.classList.add('label-fading');
 
-    await sleep(200);
-    const shufflingDeckEl = elements.shufflingContainer.querySelector('.shuffling-deck');
-    
-    // 유기적인 연결: 셔플 덱이 작아지며 사라지는 동안 휠이 그 자리에서 펼쳐지기 시작
-    if (shufflingDeckEl) {
-        shufflingDeckEl.classList.add('is-transitioning');
-    }
+    await sleep(300);
 
-    await sleep(800); // 셔플 카드가 작아지는 시간을 충분히 벌어줌 (매끄러운 연계)
-    elements.shufflingContainer.style.display = 'none'; // 휠 등장 직전에 완전 제거
-    
+    // 휠을 먼저 준비 — 덱과 같은 중앙 위치에서 반경 0 으로 태어남
     renderWheel();
     const wheelCards = document.querySelectorAll('.wheel-card');
     wheelCards.forEach(card => card.style.setProperty('--radius', '0px'));
     elements.cardWheelContainer.classList.add('is-visible');
-    
-    // 휠의 크기를 하단의 5칸 슬롯들의 전체 너비와 정확히 일치시킴
-    // 5칸 슬롯은 max-width: 480px. 약간 더 넓게(변경 크기 반영) 조정
+
+    // 덱이 제자리에서 천천히 투명해지기 시작 (휠이 그 자리를 이어받음)
+    const shufflingDeckEl = elements.shufflingContainer.querySelector('.shuffling-deck');
+    if (shufflingDeckEl) shufflingDeckEl.classList.add('is-transitioning');
+
+    await sleep(200);
+
+    // 휠 카드들을 최종 반경으로 펼침 — 덱이 흩어지듯 보이게
     const slotAreaWidth = elements.selectedCardsArea ? elements.selectedCardsArea.getBoundingClientRect().width : 480;
-    const finalRadius = (slotAreaWidth / 2) + 20; 
+    const finalRadius = (slotAreaWidth / 2) + 20;
     wheelCards.forEach(card => card.style.setProperty('--radius', `${finalRadius}px`));
 
     // 휠이 펼쳐지는 피크 시점에서 무대 전체를 상승시키며 슬롯을 동시에 노출
     await sleep(400);
     elements.cardWheelContainer.classList.add('is-raised');
-    
-    // 슬롯 생성 및 등장 (휠 상승과 동일한 easing 적용됨)
+
+    // 슬롯 생성 및 등장 (휠 상승과 동일한 easing)
     initSelectionArea();
     elements.selectedCardsArea.classList.add('is-visible');
-    
+
+    // 덱이 완전히 페이드아웃 된 후 DOM 에서 제거
+    await sleep(600);
     elements.shufflingContainer.style.display = 'none';
 
-    await sleep(800);
+    await sleep(200);
     elements.selectionInstruction.textContent = '회전하는 카드를 눌러 10장을 선택하세요.';
     elements.selectionInstruction.style.opacity = '1';
     gameState = 'SELECTING';
@@ -236,7 +236,14 @@ async function initiateReadingProcess() {
         const summaryArea = document.getElementById('interpretation-summary');
         const summaryText = document.getElementById('summary-text');
         if (summaryArea && summaryText) {
-            summaryText.textContent = data.interpretation.split('\n')[0] || "운명의 흐름이 당신을 새로운 방향으로 안내하고 있습니다.";
+            const newText = data.interpretation.split('\n')[0] || "운명의 흐름이 당신을 새로운 방향으로 안내하고 있습니다.";
+            // 1) 기존 플레이스홀더 fade out
+            summaryArea.classList.add('is-swapping');
+            await sleep(500);
+            // 2) 투명 상태에서 텍스트 교체
+            summaryText.textContent = newText;
+            // 3) fade in + 색상 진하게 (is-visible 이 color transition 트리거)
+            summaryArea.classList.remove('is-swapping');
             summaryArea.classList.add('is-visible');
         }
 

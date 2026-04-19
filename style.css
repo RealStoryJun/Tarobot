@@ -264,15 +264,16 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
    ============================================ */
 #shuffling-container {
     display: none;
-    position: relative;
+    position: absolute;
+    inset: 0;
     width: 100%;
     min-height: 200px;
-    z-index: 10;
+    z-index: 6; /* 휠(5) 보다 살짝 위 — 휠 등장 시 자연스럽게 겹침 */
     transition: opacity var(--d-slow) var(--ease-out);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transform: translateY(100px); /* 셔플 위치를 30% 가량 더 아래로 이동 */
+    pointer-events: none;
 }
 
 .shuffling-deck {
@@ -309,8 +310,27 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 
 .shuffling-deck.is-transitioning {
     opacity: 0;
-    transform: scale(0.1) rotate(360deg);
-    transition: all var(--d-ritual) var(--ease-ritual);
+    /* 크기·회전 변화 제거 — 제자리에서 부드럽게 페이드만 */
+    transition: opacity var(--d-ritual) var(--ease-out);
+}
+
+/* 셔플 라벨 — 중앙의 덱 아래 고정, 페이드 가능 */
+#shuffling-container p {
+    position: absolute;
+    top: calc(50% + 90px); /* 덱 하단 근처 */
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    transition: opacity var(--d-slow) var(--ease-out);
+    white-space: nowrap;
+}
+#shuffling-container.label-fading p {
+    opacity: 0;
+}
+
+/* 덱은 정확히 stage 중앙 */
+#shuffling-container .shuffling-deck {
+    margin: 0;
 }
 
 .wheel-stage {
@@ -804,7 +824,13 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     font-style: italic;
     line-height: var(--lh-base);
     min-height: 3em; /* 2~3줄 높이 선예약 — 레이아웃 시프트 방지 */
-    transition: color var(--d-slow) var(--ease-out);
+    transition: opacity var(--d-base) var(--ease-out),
+                color var(--d-slow) var(--ease-out);
+}
+
+/* 플레이스홀더 → 실제 해석 크로스페이드 */
+#interpretation-summary.is-swapping .insight-text {
+    opacity: 0;
 }
 
 #interpretation-summary.is-visible .insight-text {
