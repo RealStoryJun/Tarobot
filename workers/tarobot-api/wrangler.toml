@@ -1,6 +1,7 @@
-name = "tarobot-api"
+name = "taroai"
 main = "index.js"
 compatibility_date = "2024-04-03"
+workers_dev = true
 
-# [vars]
-# GEMINI_API_KEY = "SECRET" # 배포 시 wrangler secret put GEMINI_API_KEY 로 등록 필요
+# 시크릿은 `wrangler secret put <NAME>` 또는 GitHub Actions 로 주입:
+#   AI_API_KEY, AI_MODEL_NAME, SUPABASE_URL, SUPABASE_ANON_KEY

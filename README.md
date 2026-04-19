@@ -49,13 +49,45 @@ npm run dev   # 정적 파일 서빙 (http://localhost:3000)
 
 ## 배포
 
-| 대상 | 명령 |
+### 자동 배포 (GitHub Actions)
+
+`main` 에 push 하면 `.github/workflows/deploy.yml` 이 변경 경로를 감지해 자동 배포:
+
+- `workers/**` 변경 → Cloudflare Worker 재배포 (+ 시크릿 동기화)
+- `supabase/functions/**` 또는 `supabase/config.toml` 변경 → Edge Functions 배포
+- 수동 실행: GitHub → Actions → Deploy → Run workflow (target: all/worker/functions)
+
+**필요한 GitHub Secrets** (Settings → Secrets and variables → Actions):
+
+| 이름 | 값 |
 |---|---|
-| Cloudflare Worker | `cd workers/tarobot-api && wrangler deploy` |
-| Supabase Edge Functions | `supabase functions deploy handle-auth`, `supabase functions deploy handle-readings` |
-| DB 스키마 | `supabase/schema.sql` 를 Supabase SQL Editor에서 실행 |
-| 관리자 역할 부여 | `supabase/admin_setup.sql` 참고 |
-| 프론트 정적 호스팅 | Cloudflare Pages / 정적 호스팅 아무거나 |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare → My Profile → API Tokens → `Edit Cloudflare Workers` 템플릿 |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 대시보드 오른쪽 사이드바 |
+| `SUPABASE_ACCESS_TOKEN` | https://supabase.com/dashboard/account/tokens |
+| `SUPABASE_PROJECT_REF` | 프로젝트 ref (예: `uugspizbsnbzwwgqowel`) |
+| `SUPABASE_URL` | `https://<ref>.supabase.co` |
+| `SUPABASE_ANON_KEY` | Supabase → Settings → API → `anon public` |
+| `AI_API_KEY` | Groq 콘솔 API 키 |
+| `AI_MODEL_NAME` | 예: `openai/gpt-oss-120b` |
+
+### 수동 배포 (로컬)
+
+```bash
+npm run cf:login            # 최초 1회 — Cloudflare 로그인
+npm run sb:login            # 최초 1회 — Supabase 로그인
+SUPABASE_PROJECT_REF=uugspizbsnbzwwgqowel npm run sb:link
+
+npm run deploy:worker       # Worker만
+npm run deploy:functions    # Edge Functions만
+npm run deploy:all          # 전부
+npm run deploy:schema       # DB 마이그레이션 (supabase/migrations 가 있을 때)
+```
+
+### DB 스키마 & 관리자
+
+- 최초 1회: `supabase/schema.sql` 을 Supabase SQL Editor 에서 실행
+- 관리자 역할 부여: `supabase/admin_setup.sql` 참고
+- 프론트 정적 호스팅: Cloudflare Pages / 정적 호스팅 아무거나
 
 ## 주요 엔드포인트 (Worker)
 
