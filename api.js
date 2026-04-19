@@ -1,11 +1,8 @@
 const DEFAULT_WORKER_URL = 'https://taroai.god8night.workers.dev';
+const WORKER_URL = (typeof window !== 'undefined' && window.CONFIG?.WORKER_URL) || DEFAULT_WORKER_URL;
 
-export const CONFIG = {
-    WORKER_URL: (typeof window !== 'undefined' && window.CONFIG?.WORKER_URL) || DEFAULT_WORKER_URL
-};
-
-export async function apiCall(path, method = 'POST', body = null, tokenOverride = null) {
-    const token = tokenOverride || localStorage.getItem('sb-token');
+export async function apiCall(path, method = 'POST', body = null) {
+    const token = localStorage.getItem('sb-token');
     const headers = { 'Content-Type': 'application/json' };
 
     if (token) headers['Authorization'] = `Bearer ${token}`;
@@ -18,7 +15,7 @@ export async function apiCall(path, method = 'POST', body = null, tokenOverride 
     const options = { method, headers };
     if (body) options.body = JSON.stringify(body);
 
-    const res = await fetch(`${CONFIG.WORKER_URL}${path}`, options);
+    const res = await fetch(`${WORKER_URL}${path}`, options);
 
     if (!res.ok) {
         const errorData = await res.json().catch(() => ({ error: { message: `HTTP status ${res.status}` } }));

@@ -6,7 +6,6 @@ let gameState = 'START';
 let shuffledDeck = [];
 let selectedCards = [];
 let sessionId = null;
-let questionConfirmed = false; // 엔터 2단계 확인용
 
 // Elements
 const getElements = () => ({
@@ -14,14 +13,11 @@ const getElements = () => ({
     initialUiGroup: document.getElementById('initial-ui-group'),
     controlButton: document.getElementById('controlButton'),
     questionInput: document.getElementById('questionInput'),
-    questionConfirm: document.getElementById('question-confirm'),
-    confirmedQuestion: document.getElementById('confirmed-question'),
     statusMessage: document.getElementById('status-message'),
     cardWheelContainer: document.getElementById('card-wheel-container'),
     cardWheel: document.getElementById('card-wheel'),
     shufflingContainer: document.getElementById('shuffling-container'),
     selectionZone: document.getElementById('selection-zone'),
-    mainArea: document.getElementById('main-area'),
     selectionInstruction: document.getElementById('selection-instruction'),
     selectedCardsArea: document.getElementById('selected-cards-area'),
     readingPhase: document.getElementById('reading-phase'),
@@ -36,13 +32,11 @@ const getElements = () => ({
     focusQuestionText: document.getElementById('focusQuestionText'),
     finalAdviceQuestion: document.getElementById('finalAdviceQuestion'),
     micButton: document.getElementById('micButton'),
-    transitionOverlay: document.getElementById('transition-overlay'),
 });
 
 let elements = {};
 
 const sleep = ms => new Promise(res => setTimeout(res, ms));
-const isMobile = () => window.innerWidth <= 768;
 
 // === 엔터 키 & 버튼 플로우 ===
 
