@@ -1,12 +1,75 @@
+/* ============================================
+   Design Tokens — single source of truth
+   (Phase 1 — see DESIGN_PLAN.md)
+   ============================================ */
 :root {
+    /* 카드 뒷면 SVG — 변경 금지 */
     --card-back-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjE3MCIgdmlld0JveD0iMCAwIDEwMCAxNzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxNzAiIHJ4PSI4IiBmaWxsPSIjMGQxMTJiIi8+PGcgb3BhY2l0eT0iMC45Ij48Y2lyY2xlIGN4PSIyNSIgY3k9IjMwIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIyMCIgcj0iMC44IiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNDAiIHI9IjEuMiIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI4NSIgY3k9IjI1IiByPSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjE1IiBjeT0iNDUiIHI9IjAuNyIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI4MCIgY3k9IjEzMCIgcj0iMS4xIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjIwIiBjeT0iMTQwIiByPSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjM1IiBjeT0iMTUwIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PC9nPjxnIHRyYW5zZm9ybT0icm90YXRlKC00NSA1MCA4NSkiPjxjaXJjbGUgY3g9IjUwIiBjeT0iODUiIHI9IjM1IiBmaWxsPSIjZjBlNjhjIi8+PGNpcmNsZSBjeD0iNjIiIGN5PSI4NSIgcj0iMzUiIGZpbGw9IiMwZDExMmIiLz48L2c+PC9zdmc+');
-    --accent-gold: #f0e68c;
-    --accent-gold-glow: rgba(240, 230, 140, 0.4);
-    --deep-purple: #0c0a18;
-    --glass-bg: rgba(255, 255, 255, 0.03);
+
+    /* ─── Typography · 1.25 minor-third scale ─── */
+    --font-size-xs:      0.75rem;    /* 12px — 최소 보조 */
+    --font-size-sm:      0.875rem;   /* 14px — 본문 하한 */
+    --font-size-base:    1rem;       /* 16px — 기본 */
+    --font-size-md:      1.25rem;    /* 20px — h3 */
+    --font-size-lg:      1.5625rem;  /* 25px — h2 */
+    --font-size-xl:      1.953rem;   /* 31px — h1 */
+    --font-size-display: 2.441rem;   /* 39px — 히어로 */
+
+    /* 행간 */
+    --lh-tight:   1.25;
+    --lh-base:    1.6;
+    --lh-relaxed: 1.8;
+
+    /* ─── Color · 신비주의 3톤 + 본문 단계 ─── */
+    --c-gold:       #f0e68c;
+    --c-gold-soft:  #d4c76a;
+    --c-gold-glow:  rgba(240, 230, 140, 0.4);  /* Phase 4 에서 0.35 로 낮출 예정 */
+
+    --c-bg:         #0c0a18;                     /* deep purple base */
+    --c-bg-raised:  #15122b;                     /* 카드·모달 베이스 */
+    --c-bg-ink:     rgba(10, 15, 35, 0.35);      /* 해석 카드 */
+
+    --c-text:       #e8e6f2;                     /* 본문 — 순백 회피 */
+    --c-text-soft:  #9ca3b5;
+    --c-text-dim:   #6b7390;
+
+    --c-danger:     #f3a3a3;                     /* 경고 — 톤 다운 */
+
+    /* ─── Glass ─── (Phase 1 은 기존 값 유지 · Phase 4 에서 톤 리파인) */
+    --glass-bg:     rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-blur: blur(12px);
-    --transition-speed: 0.5s;
+    --glass-blur:   blur(12px);
+
+    /* ─── Motion · 이징 3종 · 듀레이션 4단계 ─── */
+    --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);    /* 모든 등장 */
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);      /* 상태 변화 */
+    --ease-ritual: cubic-bezier(0.19, 1, 0.22, 1);    /* 의식적 전환 */
+
+    --d-snap:   200ms;    /* hover, 작은 반응 */
+    --d-base:   500ms;    /* 일반 전환 */
+    --d-slow:   900ms;    /* 페이즈 전환 */
+    --d-ritual: 1400ms;   /* 카드 모핑, 의식적 순간 */
+
+    /* ─── Spacing · 1.5 ratio ─── */
+    --s-1: 0.25rem;   /*  4px */
+    --s-2: 0.5rem;    /*  8px */
+    --s-3: 0.75rem;   /* 12px */
+    --s-4: 1rem;      /* 16px */
+    --s-5: 1.5rem;    /* 24px */
+    --s-6: 2.25rem;   /* 36px */
+    --s-7: 3.375rem;  /* 54px */
+
+    /* ─── Radius ─── */
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --r-xl: 28px;
+
+    /* ─── Legacy aliases (Phase 2+ 에서 점진 교체 예정) ─── */
+    --accent-gold:      var(--c-gold);
+    --accent-gold-glow: var(--c-gold-glow);
+    --deep-purple:      var(--c-bg);
+    --transition-speed: var(--d-base);
 }
 
 html {
