@@ -38,312 +38,6 @@
       "community": 0
     },
     {
-      "id": "app",
-      "label": "app.js",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L1",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L1"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_getelements",
-      "label": "getElements()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L11",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L11"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_sleep",
-      "label": "sleep()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L39",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L39"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_handleenterkey",
-      "label": "handleEnterKey()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L43",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L43"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_showstatus",
-      "label": "showStatus()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L59",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L59"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_handlestart",
-      "label": "handleStart()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L72",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L72"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_handleselectcard",
-      "label": "handleSelectCard()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L159",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L159"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_initiatereadingprocess",
-      "label": "initiateReadingProcess()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L187",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L187"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_morphcardstogrid",
-      "label": "morphCardsToGrid()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L250",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L250"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_revealcards",
-      "label": "revealCards()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L329",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L329"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_renderwheel",
-      "label": "renderWheel()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L342",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L342"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_initselectionarea",
-      "label": "initSelectionArea()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L355",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L355"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_animatecardselection",
-      "label": "animateCardSelection()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L365",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L365"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_appendinterpretation",
-      "label": "appendInterpretation()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L397",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L397"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_displayfinalcards",
-      "label": "displayFinalCards()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L417",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L417"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_savereadingtosupabase",
-      "label": "saveReadingToSupabase()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L444",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L444"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_shuffledeck",
-      "label": "shuffleDeck()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L461",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L461"
-        }
-      ],
-      "community": 0
-    },
-    {
-      "id": "app_initializeapp",
-      "label": "initializeApp()",
-      "file_type": "code",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L474",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L474"
-        }
-      ],
-      "community": 0
-    },
-    {
       "id": "auth",
       "label": "auth.js",
       "file_type": "code",
@@ -715,7 +409,7 @@
           "source_location": "L58"
         }
       ],
-      "community": 12
+      "community": 41
     },
     {
       "id": "index_proxyjson",
@@ -970,7 +664,7 @@
           "source_location": "L78"
         }
       ],
-      "community": 0
+      "community": 11
     },
     {
       "id": "claude_cors_91",
@@ -1021,7 +715,7 @@
           "source_location": "L99"
         }
       ],
-      "community": 11
+      "community": 12
     },
     {
       "id": "readme",
@@ -1038,7 +732,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 91
+      "community": 120
     },
     {
       "id": "readme_tarobot_ai_1",
@@ -1123,7 +817,7 @@
           "source_location": "L50"
         }
       ],
-      "community": 95
+      "community": 124
     },
     {
       "id": "readme_52",
@@ -1140,7 +834,7 @@
           "source_location": "L52"
         }
       ],
-      "community": 96
+      "community": 125
     },
     {
       "id": "readme_1_cloudflare_workers_builds_1_61",
@@ -1157,7 +851,7 @@
           "source_location": "L61"
         }
       ],
-      "community": 92
+      "community": 121
     },
     {
       "id": "readme_2_supabase_edge_functions_github_actions_76",
@@ -1174,7 +868,7 @@
           "source_location": "L76"
         }
       ],
-      "community": 94
+      "community": 123
     },
     {
       "id": "readme_87",
@@ -1191,7 +885,7 @@
           "source_location": "L87"
         }
       ],
-      "community": 97
+      "community": 126
     },
     {
       "id": "readme_db_100",
@@ -1208,7 +902,7 @@
           "source_location": "L100"
         }
       ],
-      "community": 98
+      "community": 127
     },
     {
       "id": "readme_worker_106",
@@ -1225,7 +919,7 @@
           "source_location": "L106"
         }
       ],
-      "community": 99
+      "community": 128
     },
     {
       "id": "readme_119",
@@ -1242,7 +936,7 @@
           "source_location": "L119"
         }
       ],
-      "community": 93
+      "community": 122
     },
     {
       "id": "bgimg",
@@ -1299,7 +993,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 13
+      "community": 42
     },
     {
       "id": "major_arcana_death",
@@ -1318,7 +1012,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 14
+      "community": 43
     },
     {
       "id": "major_arcana_devil",
@@ -1337,7 +1031,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 15
+      "community": 44
     },
     {
       "id": "major_arcana_emperor",
@@ -1356,7 +1050,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 16
+      "community": 45
     },
     {
       "id": "major_arcana_empress",
@@ -1375,7 +1069,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 17
+      "community": 46
     },
     {
       "id": "major_arcana_fool",
@@ -1394,7 +1088,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 18
+      "community": 47
     },
     {
       "id": "major_arcana_fortune",
@@ -1413,7 +1107,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 19
+      "community": 48
     },
     {
       "id": "major_arcana_hanged",
@@ -1432,7 +1126,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 20
+      "community": 49
     },
     {
       "id": "major_arcana_hermit",
@@ -1451,7 +1145,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 21
+      "community": 50
     },
     {
       "id": "major_arcana_hierophant",
@@ -1470,7 +1164,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 22
+      "community": 51
     },
     {
       "id": "major_arcana_judgement",
@@ -1489,7 +1183,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 23
+      "community": 52
     },
     {
       "id": "major_arcana_justice",
@@ -1508,7 +1202,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 24
+      "community": 53
     },
     {
       "id": "major_arcana_lovers",
@@ -1527,7 +1221,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 25
+      "community": 54
     },
     {
       "id": "major_arcana_magician",
@@ -1546,7 +1240,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 26
+      "community": 55
     },
     {
       "id": "major_arcana_moon",
@@ -1565,7 +1259,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 27
+      "community": 56
     },
     {
       "id": "major_arcana_priestess",
@@ -1584,7 +1278,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 28
+      "community": 57
     },
     {
       "id": "major_arcana_star",
@@ -1603,7 +1297,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 29
+      "community": 58
     },
     {
       "id": "major_arcana_strength",
@@ -1622,7 +1316,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 30
+      "community": 59
     },
     {
       "id": "major_arcana_sun",
@@ -1641,7 +1335,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 31
+      "community": 60
     },
     {
       "id": "major_arcana_temperance",
@@ -1660,7 +1354,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 32
+      "community": 61
     },
     {
       "id": "major_arcana_tower",
@@ -1679,7 +1373,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 33
+      "community": 62
     },
     {
       "id": "major_arcana_world",
@@ -1698,7 +1392,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 34
+      "community": 63
     },
     {
       "id": "minor_arcana_cups_10",
@@ -1717,7 +1411,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 35
+      "community": 64
     },
     {
       "id": "minor_arcana_cups_2",
@@ -1736,7 +1430,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 36
+      "community": 65
     },
     {
       "id": "minor_arcana_cups_3",
@@ -1755,7 +1449,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 37
+      "community": 66
     },
     {
       "id": "minor_arcana_cups_4",
@@ -1774,7 +1468,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 38
+      "community": 67
     },
     {
       "id": "minor_arcana_cups_5",
@@ -1793,7 +1487,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 39
+      "community": 68
     },
     {
       "id": "minor_arcana_cups_6",
@@ -1812,7 +1506,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 40
+      "community": 69
     },
     {
       "id": "minor_arcana_cups_7",
@@ -1831,7 +1525,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 41
+      "community": 70
     },
     {
       "id": "minor_arcana_cups_8",
@@ -1850,7 +1544,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 42
+      "community": 71
     },
     {
       "id": "minor_arcana_cups_9",
@@ -1869,7 +1563,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 43
+      "community": 72
     },
     {
       "id": "minor_arcana_cups_ace",
@@ -1888,7 +1582,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 44
+      "community": 73
     },
     {
       "id": "minor_arcana_cups_king",
@@ -1907,7 +1601,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 45
+      "community": 74
     },
     {
       "id": "minor_arcana_cups_knight",
@@ -1926,7 +1620,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 46
+      "community": 75
     },
     {
       "id": "minor_arcana_cups_page",
@@ -1945,7 +1639,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 47
+      "community": 76
     },
     {
       "id": "minor_arcana_cups_queen",
@@ -1964,7 +1658,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 48
+      "community": 77
     },
     {
       "id": "minor_arcana_pentacles_10",
@@ -1983,7 +1677,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 49
+      "community": 78
     },
     {
       "id": "minor_arcana_pentacles_2",
@@ -2002,7 +1696,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 50
+      "community": 79
     },
     {
       "id": "minor_arcana_pentacles_3",
@@ -2021,7 +1715,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 51
+      "community": 80
     },
     {
       "id": "minor_arcana_pentacles_4",
@@ -2040,7 +1734,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 52
+      "community": 81
     },
     {
       "id": "minor_arcana_pentacles_5",
@@ -2059,7 +1753,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 53
+      "community": 82
     },
     {
       "id": "minor_arcana_pentacles_6",
@@ -2078,7 +1772,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 54
+      "community": 83
     },
     {
       "id": "minor_arcana_pentacles_7",
@@ -2097,7 +1791,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 55
+      "community": 84
     },
     {
       "id": "minor_arcana_pentacles_8",
@@ -2116,7 +1810,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 56
+      "community": 85
     },
     {
       "id": "minor_arcana_pentacles_9",
@@ -2135,7 +1829,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 57
+      "community": 86
     },
     {
       "id": "minor_arcana_pentacles_ace",
@@ -2154,7 +1848,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 58
+      "community": 87
     },
     {
       "id": "minor_arcana_pentacles_king",
@@ -2173,7 +1867,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 59
+      "community": 88
     },
     {
       "id": "minor_arcana_pentacles_knight",
@@ -2192,7 +1886,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 60
+      "community": 89
     },
     {
       "id": "minor_arcana_pentacles_page",
@@ -2211,7 +1905,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 61
+      "community": 90
     },
     {
       "id": "minor_arcana_pentacles_queen",
@@ -2230,7 +1924,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 62
+      "community": 91
     },
     {
       "id": "minor_arcana_swords_10",
@@ -2249,7 +1943,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 63
+      "community": 92
     },
     {
       "id": "minor_arcana_swords_2",
@@ -2268,7 +1962,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 64
+      "community": 93
     },
     {
       "id": "minor_arcana_swords_3",
@@ -2287,7 +1981,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 65
+      "community": 94
     },
     {
       "id": "minor_arcana_swords_4",
@@ -2306,7 +2000,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 66
+      "community": 95
     },
     {
       "id": "minor_arcana_swords_5",
@@ -2325,7 +2019,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 67
+      "community": 96
     },
     {
       "id": "minor_arcana_swords_6",
@@ -2344,7 +2038,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 68
+      "community": 97
     },
     {
       "id": "minor_arcana_swords_7",
@@ -2363,7 +2057,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 69
+      "community": 98
     },
     {
       "id": "minor_arcana_swords_8",
@@ -2382,7 +2076,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 70
+      "community": 99
     },
     {
       "id": "minor_arcana_swords_9",
@@ -2401,7 +2095,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 71
+      "community": 100
     },
     {
       "id": "minor_arcana_swords_ace",
@@ -2420,7 +2114,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 72
+      "community": 101
     },
     {
       "id": "minor_arcana_swords_king",
@@ -2439,7 +2133,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 73
+      "community": 102
     },
     {
       "id": "minor_arcana_swords_knight",
@@ -2458,7 +2152,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 74
+      "community": 103
     },
     {
       "id": "minor_arcana_swords_page",
@@ -2477,7 +2171,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 75
+      "community": 104
     },
     {
       "id": "minor_arcana_swords_queen",
@@ -2496,7 +2190,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 76
+      "community": 105
     },
     {
       "id": "minor_arcana_wands_10",
@@ -2515,7 +2209,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 77
+      "community": 106
     },
     {
       "id": "minor_arcana_wands_2",
@@ -2534,7 +2228,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 78
+      "community": 107
     },
     {
       "id": "minor_arcana_wands_3",
@@ -2553,7 +2247,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 79
+      "community": 108
     },
     {
       "id": "minor_arcana_wands_4",
@@ -2572,7 +2266,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 80
+      "community": 109
     },
     {
       "id": "minor_arcana_wands_5",
@@ -2591,7 +2285,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 81
+      "community": 110
     },
     {
       "id": "minor_arcana_wands_6",
@@ -2610,7 +2304,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 82
+      "community": 111
     },
     {
       "id": "minor_arcana_wands_7",
@@ -2629,7 +2323,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 83
+      "community": 112
     },
     {
       "id": "minor_arcana_wands_8",
@@ -2648,7 +2342,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 84
+      "community": 113
     },
     {
       "id": "minor_arcana_wands_9",
@@ -2667,7 +2361,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 85
+      "community": 114
     },
     {
       "id": "minor_arcana_wands_ace",
@@ -2686,7 +2380,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 86
+      "community": 115
     },
     {
       "id": "minor_arcana_wands_king",
@@ -2705,7 +2399,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 87
+      "community": 116
     },
     {
       "id": "minor_arcana_wands_knight",
@@ -2724,7 +2418,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 88
+      "community": 117
     },
     {
       "id": "minor_arcana_wands_page",
@@ -2743,7 +2437,7 @@
           "source_location": "L1"
         }
       ],
-      "community": 89
+      "community": 118
     },
     {
       "id": "minor_arcana_wands_queen",
@@ -2762,7 +2456,908 @@
           "source_location": "L1"
         }
       ],
-      "community": 90
+      "community": 119
+    },
+    {
+      "id": "app",
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L1",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L1"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_getelements",
+      "label": "getElements()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L19",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L19"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_sleep",
+      "label": "sleep()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L47",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L47"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_handleenterkey",
+      "label": "handleEnterKey()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L51",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L51"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_showstatus",
+      "label": "showStatus()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L67",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L67"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_handlestart",
+      "label": "handleStart()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L80",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L80"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_handleselectcard",
+      "label": "handleSelectCard()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L167",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L167"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_initiatereadingprocess",
+      "label": "initiateReadingProcess()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L195",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L195"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_morphcardstogrid",
+      "label": "morphCardsToGrid()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L258",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L258"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_revealcards",
+      "label": "revealCards()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L337",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L337"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_renderwheel",
+      "label": "renderWheel()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L350",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L350"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_initselectionarea",
+      "label": "initSelectionArea()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L363",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L363"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_animatecardselection",
+      "label": "animateCardSelection()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L373",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L373"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_appendinterpretation",
+      "label": "appendInterpretation()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L405",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L405"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_displayfinalcards",
+      "label": "displayFinalCards()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L425",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L425"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_savereadingtosupabase",
+      "label": "saveReadingToSupabase()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L452",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L452"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_shuffledeck",
+      "label": "shuffleDeck()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L469",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L469"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "app_initializeapp",
+      "label": "initializeApp()",
+      "file_type": "code",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L482",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L482"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan",
+      "label": "DESIGN_PLAN.md",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L1",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L1"
+        }
+      ],
+      "community": 13
+    },
+    {
+      "id": "design_plan_tarobot_1",
+      "label": "Tarobot 디자인 리파인 플랜",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L1",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L1"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan_0_5",
+      "label": "0. 목표",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L5",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L5"
+        }
+      ],
+      "community": 14
+    },
+    {
+      "id": "design_plan_1_20",
+      "label": "1. 현재 진단 (증거 기반)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L20",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L20"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan_1_1_10_22",
+      "label": "1.1 타이포 스케일 — 10+ 개 사이즈가 서로 무관하게 존재",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L22",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L22"
+        }
+      ],
+      "community": 15
+    },
+    {
+      "id": "design_plan_1_2_6_36",
+      "label": "1.2 색상 — 톤 이탈 6곳 확인",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L36",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L36"
+        }
+      ],
+      "community": 16
+    },
+    {
+      "id": "design_plan_1_3_5_47",
+      "label": "1.3 애니메이션 이징·듀레이션 — 5종 이상 혼용",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L47",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L47"
+        }
+      ],
+      "community": 17
+    },
+    {
+      "id": "design_plan_1_4_app_js_handlestart_60",
+      "label": "1.4 연속성 단절 지점 (app.js handleStart 시퀀스)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L60",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L60"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan_1_5_76",
+      "label": "1.5 컴포넌트 스타일 믹스",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L76",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L76"
+        }
+      ],
+      "community": 18
+    },
+    {
+      "id": "design_plan_2_91",
+      "label": "2. 원칙 (결정 기준)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L91",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L91"
+        }
+      ],
+      "community": 19
+    },
+    {
+      "id": "design_plan_3_101",
+      "label": "3. 페이즈별 작업 단위",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L101",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L101"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan_phase_1_1_105",
+      "label": "🌑 Phase 1 — 디자인 토큰 정리 (1일, 위험도 낮음)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L105",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L105"
+        }
+      ],
+      "community": 36
+    },
+    {
+      "id": "design_plan_phase_2_1_175",
+      "label": "🌒 Phase 2 — 타이포그래피 재구성 (1일, 위험도 낮음)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L175",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L175"
+        }
+      ],
+      "community": 37
+    },
+    {
+      "id": "design_plan_phase_3_2_3_195",
+      "label": "🌓 Phase 3 — 애니메이션 연속성 (2-3일, 위험도 중간)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L195",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L195"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan_3_1_199",
+      "label": "3.1 공통 모티프 도입",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L199",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L199"
+        }
+      ],
+      "community": 20
+    },
+    {
+      "id": "design_plan_3_2_208",
+      "label": "3.2 이징·듀레이션 전면 교체",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L208",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L208"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan_3_3_handlestart_226",
+      "label": "3.3 핵심 시퀀스 리디자인 — handleStart",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L226",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L226"
+        }
+      ],
+      "community": 21
+    },
+    {
+      "id": "design_plan_3_4_revealcards_246",
+      "label": "3.4 카드 공개(revealCards) 개선",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L246",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L246"
+        }
+      ],
+      "community": 22
+    },
+    {
+      "id": "design_plan_3_5_view_transitions_api_253",
+      "label": "3.5 (선택) View Transitions API 점진 도입",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L253",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L253"
+        }
+      ],
+      "community": 23
+    },
+    {
+      "id": "design_plan_phase_4_1_263",
+      "label": "🌕 Phase 4 — 컴포넌트 톤앤매너 정렬 (1일, 위험도 낮음)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L263",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L263"
+        }
+      ],
+      "community": 38
+    },
+    {
+      "id": "design_plan_4_1_3_variant_269",
+      "label": "4.1 버튼 통일 (3 variant 만 존재)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L269",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L269"
+        }
+      ],
+      "community": 24
+    },
+    {
+      "id": "design_plan_4_2_glassmorphism_286",
+      "label": "4.2 모달 Glassmorphism 통일",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L286",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L286"
+        }
+      ],
+      "community": 25
+    },
+    {
+      "id": "design_plan_4_3_293",
+      "label": "4.3 해석 카드 & 상태 배지 통일",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L293",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L293"
+        }
+      ],
+      "community": 26
+    },
+    {
+      "id": "design_plan_4_4_302",
+      "label": "4.4 로그아웃 버튼 톤 조정",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L302",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L302"
+        }
+      ],
+      "community": 28
+    },
+    {
+      "id": "design_plan_phase_5_1_308",
+      "label": "✧ Phase 5 — 디테일 폴리싱 (1일, 위험도 낮음)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L308",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L308"
+        }
+      ],
+      "community": 39
+    },
+    {
+      "id": "design_plan_5_1_314",
+      "label": "5.1 앰비언트 모션",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L314",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L314"
+        }
+      ],
+      "community": 29
+    },
+    {
+      "id": "design_plan_5_2_320",
+      "label": "5.2 마이크로 인터랙션",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L320",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L320"
+        }
+      ],
+      "community": 30
+    },
+    {
+      "id": "design_plan_5_3_326",
+      "label": "5.3 로더 교체",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L326",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L326"
+        }
+      ],
+      "community": 31
+    },
+    {
+      "id": "design_plan_5_4_330",
+      "label": "5.4 에러/로딩 상태 언어 통일",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L330",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L330"
+        }
+      ],
+      "community": 33
+    },
+    {
+      "id": "design_plan_phase_6_0_5_337",
+      "label": "🔭 Phase 6 — 접근성·성능 하드닝 (0.5일, 위험도 낮음)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L337",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L337"
+        }
+      ],
+      "community": 40
+    },
+    {
+      "id": "design_plan_4_347",
+      "label": "4. 우선순위 & 일정 제안",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L347",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L347"
+        }
+      ],
+      "community": 27
+    },
+    {
+      "id": "design_plan_5_362",
+      "label": "5. 성공 지표 (주관·객관 병행)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L362",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L362"
+        }
+      ],
+      "community": 32
+    },
+    {
+      "id": "design_plan_6_regression_377",
+      "label": "6. 회귀(regression) 방지 룰",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L377",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L377"
+        }
+      ],
+      "community": 0
+    },
+    {
+      "id": "design_plan_7_388",
+      "label": "7. 참고 자료 (조사에서 차용한 개념)",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L388",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L388"
+        }
+      ],
+      "community": 34
+    },
+    {
+      "id": "design_plan_8_400",
+      "label": "8. 다음 액션",
+      "file_type": "document",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L400",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L400"
+        }
+      ],
+      "community": 35
     }
   ],
   "links": [
@@ -2785,741 +3380,6 @@
       "weight": 1,
       "_src": "api",
       "_tgt": "api_apicall",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "api",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L1",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L1"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "api",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "data",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L2",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L2"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "data",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_getelements",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L11",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L11"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_getelements",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_sleep",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L39",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L39"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_sleep",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_handleenterkey",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L43",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L43"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_handleenterkey",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_showstatus",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L59",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L59"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_showstatus",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_handlestart",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L72",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L72"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_handlestart",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_handleselectcard",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L159",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L159"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_handleselectcard",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_initiatereadingprocess",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L187",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L187"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_initiatereadingprocess",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_morphcardstogrid",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L250",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L250"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_morphcardstogrid",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_revealcards",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L329",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L329"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_revealcards",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_renderwheel",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L342",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L342"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_renderwheel",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_initselectionarea",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L355",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L355"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_initselectionarea",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_animatecardselection",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L365",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L365"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_animatecardselection",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_appendinterpretation",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L397",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L397"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_appendinterpretation",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_displayfinalcards",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L417",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L417"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_displayfinalcards",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_savereadingtosupabase",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L444",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L444"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_savereadingtosupabase",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_shuffledeck",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L461",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L461"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_shuffledeck",
-      "confidence_score": 1
-    },
-    {
-      "source": "app",
-      "target": "app_initializeapp",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L474",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L474"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "app_initializeapp",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handleenterkey",
-      "target": "app_showstatus",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L51",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L51"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handleenterkey",
-      "_tgt": "app_showstatus",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handleenterkey",
-      "target": "app_handlestart",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L56",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L56"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handleenterkey",
-      "_tgt": "app_handlestart",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handlestart",
-      "target": "app_showstatus",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L75",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L75"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handlestart",
-      "_tgt": "app_showstatus",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handlestart",
-      "target": "app_sleep",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L96",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L96"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handlestart",
-      "_tgt": "app_sleep",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handlestart",
-      "target": "app_shuffledeck",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L111",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L111"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handlestart",
-      "_tgt": "app_shuffledeck",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handlestart",
-      "target": "app_renderwheel",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L130",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L130"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handlestart",
-      "_tgt": "app_renderwheel",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handlestart",
-      "target": "app_initselectionarea",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L146",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L146"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handlestart",
-      "_tgt": "app_initselectionarea",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_handleselectcard",
-      "target": "app_animatecardselection",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L176",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L176"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_handleselectcard",
-      "_tgt": "app_animatecardselection",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_initiatereadingprocess",
-      "target": "app_sleep",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L198",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L198"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_initiatereadingprocess",
-      "_tgt": "app_sleep",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_initiatereadingprocess",
-      "target": "app_displayfinalcards",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L201",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L201"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_initiatereadingprocess",
-      "_tgt": "app_displayfinalcards",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_initiatereadingprocess",
-      "target": "app_morphcardstogrid",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L204",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L204"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_initiatereadingprocess",
-      "_tgt": "app_morphcardstogrid",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_initiatereadingprocess",
-      "target": "app_revealcards",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L209",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L209"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_initiatereadingprocess",
-      "_tgt": "app_revealcards",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_initiatereadingprocess",
-      "target": "app_savereadingtosupabase",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L242",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L242"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_initiatereadingprocess",
-      "_tgt": "app_savereadingtosupabase",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_revealcards",
-      "target": "app_sleep",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L334",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L334"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_revealcards",
-      "_tgt": "app_sleep",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_revealcards",
-      "target": "app_appendinterpretation",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L336",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L336"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_revealcards",
-      "_tgt": "app_appendinterpretation",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_initializeapp",
-      "target": "app_getelements",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-      "source_location": "L475",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
-          "source_location": "L475"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_initializeapp",
-      "_tgt": "app_getelements",
       "confidence_score": 1
     },
     {
@@ -4364,27 +4224,6 @@
     },
     {
       "source": "claude_18",
-      "target": "app",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/CLAUDE.md",
-      "source_location": "L22",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:markdown",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/CLAUDE.md",
-          "source_location": "L22"
-        }
-      ],
-      "weight": 1,
-      "_src": "claude_18",
-      "_tgt": "app",
-      "confidence_score": 1
-    },
-    {
-      "source": "claude_18",
       "target": "auth",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -4574,27 +4413,6 @@
     },
     {
       "source": "claude_worker_63",
-      "target": "app",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/CLAUDE.md",
-      "source_location": "L69",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:markdown",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/CLAUDE.md",
-          "source_location": "L69"
-        }
-      ],
-      "weight": 1,
-      "_src": "claude_worker_63",
-      "_tgt": "app",
-      "confidence_score": 1
-    },
-    {
-      "source": "claude_worker_63",
       "target": "auth",
       "relation": "references",
       "confidence": "EXTRACTED",
@@ -4633,27 +4451,6 @@
       "weight": 1,
       "_src": "claude_claude_md_1",
       "_tgt": "claude_app_js_78",
-      "confidence_score": 1
-    },
-    {
-      "source": "claude_app_js_78",
-      "target": "app",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/CLAUDE.md",
-      "source_location": "L78",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:markdown",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/CLAUDE.md",
-          "source_location": "L78"
-        }
-      ],
-      "weight": 1,
-      "_src": "claude_app_js_78",
-      "_tgt": "app",
       "confidence_score": 1
     },
     {
@@ -4822,27 +4619,6 @@
       "weight": 1,
       "_src": "readme_5",
       "_tgt": "api",
-      "confidence_score": 1
-    },
-    {
-      "source": "readme_5",
-      "target": "app",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "E:/ClaudeCode/develop/Tarobot/README.md",
-      "source_location": "L16",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:markdown",
-          "stage": "extract",
-          "source_file": "E:/ClaudeCode/develop/Tarobot/README.md",
-          "source_location": "L16"
-        }
-      ],
-      "weight": 1,
-      "_src": "readme_5",
-      "_tgt": "app",
       "confidence_score": 1
     },
     {
@@ -5182,69 +4958,6 @@
       "confidence_score": 1
     },
     {
-      "source": "app",
-      "target": "api_apicall",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
-      "source_location": "L1",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
-          "source_location": "L1"
-        }
-      ],
-      "weight": 1,
-      "_src": "app",
-      "_tgt": "api_apicall",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_initiatereadingprocess",
-      "target": "api_apicall",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
-      "source_location": "L189",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
-          "source_location": "L189"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_initiatereadingprocess",
-      "_tgt": "api_apicall",
-      "confidence_score": 1
-    },
-    {
-      "source": "app_savereadingtosupabase",
-      "target": "api_apicall",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
-      "source_location": "L447",
-      "layer": "base",
-      "provenance": [
-        {
-          "capability_id": "builtin:extract:javascript",
-          "stage": "extract",
-          "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
-          "source_location": "L447"
-        }
-      ],
-      "weight": 1,
-      "_src": "app_savereadingtosupabase",
-      "_tgt": "api_apicall",
-      "confidence_score": 1
-    },
-    {
       "source": "auth",
       "target": "api_apicall",
       "relation": "imports_from",
@@ -5453,6 +5166,1644 @@
       "_src": "auth_initauth",
       "_tgt": "api_apicall",
       "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "api",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L1",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L1"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "api",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "data",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L2",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L2"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "data",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_getelements",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L19",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L19"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_getelements",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_sleep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L47",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L47"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_sleep",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_handleenterkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L51",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L51"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_handleenterkey",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_showstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L67",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L67"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_showstatus",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_handlestart",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L80",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L80"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_handlestart",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_handleselectcard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L167",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L167"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_handleselectcard",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_initiatereadingprocess",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L195",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L195"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_initiatereadingprocess",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_morphcardstogrid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L258",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L258"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_morphcardstogrid",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_revealcards",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L337",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L337"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_revealcards",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_renderwheel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L350",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L350"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_renderwheel",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_initselectionarea",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L363",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L363"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_initselectionarea",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_animatecardselection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L373",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L373"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_animatecardselection",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_appendinterpretation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L405",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L405"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_appendinterpretation",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_displayfinalcards",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L425",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L425"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_displayfinalcards",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_savereadingtosupabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L452",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L452"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_savereadingtosupabase",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_shuffledeck",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L469",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L469"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_shuffledeck",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "app_initializeapp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L482",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L482"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "app_initializeapp",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handleenterkey",
+      "target": "app_showstatus",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L59",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L59"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handleenterkey",
+      "_tgt": "app_showstatus",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handleenterkey",
+      "target": "app_handlestart",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L64",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L64"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handleenterkey",
+      "_tgt": "app_handlestart",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handlestart",
+      "target": "app_showstatus",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L83",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L83"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handlestart",
+      "_tgt": "app_showstatus",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handlestart",
+      "target": "app_sleep",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L104",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L104"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handlestart",
+      "_tgt": "app_sleep",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handlestart",
+      "target": "app_shuffledeck",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L119",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L119"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handlestart",
+      "_tgt": "app_shuffledeck",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handlestart",
+      "target": "app_renderwheel",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L138",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L138"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handlestart",
+      "_tgt": "app_renderwheel",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handlestart",
+      "target": "app_initselectionarea",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L154",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L154"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handlestart",
+      "_tgt": "app_initselectionarea",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_handleselectcard",
+      "target": "app_animatecardselection",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L184",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L184"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_handleselectcard",
+      "_tgt": "app_animatecardselection",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_initiatereadingprocess",
+      "target": "app_sleep",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L206",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L206"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_initiatereadingprocess",
+      "_tgt": "app_sleep",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_initiatereadingprocess",
+      "target": "app_displayfinalcards",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L209",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L209"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_initiatereadingprocess",
+      "_tgt": "app_displayfinalcards",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_initiatereadingprocess",
+      "target": "app_morphcardstogrid",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L212",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L212"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_initiatereadingprocess",
+      "_tgt": "app_morphcardstogrid",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_initiatereadingprocess",
+      "target": "app_revealcards",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L217",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L217"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_initiatereadingprocess",
+      "_tgt": "app_revealcards",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_initiatereadingprocess",
+      "target": "app_savereadingtosupabase",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L250",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L250"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_initiatereadingprocess",
+      "_tgt": "app_savereadingtosupabase",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_revealcards",
+      "target": "app_sleep",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L342",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L342"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_revealcards",
+      "_tgt": "app_sleep",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_revealcards",
+      "target": "app_appendinterpretation",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L344",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L344"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_revealcards",
+      "_tgt": "app_appendinterpretation",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_initializeapp",
+      "target": "app_getelements",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+      "source_location": "L483",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/app.js",
+          "source_location": "L483"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_initializeapp",
+      "_tgt": "app_getelements",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan",
+      "target": "design_plan_tarobot_1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L1",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L1"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan",
+      "_tgt": "design_plan_tarobot_1",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "app",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L3",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L3"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "app",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_0_5",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L5",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L5"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_0_5",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_0_5",
+      "target": "bgimg",
+      "relation": "embeds",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L13",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L13"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_0_5",
+      "_tgt": "bgimg",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_0_5",
+      "target": "bgmobile",
+      "relation": "embeds",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L13",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L13"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_0_5",
+      "_tgt": "bgmobile",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_1_20",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L20",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L20"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_1_20",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_1_20",
+      "target": "design_plan_1_1_10_22",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L22",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L22"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_1_20",
+      "_tgt": "design_plan_1_1_10_22",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_1_20",
+      "target": "design_plan_1_2_6_36",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L36",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L36"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_1_20",
+      "_tgt": "design_plan_1_2_6_36",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_1_20",
+      "target": "design_plan_1_3_5_47",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L47",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L47"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_1_20",
+      "_tgt": "design_plan_1_3_5_47",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_1_20",
+      "target": "design_plan_1_4_app_js_handlestart_60",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L60",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L60"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_1_20",
+      "_tgt": "design_plan_1_4_app_js_handlestart_60",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_1_4_app_js_handlestart_60",
+      "target": "app",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L60",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L60"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_1_4_app_js_handlestart_60",
+      "_tgt": "app",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_1_20",
+      "target": "design_plan_1_5_76",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L76",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L76"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_1_20",
+      "_tgt": "design_plan_1_5_76",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_2_91",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L91",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L91"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_2_91",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_3_101",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L101",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L101"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_3_101",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_3_101",
+      "target": "design_plan_phase_1_1_105",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L105",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L105"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_3_101",
+      "_tgt": "design_plan_phase_1_1_105",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_3_101",
+      "target": "design_plan_phase_2_1_175",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L175",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L175"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_3_101",
+      "_tgt": "design_plan_phase_2_1_175",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_3_101",
+      "target": "design_plan_phase_3_2_3_195",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L195",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L195"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_3_101",
+      "_tgt": "design_plan_phase_3_2_3_195",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_3_2_3_195",
+      "target": "design_plan_3_1_199",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L199",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L199"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_3_2_3_195",
+      "_tgt": "design_plan_3_1_199",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_3_2_3_195",
+      "target": "design_plan_3_2_208",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L208",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L208"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_3_2_3_195",
+      "_tgt": "design_plan_3_2_208",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_3_2_208",
+      "target": "app",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L219",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L219"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_3_2_208",
+      "_tgt": "app",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_3_2_3_195",
+      "target": "design_plan_3_3_handlestart_226",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L226",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L226"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_3_2_3_195",
+      "_tgt": "design_plan_3_3_handlestart_226",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_3_2_3_195",
+      "target": "design_plan_3_4_revealcards_246",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L246",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L246"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_3_2_3_195",
+      "_tgt": "design_plan_3_4_revealcards_246",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_3_2_3_195",
+      "target": "design_plan_3_5_view_transitions_api_253",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L253",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L253"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_3_2_3_195",
+      "_tgt": "design_plan_3_5_view_transitions_api_253",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_3_101",
+      "target": "design_plan_phase_4_1_263",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L263",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L263"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_3_101",
+      "_tgt": "design_plan_phase_4_1_263",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_4_1_263",
+      "target": "design_plan_4_1_3_variant_269",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L269",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L269"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_4_1_263",
+      "_tgt": "design_plan_4_1_3_variant_269",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_4_1_263",
+      "target": "design_plan_4_2_glassmorphism_286",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L286",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L286"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_4_1_263",
+      "_tgt": "design_plan_4_2_glassmorphism_286",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_4_1_263",
+      "target": "design_plan_4_3_293",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L293",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L293"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_4_1_263",
+      "_tgt": "design_plan_4_3_293",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_4_1_263",
+      "target": "design_plan_4_4_302",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L302",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L302"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_4_1_263",
+      "_tgt": "design_plan_4_4_302",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_3_101",
+      "target": "design_plan_phase_5_1_308",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L308",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L308"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_3_101",
+      "_tgt": "design_plan_phase_5_1_308",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_5_1_308",
+      "target": "design_plan_5_1_314",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L314",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L314"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_5_1_308",
+      "_tgt": "design_plan_5_1_314",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_5_1_308",
+      "target": "design_plan_5_2_320",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L320",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L320"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_5_1_308",
+      "_tgt": "design_plan_5_2_320",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_5_1_308",
+      "target": "design_plan_5_3_326",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L326",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L326"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_5_1_308",
+      "_tgt": "design_plan_5_3_326",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_phase_5_1_308",
+      "target": "design_plan_5_4_330",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L330",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L330"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_phase_5_1_308",
+      "_tgt": "design_plan_5_4_330",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_3_101",
+      "target": "design_plan_phase_6_0_5_337",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L337",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L337"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_3_101",
+      "_tgt": "design_plan_phase_6_0_5_337",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_4_347",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L347",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L347"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_4_347",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_5_362",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L362",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L362"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_5_362",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_6_regression_377",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L377",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L377"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_6_regression_377",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_6_regression_377",
+      "target": "app",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L381",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L381"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_6_regression_377",
+      "_tgt": "app",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_7_388",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L388",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L388"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_7_388",
+      "confidence_score": 1
+    },
+    {
+      "source": "design_plan_tarobot_1",
+      "target": "design_plan_8_400",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+      "source_location": "L400",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:markdown",
+          "stage": "extract",
+          "source_file": "E:/ClaudeCode/develop/Tarobot/DESIGN_PLAN.md",
+          "source_location": "L400"
+        }
+      ],
+      "weight": 1,
+      "_src": "design_plan_tarobot_1",
+      "_tgt": "design_plan_8_400",
+      "confidence_score": 1
+    },
+    {
+      "source": "app",
+      "target": "api_apicall",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
+      "source_location": "L1",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
+          "source_location": "L1"
+        }
+      ],
+      "weight": 1,
+      "_src": "app",
+      "_tgt": "api_apicall",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_initiatereadingprocess",
+      "target": "api_apicall",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
+      "source_location": "L197",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
+          "source_location": "L197"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_initiatereadingprocess",
+      "_tgt": "api_apicall",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_savereadingtosupabase",
+      "target": "api_apicall",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
+      "source_location": "L455",
+      "layer": "base",
+      "provenance": [
+        {
+          "capability_id": "builtin:extract:javascript",
+          "stage": "extract",
+          "source_file": "E:\\ClaudeCode\\develop\\Tarobot\\app.js",
+          "source_location": "L455"
+        }
+      ],
+      "weight": 1,
+      "_src": "app_savereadingtosupabase",
+      "_tgt": "api_apicall",
+      "confidence_score": 1
     }
   ],
   "hyperedges": [],
@@ -5468,120 +6819,149 @@
     "8": "Community 8",
     "9": "Community 9",
     "10": "Community 10",
-    "11": "Graphify TypeScript",
-    "12": "Is Admin",
-    "13": "Major Arcana Chariot Jpg",
-    "14": "Major Arcana Death Jpg",
-    "15": "Major Arcana Devil Jpg",
-    "16": "Major Arcana Emperor Jpg",
-    "17": "Major Arcana Empress Jpg",
-    "18": "Major Arcana Fool Jpg",
-    "19": "Major Arcana Fortune Jpg",
-    "20": "Major Arcana Hanged Jpg",
-    "21": "Major Arcana Hermit Jpg",
-    "22": "Major Arcana Hierophant Jpg",
-    "23": "Major Arcana Judgement Jpg",
-    "24": "Major Arcana Justice Jpg",
-    "25": "Major Arcana Lovers Jpg",
-    "26": "Major Arcana Magician Jpg",
-    "27": "Major Arcana Moon Jpg",
-    "28": "Major Arcana Priestess Jpg",
-    "29": "Major Arcana Star Jpg",
-    "30": "Major Arcana Strength Jpg",
-    "31": "Major Arcana Sun Jpg",
-    "32": "Major Arcana Temperance Jpg",
-    "33": "Major Arcana Tower Jpg",
-    "34": "Major Arcana World Jpg",
-    "35": "Minor Arcana Cups 10 Jpg",
-    "36": "Minor Arcana Cups 2 Jpg",
-    "37": "Minor Arcana Cups 3 Jpg",
-    "38": "Minor Arcana Cups 4 Jpg",
-    "39": "Minor Arcana Cups 5 Jpg",
-    "40": "Minor Arcana Cups 6 Jpg",
-    "41": "Minor Arcana Cups 7 Jpg",
-    "42": "Minor Arcana Cups 8 Jpg",
-    "43": "Minor Arcana Cups 9 Jpg",
-    "44": "Minor Arcana Cups Ace Jpg",
-    "45": "Minor Arcana Cups King Jpg",
-    "46": "Minor Arcana Cups Knight Jpg",
-    "47": "Minor Arcana Cups Page Jpg",
-    "48": "Minor Arcana Cups Queen Jpg",
-    "49": "Minor Arcana Pentacles 10 Jpg",
-    "50": "Minor Arcana Pentacles 2 Jpg",
-    "51": "Minor Arcana Pentacles 3 Jpg",
-    "52": "Minor Arcana Pentacles 4 Jpg",
-    "53": "Minor Arcana Pentacles 5 Jpg",
-    "54": "Minor Arcana Pentacles 6 Jpg",
-    "55": "Minor Arcana Pentacles 7 Jpg",
-    "56": "Minor Arcana Pentacles 8 Jpg",
-    "57": "Minor Arcana Pentacles 9 Jpg",
-    "58": "Minor Arcana Pentacles Ace Jpg",
-    "59": "Minor Arcana Pentacles King Jpg",
-    "60": "Minor Arcana Pentacles Knight Jpg",
-    "61": "Minor Arcana Pentacles Page Jpg",
-    "62": "Minor Arcana Pentacles Queen Jpg",
-    "63": "Minor Arcana Swords 10 Jpg",
-    "64": "Minor Arcana Swords 2 Jpg",
-    "65": "Minor Arcana Swords 3 Jpg",
-    "66": "Minor Arcana Swords 4 Jpg",
-    "67": "Minor Arcana Swords 5 Jpg",
-    "68": "Minor Arcana Swords 6 Jpg",
-    "69": "Minor Arcana Swords 7 Jpg",
-    "70": "Minor Arcana Swords 8 Jpg",
-    "71": "Minor Arcana Swords 9 Jpg",
-    "72": "Minor Arcana Swords Ace Jpg",
-    "73": "Minor Arcana Swords King Jpg",
-    "74": "Minor Arcana Swords Knight Jpg",
-    "75": "Minor Arcana Swords Page Jpg",
-    "76": "Minor Arcana Swords Queen Jpg",
-    "77": "Minor Arcana Wands 10 Jpg",
-    "78": "Minor Arcana Wands 2 Jpg",
-    "79": "Minor Arcana Wands 3 Jpg",
-    "80": "Minor Arcana Wands 4 Jpg",
-    "81": "Minor Arcana Wands 5 Jpg",
-    "82": "Minor Arcana Wands 6 Jpg",
-    "83": "Minor Arcana Wands 7 Jpg",
-    "84": "Minor Arcana Wands 8 Jpg",
-    "85": "Minor Arcana Wands 9 Jpg",
-    "86": "Minor Arcana Wands Ace Jpg",
-    "87": "Minor Arcana Wands King Jpg",
-    "88": "Minor Arcana Wands Knight Jpg",
-    "89": "Minor Arcana Wands Page Jpg",
-    "90": "Minor Arcana Wands Queen Jpg",
-    "91": "Readme Markdown",
-    "92": "1 Cloudflare Workers Builds 1",
-    "93": "Community 93",
-    "94": "2 Supabase Edge Functions Git Hub Actions",
-    "95": "Community 95",
-    "96": "Community 96",
-    "97": "Community 97",
-    "98": "Db",
-    "99": "Worker"
+    "11": "App Js",
+    "12": "Graphify TypeScript",
+    "13": "Design Plan Markdown",
+    "14": "0",
+    "15": "1 1 10",
+    "16": "1 2 6",
+    "17": "1 3 5",
+    "18": "1 5",
+    "19": "2",
+    "20": "3 1",
+    "21": "3 3 Handle Start",
+    "22": "3 4 Reveal Cards",
+    "23": "3 5 View Transitions API",
+    "24": "4 1 3 Variant",
+    "25": "4 2 Glassmorphism",
+    "26": "4 3",
+    "27": "4",
+    "28": "4 4",
+    "29": "5 1",
+    "30": "5 2",
+    "31": "5 3",
+    "32": "5",
+    "33": "5 4",
+    "34": "7",
+    "35": "8",
+    "36": "Phase 1 1",
+    "37": "Phase 2 1",
+    "38": "Phase 4 1",
+    "39": "Phase 5 1",
+    "40": "Phase 6 0 5",
+    "41": "Is Admin",
+    "42": "Major Arcana Chariot Jpg",
+    "43": "Major Arcana Death Jpg",
+    "44": "Major Arcana Devil Jpg",
+    "45": "Major Arcana Emperor Jpg",
+    "46": "Major Arcana Empress Jpg",
+    "47": "Major Arcana Fool Jpg",
+    "48": "Major Arcana Fortune Jpg",
+    "49": "Major Arcana Hanged Jpg",
+    "50": "Major Arcana Hermit Jpg",
+    "51": "Major Arcana Hierophant Jpg",
+    "52": "Major Arcana Judgement Jpg",
+    "53": "Major Arcana Justice Jpg",
+    "54": "Major Arcana Lovers Jpg",
+    "55": "Major Arcana Magician Jpg",
+    "56": "Major Arcana Moon Jpg",
+    "57": "Major Arcana Priestess Jpg",
+    "58": "Major Arcana Star Jpg",
+    "59": "Major Arcana Strength Jpg",
+    "60": "Major Arcana Sun Jpg",
+    "61": "Major Arcana Temperance Jpg",
+    "62": "Major Arcana Tower Jpg",
+    "63": "Major Arcana World Jpg",
+    "64": "Minor Arcana Cups 10 Jpg",
+    "65": "Minor Arcana Cups 2 Jpg",
+    "66": "Minor Arcana Cups 3 Jpg",
+    "67": "Minor Arcana Cups 4 Jpg",
+    "68": "Minor Arcana Cups 5 Jpg",
+    "69": "Minor Arcana Cups 6 Jpg",
+    "70": "Minor Arcana Cups 7 Jpg",
+    "71": "Minor Arcana Cups 8 Jpg",
+    "72": "Minor Arcana Cups 9 Jpg",
+    "73": "Minor Arcana Cups Ace Jpg",
+    "74": "Minor Arcana Cups King Jpg",
+    "75": "Minor Arcana Cups Knight Jpg",
+    "76": "Minor Arcana Cups Page Jpg",
+    "77": "Minor Arcana Cups Queen Jpg",
+    "78": "Minor Arcana Pentacles 10 Jpg",
+    "79": "Minor Arcana Pentacles 2 Jpg",
+    "80": "Minor Arcana Pentacles 3 Jpg",
+    "81": "Minor Arcana Pentacles 4 Jpg",
+    "82": "Minor Arcana Pentacles 5 Jpg",
+    "83": "Minor Arcana Pentacles 6 Jpg",
+    "84": "Minor Arcana Pentacles 7 Jpg",
+    "85": "Minor Arcana Pentacles 8 Jpg",
+    "86": "Minor Arcana Pentacles 9 Jpg",
+    "87": "Minor Arcana Pentacles Ace Jpg",
+    "88": "Minor Arcana Pentacles King Jpg",
+    "89": "Minor Arcana Pentacles Knight Jpg",
+    "90": "Minor Arcana Pentacles Page Jpg",
+    "91": "Minor Arcana Pentacles Queen Jpg",
+    "92": "Minor Arcana Swords 10 Jpg",
+    "93": "Minor Arcana Swords 2 Jpg",
+    "94": "Minor Arcana Swords 3 Jpg",
+    "95": "Minor Arcana Swords 4 Jpg",
+    "96": "Minor Arcana Swords 5 Jpg",
+    "97": "Minor Arcana Swords 6 Jpg",
+    "98": "Minor Arcana Swords 7 Jpg",
+    "99": "Minor Arcana Swords 8 Jpg",
+    "100": "Minor Arcana Swords 9 Jpg",
+    "101": "Minor Arcana Swords Ace Jpg",
+    "102": "Minor Arcana Swords King Jpg",
+    "103": "Minor Arcana Swords Knight Jpg",
+    "104": "Minor Arcana Swords Page Jpg",
+    "105": "Minor Arcana Swords Queen Jpg",
+    "106": "Minor Arcana Wands 10 Jpg",
+    "107": "Minor Arcana Wands 2 Jpg",
+    "108": "Minor Arcana Wands 3 Jpg",
+    "109": "Minor Arcana Wands 4 Jpg",
+    "110": "Minor Arcana Wands 5 Jpg",
+    "111": "Minor Arcana Wands 6 Jpg",
+    "112": "Minor Arcana Wands 7 Jpg",
+    "113": "Minor Arcana Wands 8 Jpg",
+    "114": "Minor Arcana Wands 9 Jpg",
+    "115": "Minor Arcana Wands Ace Jpg",
+    "116": "Minor Arcana Wands King Jpg",
+    "117": "Minor Arcana Wands Knight Jpg",
+    "118": "Minor Arcana Wands Page Jpg",
+    "119": "Minor Arcana Wands Queen Jpg",
+    "120": "Readme Markdown",
+    "121": "1 Cloudflare Workers Builds 1",
+    "122": "Community 122",
+    "123": "2 Supabase Edge Functions Git Hub Actions",
+    "124": "Community 124",
+    "125": "Community 125",
+    "126": "Community 126",
+    "127": "Db",
+    "128": "Worker"
   },
   "semantic_anomalies": [
+    {
+      "id": "bridge_node:design_plan_tarobot_1",
+      "kind": "bridge_node",
+      "severity": "HIGH",
+      "score": 18164,
+      "summary": "Tarobot 디자인 리파인 플랜 bridges Workers App and Design Plan Markdown, 0, 2, 4, 5, 7, 8.",
+      "why": "High betweenness centrality (2270.500) across 8 communities makes this node a likely dependency chokepoint."
+    },
+    {
+      "id": "bridge_node:design_plan_3_101",
+      "kind": "bridge_node",
+      "severity": "HIGH",
+      "score": 8301,
+      "summary": "3. 페이즈별 작업 단위 bridges Workers App and Phase 1 1, Phase 2 1, Phase 4 1, Phase 5 1, Phase 6 0 5.",
+      "why": "High betweenness centrality (1383.500) across 6 communities makes this node a likely dependency chokepoint."
+    },
     {
       "id": "bridge_node:readme_tarobot_ai_1",
       "kind": "bridge_node",
       "severity": "HIGH",
-      "score": 3630.03,
-      "summary": "Tarobot — AI 타로 마스터 bridges Workers App and Readme Markdown, Community 95, Worker, Community 93.",
-      "why": "High betweenness centrality (726.006) across 5 communities makes this node a likely dependency chokepoint."
-    },
-    {
-      "id": "bridge_node:readme_50",
-      "kind": "bridge_node",
-      "severity": "HIGH",
-      "score": 1710,
-      "summary": "배포 bridges Community 95 and Workers App, Community 96, Community 97, Db.",
-      "why": "High betweenness centrality (342.000) across 5 communities makes this node a likely dependency chokepoint."
-    },
-    {
-      "id": "bridge_node:readme_52",
-      "kind": "bridge_node",
-      "severity": "HIGH",
-      "score": 564,
-      "summary": "자동 배포 — 이원화 bridges Community 96 and Community 95, 1 Cloudflare Workers Builds 1, 2 Supabase Edge Functions Git Hub Actions.",
-      "why": "High betweenness centrality (141.000) across 4 communities makes this node a likely dependency chokepoint."
+      "score": 6475.45,
+      "summary": "Tarobot — AI 타로 마스터 bridges Workers App and Readme Markdown, Community 124, Worker, Community 122.",
+      "why": "High betweenness centrality (1295.090) across 5 communities makes this node a likely dependency chokepoint."
     },
     {
       "id": "cross_boundary_edge:checkAdminStatus()->apiCall():calls",
