@@ -1,5 +1,6 @@
 import { apiCall } from './api.js';
 import { escapeHtml } from './utils.js';
+import { toast } from './toast.js';
 
 // State: Global Auth State
 let currentUser = null;
@@ -39,16 +40,55 @@ const validatePassword = (pw) => {
 };
 
 // --- Modal Controls ---
+let _lastFocusBeforeModal = null;
+let _trappedModal = null;
+
+function getFocusables(root) {
+    return Array.from(
+        root.querySelectorAll(
+            'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+    ).filter((el) => !el.hasAttribute('hidden') && el.offsetParent !== null);
+}
+
+function trapFocusHandler(e) {
+    if (!_trappedModal || e.key !== 'Tab') return;
+    const focusables = getFocusables(_trappedModal);
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+    }
+}
+
 function openModal(modal) {
     if (!elements.overlay) return;
+    _lastFocusBeforeModal = document.activeElement;
     elements.overlay.classList.add('is-active');
     [elements.loginModal, elements.signupModal, elements.resetModal, elements.profileModal].forEach(m => m.classList.add('hidden'));
     modal.classList.remove('hidden');
+    _trappedModal = modal;
+    // 첫 포커스 가능한 요소로 이동
+    requestAnimationFrame(() => {
+        const focusables = getFocusables(modal);
+        if (focusables[0]) focusables[0].focus();
+    });
+    document.addEventListener('keydown', trapFocusHandler);
 }
 
 function closeModal() {
     if (!elements.overlay) return;
     elements.overlay.classList.remove('is-active');
+    _trappedModal = null;
+    document.removeEventListener('keydown', trapFocusHandler);
+    if (_lastFocusBeforeModal && typeof _lastFocusBeforeModal.focus === 'function') {
+        _lastFocusBeforeModal.focus();
+    }
 }
 
 // --- Auth Logic via Worker Proxy ---
@@ -58,15 +98,15 @@ async function handleSignup() {
     const password = document.getElementById('signup-password').value;
     const confirm = document.getElementById('signup-password-confirm').value;
 
-    if (!email || !password) return alert('모두 입력해 주세요.');
-    if (password !== confirm) return alert('비밀번호 불일치');
-    if (!validatePassword(password)) return alert('보안 규칙 위반 (8자 이상, 특수문자 포함)');
+    if (!email || !password) return toast('모두 입력해 주세요.', 'warning');
+    if (password !== confirm) return toast('비밀번호가 일치하지 않습니다.', 'warning');
+    if (!validatePassword(password)) return toast('비밀번호 규칙 위반 — 영문+숫자+특수문자 8자 이상', 'warning');
 
     const result = await apiCall('/api/auth/signup', 'POST', { email, password });
     if (result.error) {
-        alert('가입 실패: ' + result.error.message);
+        toast('가입 실패: ' + result.error.message, 'error');
     } else {
-        alert('회원가입 성공! 메일 확인이 필요할 수 있습니다.');
+        toast('회원가입 성공! 메일 확인이 필요할 수 있습니다.', 'success');
         closeModal();
     }
 }
@@ -77,7 +117,7 @@ async function handleLogin() {
 
     const result = await apiCall('/api/auth/login', 'POST', { email, password });
     if (result.error) {
-        alert('로그인 실패: ' + result.error.message);
+        toast('로그인 실패: ' + result.error.message, 'error');
     } else {
         if (result.data?.session) {
             authToken = result.data.session.access_token;
@@ -104,9 +144,9 @@ async function handleResetPassword() {
     });
     
     if (result.error) {
-        alert('실패: ' + result.error.message);
+        toast('실패: ' + result.error.message, 'error');
     } else {
-        alert('이메일 확인해 보세요.');
+        toast('이메일을 확인해 주세요.', 'success');
         closeModal();
     }
 }
@@ -115,16 +155,20 @@ async function handlePasswordChange() {
     const password = document.getElementById('change-password').value;
     const confirm = document.getElementById('change-password-confirm').value;
 
-    if (password !== confirm) return alert('불일치');
-    if (!validatePassword(password)) return alert('규칙 미준수');
+    if (password !== confirm) return toast('비밀번호가 일치하지 않습니다.', 'warning');
+    if (!validatePassword(password)) return toast('비밀번호 규칙 위반', 'warning');
 
     const result = await apiCall('/api/auth/update', 'POST', { password });
     if (result.error) {
-        alert('변경 실패: ' + result.error.message);
+        toast('변경 실패: ' + result.error.message, 'error');
     } else {
-        alert('비밀번호 변경 완료');
+        toast('비밀번호 변경 완료', 'success');
         closeModal();
     }
+}
+
+function getDisplayName(user) {
+    return localStorage.getItem('tarobot_display_name') || user.email.split('@')[0];
 }
 
 // --- UI Updates ---
@@ -135,7 +179,7 @@ function updateAuthStateUI(user) {
         elements.navJoinBtn.classList.add('hidden');
         elements.navUserInfo.classList.remove('hidden');
         elements.navUserInfo.style.display = 'flex';
-        elements.userNameDisplay.textContent = user.email.split('@')[0];
+        elements.userNameDisplay.textContent = getDisplayName(user);
         // 관리자 링크 표시 여부 확인
         checkAdminStatus();
     } else {
@@ -143,6 +187,21 @@ function updateAuthStateUI(user) {
         elements.navJoinBtn.classList.remove('hidden');
         elements.navUserInfo.classList.add('hidden');
     }
+}
+
+function saveDisplayName() {
+    const input = document.getElementById('display-name-input');
+    if (!input) return;
+    const name = input.value.trim();
+    if (!name) {
+        localStorage.removeItem('tarobot_display_name');
+    } else {
+        localStorage.setItem('tarobot_display_name', name);
+    }
+    if (currentUser) {
+        elements.userNameDisplay.textContent = getDisplayName(currentUser);
+    }
+    toast('표시 이름이 저장되었습니다.', 'success');
 }
 
 // 관리자 권한 비동기 확인
@@ -156,46 +215,132 @@ async function checkAdminStatus() {
     } catch (e) { /* 무시 */ }
 }
 
-// 내 리딩 이력 로드
+// 내 리딩 이력 로드 + 클라이언트 검색
+let _allHistory = [];
+
+function renderHistoryItems(items) {
+    const historyList = document.getElementById('history-list');
+    if (!historyList) return;
+    if (items.length === 0) {
+        historyList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon" aria-hidden="true">✧</div>
+                <p class="empty-state-msg">일치하는 리딩이 없습니다.</p>
+            </div>
+        `;
+        return;
+    }
+    historyList.innerHTML = items.map(r => {
+        const date = new Date(r.created_at).toLocaleString('ko-KR', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+        const questionText = r.question || '질문 없음';
+        const preview = (r.interpretation || '해석 없음').substring(0, 500);
+        const hasMore = (r.interpretation || '').length > 500;
+        return `
+            <div class="history-item" role="button" tabindex="0" onclick="this.querySelector('.detail').classList.toggle('hidden')">
+                <div class="history-item-head">
+                    <p class="history-item-q">${escapeHtml(questionText)}</p>
+                    <span class="history-item-date">${date}</span>
+                </div>
+                <div class="detail hidden history-item-body">
+                    <p>${escapeHtml(preview)}${hasMore ? '...' : ''}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
 async function loadMyHistory() {
     const historyOverlay = document.getElementById('history-modal-overlay');
     const historyList = document.getElementById('history-list');
     if (!historyOverlay || !historyList) return;
 
     historyOverlay.classList.add('is-active');
-    historyList.innerHTML = '<p class="text-center text-gray-400 py-8">로딩 중...</p>';
+    historyList.innerHTML = `
+        <div class="history-search-wrap">
+            <input id="history-search" type="search" placeholder="질문·해석 키워드로 검색..." aria-label="이력 검색">
+        </div>
+        <div class="empty-state"><div class="empty-state-icon" aria-hidden="true">✧</div><p class="empty-state-msg">로딩 중...</p></div>
+    `;
 
     try {
         const res = await apiCall('/api/my-readings', 'GET');
-        const readings = res.data || [];
+        _allHistory = res.data || [];
 
-        if (readings.length === 0) {
-            historyList.innerHTML = '<p class="text-center text-gray-500 py-8">아직 리딩 기록이 없습니다.</p>';
+        const searchInput = document.getElementById('history-search');
+        const listHost = document.createElement('div');
+        listHost.id = 'history-list-items';
+        historyList.appendChild(listHost);
+
+        if (_allHistory.length === 0) {
+            listHost.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon" aria-hidden="true">✧</div>
+                    <p class="empty-state-msg">아직 리딩 기록이 없습니다.<br>첫 점사를 시작해보세요.</p>
+                </div>
+            `;
             return;
         }
 
-        historyList.innerHTML = readings.map(r => {
-            const date = new Date(r.created_at).toLocaleString('ko-KR', {
-                year: 'numeric', month: 'short', day: 'numeric',
-                hour: '2-digit', minute: '2-digit'
+        // 초기 렌더
+        renderHistoryItemsInto(listHost, _allHistory);
+
+        if (searchInput) {
+            searchInput.addEventListener('input', () => {
+                const q = searchInput.value.trim().toLowerCase();
+                if (!q) {
+                    renderHistoryItemsInto(listHost, _allHistory);
+                    return;
+                }
+                const filtered = _allHistory.filter(r =>
+                    (r.question || '').toLowerCase().includes(q) ||
+                    (r.interpretation || '').toLowerCase().includes(q)
+                );
+                renderHistoryItemsInto(listHost, filtered);
             });
-            const questionText = r.question || '질문 없음';
-            return `
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(240,230,140,0.1); border-radius: 12px; padding: 1rem; cursor: pointer;" 
-                     onclick="this.querySelector('.detail').classList.toggle('hidden')">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <p style="color: white; font-weight: 600; font-size: 0.9rem;">${escapeHtml(questionText)}</p>
-                        <span style="color: #9ca3af; font-size: 0.7rem; flex-shrink: 0; margin-left: 0.5rem;">${date}</span>
-                    </div>
-                    <div class="detail hidden" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                        <p style="color: #cbd5e1; font-size: 0.8rem; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(r.interpretation || '해석 없음').substring(0, 500)}${(r.interpretation || '').length > 500 ? '...' : ''}</p>
-                    </div>
-                </div>
-            `;
-        }).join('');
+        }
     } catch (e) {
-        historyList.innerHTML = `<p class="text-center text-red-400 py-8">이력을 불러오지 못했습니다: ${e.message}</p>`;
+        historyList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon" aria-hidden="true">✦</div>
+                <p class="empty-state-msg" style="color: var(--c-danger);">이력을 불러오지 못했습니다: ${escapeHtml(e.message)}</p>
+            </div>
+        `;
     }
+}
+
+function renderHistoryItemsInto(host, items) {
+    if (items.length === 0) {
+        host.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon" aria-hidden="true">✧</div>
+                <p class="empty-state-msg">일치하는 리딩이 없습니다.</p>
+            </div>
+        `;
+        return;
+    }
+    host.innerHTML = items.map(r => {
+        const date = new Date(r.created_at).toLocaleString('ko-KR', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+        const questionText = r.question || '질문 없음';
+        const preview = (r.interpretation || '해석 없음').substring(0, 500);
+        const hasMore = (r.interpretation || '').length > 500;
+        return `
+            <div class="history-item" role="button" tabindex="0" onclick="this.querySelector('.detail').classList.toggle('hidden')">
+                <div class="history-item-head">
+                    <p class="history-item-q">${escapeHtml(questionText)}</p>
+                    <span class="history-item-date">${date}</span>
+                </div>
+                <div class="detail hidden history-item-body">
+                    <p>${escapeHtml(preview)}${hasMore ? '...' : ''}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // --- Initialization ---
@@ -231,16 +376,31 @@ async function initAuth() {
         elements.navProfileBtn.addEventListener('click', () => {
             if (currentUser) {
                 elements.profileEmailDisplay.textContent = currentUser.email;
+                const nameInput = document.getElementById('display-name-input');
+                if (nameInput) nameInput.value = getDisplayName(currentUser);
                 openModal(elements.profileModal);
             }
         });
     }
+
+    const saveNameBtn = document.getElementById('save-display-name-btn');
+    if (saveNameBtn) saveNameBtn.addEventListener('click', saveDisplayName);
 
     if (elements.overlay) {
         elements.overlay.addEventListener('click', (e) => {
             if (e.target === elements.overlay) closeModal();
         });
     }
+
+    // 전역 Esc — 모든 모달 닫기
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        if (elements.overlay && elements.overlay.classList.contains('is-active')) closeModal();
+        const historyOverlay = document.getElementById('history-modal-overlay');
+        if (historyOverlay && historyOverlay.classList.contains('is-active')) {
+            historyOverlay.classList.remove('is-active');
+        }
+    });
     
     document.querySelectorAll('.modal-close-btn').forEach(btn => {
         btn.addEventListener('click', closeModal);

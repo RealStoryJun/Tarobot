@@ -1,7 +1,13 @@
 /* ============================================
-   Design Tokens — single source of truth
-   (Phase 1 — see DESIGN_PLAN.md)
+   CSS Layer order — Tailwind CDN 이 문서 끝에서 덮어쓰는 걸 방지하려면
+   토큰·베이스는 가장 약한 우선순위(layer) 로, 컴포넌트/유틸리티는 강하게.
    ============================================ */
+@layer tokens, base, components, utilities;
+
+/* ============================================
+   Design Tokens — single source of truth
+   ============================================ */
+@layer tokens;
 :root {
     /* 카드 뒷면 SVG — 변경 금지 */
     --card-back-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjE3MCIgdmlld0JveD0iMCAwIDEwMCAxNzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxNzAiIHJ4PSI4IiBmaWxsPSIjMGQxMTJiIi8+PGcgb3BhY2l0eT0iMC45Ij48Y2lyY2xlIGN4PSIyNSIgY3k9IjMwIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIyMCIgcj0iMC44IiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNDAiIHI9IjEuMiIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI4NSIgY3k9IjI1IiByPSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjE1IiBjeT0iNDUiIHI9IjAuNyIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI4MCIgY3k9IjEzMCIgcj0iMS4xIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjIwIiBjeT0iMTQwIiByPSIxIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjM1IiBjeT0iMTUwIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PC9nPjxnIHRyYW5zZm9ybT0icm90YXRlKC00NSA1MCA4NSkiPjxjaXJjbGUgY3g9IjUwIiBjeT0iODUiIHI9IjM1IiBmaWxsPSIjZjBlNjhjIi8+PGNpcmNsZSBjeD0iNjIiIGN5PSI4NSIgcj0iMzUiIGZpbGw9IiMwZDExMmIiLz48L2c+PC9zdmc+');
@@ -788,6 +794,14 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     text-overflow: ellipsis;
 }
 
+.interpretation-item .card-name-line .orientation-tag {
+    font-size: 0.6rem;
+    color: var(--c-gold-soft);
+    opacity: 0.75;
+    margin-left: 0.15rem;
+    font-weight: 500;
+}
+
 .interpretation-item .meaning-line {
     font-size: 0.7rem;
     color: var(--c-text-soft);
@@ -1004,6 +1018,257 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
 @keyframes hero-breathe {
     0%, 100% { opacity: 0.94; text-shadow: 0 0 12px rgba(240, 230, 140, 0.18), 0 0 28px rgba(240, 230, 140, 0.06), 0 2px 4px rgba(0,0,0,0.5); }
     50%      { opacity: 1;    text-shadow: 0 0 18px rgba(240, 230, 140, 0.35), 0 0 44px rgba(240, 230, 140, 0.12), 0 2px 4px rgba(0,0,0,0.5); }
+}
+
+/* ============================================
+   History list items
+   ============================================ */
+.history-search-wrap { margin-bottom: 0.75rem; }
+#history-search {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-sm);
+    color: var(--c-text);
+    font-size: var(--font-size-sm);
+    outline: none;
+    transition: border-color var(--d-snap) var(--ease-out);
+}
+#history-search:focus { border-color: var(--c-gold); }
+#history-list-items { display: flex; flex-direction: column; gap: 0.5rem; }
+.history-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(240, 230, 140, 0.1);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    cursor: pointer;
+    transition: background var(--d-snap) var(--ease-out),
+                border-color var(--d-snap) var(--ease-out);
+}
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(240, 230, 140, 0.25);
+}
+.history-item:focus-visible {
+    outline: 2px solid var(--c-gold);
+    outline-offset: 2px;
+}
+.history-item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+.history-item-q {
+    color: var(--c-text);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.history-item-date {
+    color: var(--c-text-soft);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+.history-item-body {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.history-item-body p {
+    color: var(--c-text-soft);
+    font-size: 0.8rem;
+    line-height: var(--lh-relaxed);
+    white-space: pre-wrap;
+}
+
+/* ============================================
+   Empty state · 데이터 없음 공통
+   ============================================ */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--c-text-soft);
+}
+.empty-state-icon {
+    font-size: 2.5rem;
+    color: var(--c-gold);
+    opacity: 0.45;
+    line-height: 1;
+}
+.empty-state-msg {
+    font-size: var(--font-size-sm);
+}
+
+/* ============================================
+   Reading error state
+   ============================================ */
+.reading-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(243, 163, 163, 0.3);
+    border-radius: var(--r-md);
+    background: rgba(243, 163, 163, 0.05);
+}
+.reading-error-msg    { color: var(--c-danger); font-weight: 700; }
+.reading-error-detail { color: var(--c-text-soft); font-size: var(--font-size-sm); }
+
+/* ============================================
+   Reading skeleton container
+   ============================================ */
+.reading-skeleton {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+.reading-skeleton-label {
+    color: var(--c-text-soft);
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+/* ============================================
+   Skeleton · 로딩 플레이스홀더
+   ============================================ */
+.skeleton {
+    display: block;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(240, 230, 140, 0.08) 50%,
+        rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    border-radius: var(--r-sm);
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
+    height: 1rem;
+    margin: 0.5rem 0;
+}
+.skeleton.w-full  { width: 100%; }
+.skeleton.w-3-4   { width: 75%; }
+.skeleton.w-1-2   { width: 50%; }
+@keyframes skeleton-shimmer {
+    0%   { background-position: 200% 0; opacity: 0.7; }
+    100% { background-position: -200% 0; opacity: 1; }
+}
+
+/* ============================================
+   Advice header + copy button
+   ============================================ */
+.advice-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+.copy-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.4rem 0.8rem;
+    background: transparent;
+    color: var(--c-gold-soft);
+    border: 1px solid rgba(240, 230, 140, 0.25);
+    border-radius: var(--r-sm);
+    font-size: var(--font-size-xs);
+    cursor: pointer;
+    transition: all var(--d-snap) var(--ease-out);
+}
+.copy-btn:hover {
+    color: var(--c-gold);
+    border-color: var(--c-gold);
+    background: rgba(240, 230, 140, 0.06);
+}
+.copy-btn.copied {
+    color: #7ee38a;
+    border-color: #7ee38a;
+}
+@media (max-width: 640px) {
+    .advice-header { flex-direction: column; gap: 0.5rem; }
+    .copy-btn { position: static; transform: none; }
+}
+
+/* ============================================
+   Reshuffle button (선택 중 1회 한정)
+   ============================================ */
+.reshuffle-btn {
+    margin: 0.75rem auto 0;
+    padding: 0.4rem 1rem;
+    background: transparent;
+    color: var(--c-gold-soft);
+    border: 1px solid rgba(240, 230, 140, 0.25);
+    border-radius: 999px;
+    font-size: var(--font-size-xs);
+    cursor: pointer;
+    transition: all var(--d-snap) var(--ease-out);
+}
+.reshuffle-btn:hover {
+    color: var(--c-gold);
+    border-color: var(--c-gold);
+    background: rgba(240, 230, 140, 0.05);
+}
+.reshuffle-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   Toast · 알림 시스템
+   ============================================ */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 3000;
+    pointer-events: none;
+    max-width: 360px;
+}
+.toast {
+    pointer-events: auto;
+    padding: 0.75rem 1rem;
+    border-radius: var(--r-md);
+    background: rgba(21, 18, 43, 0.92);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    color: var(--c-text);
+    font-size: var(--font-size-sm);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity var(--d-base) var(--ease-out),
+                transform var(--d-base) var(--ease-out);
+    cursor: pointer;
+    line-height: var(--lh-base);
+}
+.toast.toast-in { opacity: 1; transform: translateX(0); }
+.toast.toast-out { opacity: 0; transform: translateX(30px); }
+.toast-error   { border-color: rgba(243, 163, 163, 0.5); color: var(--c-danger); }
+.toast-success { border-color: rgba(240, 230, 140, 0.5); color: var(--c-gold); }
+.toast-warning { border-color: rgba(240, 200, 100, 0.5); }
+.toast-info    { border-color: var(--glass-border); }
+@media (max-width: 640px) {
+    .toast-container { left: 16px; right: 16px; max-width: none; }
 }
 
 /* ============================================

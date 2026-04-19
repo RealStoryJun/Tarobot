@@ -8,135 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --accent-gold: #f0e68c;
-            --accent-gold-soft: #d4c76a;
-            --deep-purple: #0c0a18;
-            --bg-raised: #15122b;
-            --text: #e8e6f2;
-            --text-soft: #9ca3b5;
-            --danger: #f3a3a3;
-        }
-        body {
-            font-family: 'Gowun Dodum', sans-serif;
-            background-color: var(--deep-purple);
-            color: var(--text);
-        }
-        .font-title { font-family: 'Nanum Myeongjo', serif; }
-        .admin-card {
-            background: rgba(26, 21, 53, 0.8);
-            border: 1px solid rgba(240, 230, 140, 0.15);
-            border-radius: 16px;
-            padding: 1.5rem;
-            backdrop-filter: blur(8px);
-        }
-        .stat-box {
-            background: linear-gradient(135deg, rgba(240, 230, 140, 0.1), rgba(240, 230, 140, 0.02));
-            border: 1px solid rgba(240, 230, 140, 0.2);
-            border-radius: 12px;
-            padding: 1.25rem;
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            font-family: 'Nanum Myeongjo', serif;
-        }
-        .stat-label {
-            font-size: 0.8rem;
-            color: #9ca3af;
-            margin-top: 0.25rem;
-        }
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .data-table th {
-            text-align: left;
-            padding: 0.75rem 1rem;
-            font-size: 0.75rem;
-            color: var(--accent-gold);
-            border-bottom: 1px solid rgba(240, 230, 140, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .data-table td {
-            padding: 0.75rem 1rem;
-            font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            max-width: 300px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .data-table tr:hover td {
-            background: rgba(240, 230, 140, 0.03);
-        }
-        .tab-btn {
-            padding: 0.6rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #9ca3af;
-        }
-        .tab-btn.active {
-            background: rgba(240, 230, 140, 0.1);
-            color: var(--accent-gold);
-            border-color: rgba(240, 230, 140, 0.3);
-        }
-        .tab-btn:hover:not(.active) {
-            color: white;
-        }
-        .badge {
-            display: inline-block;
-            padding: 0.15rem 0.5rem;
-            border-radius: 999px;
-            font-size: 0.65rem;
-            font-weight: 600;
-        }
-        .badge-member { background: rgba(240, 230, 140, 0.18); color: var(--accent-gold); border: 1px solid rgba(240, 230, 140, 0.3); }
-        .badge-anon { background: rgba(156,163,175,0.15); color: var(--text-soft); border: 1px solid rgba(156,163,175,0.2); }
-        .page-btn {
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border: 1px solid rgba(240, 230, 140, 0.2);
-            background: transparent;
-            color: #e0e0e0;
-            transition: all 0.2s;
-        }
-        .page-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
-        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-        /* 로딩 & 에러 상태 */
-        .state-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
-            gap: 1rem;
-        }
-        .loader-ring {
-            width: 40px; height: 40px;
-            border: 3px solid rgba(240,230,140,0.2);
-            border-top-color: var(--accent-gold);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body class="min-h-screen">
 
 <!-- 헤더 -->
-<header class="h-16 flex justify-between items-center px-6 fixed top-0 left-0 right-0 z-50" style="background: linear-gradient(to bottom, rgba(12, 10, 24, 0.95), transparent); backdrop-filter: blur(4px);">
+<header class="admin-header h-16 flex justify-between items-center px-6 fixed top-0 left-0 right-0 z-50">
     <a href="index.html" class="font-title text-[#f0e68c] text-xl hover:opacity-80 transition-opacity">← Tarobot</a>
     <div class="flex items-center gap-3">
         <span id="admin-email" class="text-xs text-gray-400"></span>

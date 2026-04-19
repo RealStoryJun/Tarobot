@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://tarot.realstoryjun.co.kr/sitemap.xml

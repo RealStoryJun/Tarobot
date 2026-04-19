@@ -2,6 +2,8 @@
 // - Groq AI 리딩 (무인증)
 // - Supabase Auth / Readings 중계
 // - 관리자 엔드포인트
+// - 구조화 로깅 (console.log → CF Logs)
+// - 표준 에러 스키마: { error: { code, message, hint? } }
 
 const ALLOWED_ORIGINS = [
   "http://localhost:3000",
@@ -10,7 +12,6 @@ const ALLOWED_ORIGINS = [
   "https://realstoryjun.co.kr",
 ];
 
-// Pages 미리보기/기본 도메인 (*.pages.dev) 도 허용
 const ALLOWED_ORIGIN_SUFFIXES = [".pages.dev"];
 
 function isOriginAllowed(origin) {
@@ -39,6 +40,12 @@ function json(cors, body, status = 200) {
     status,
     headers: { ...cors, "Content-Type": "application/json" },
   });
+}
+
+function errorResponse(cors, code, message, status, hint) {
+  const body = { error: { code, message } };
+  if (hint) body.error.hint = hint;
+  return json(cors, body, status);
 }
 
 async function getUser(request, env) {
@@ -72,25 +79,20 @@ async function proxyJson(targetUrl, request, env, body) {
   return { data, status: res.status };
 }
 
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const cors = buildCors(request.headers.get("Origin"));
+async function dispatch(request, env, url, cors) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, { headers: cors });
+  }
 
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: cors });
-    }
+  // ===== AI 리딩 (무인증) =====
+  if (url.pathname === "/api/interpret" && request.method === "POST") {
+    const { question, cards, spreadPositions } = await request.json();
 
-    try {
-      // ===== AI 리딩 (무인증) =====
-      if (url.pathname === "/api/interpret" && request.method === "POST") {
-        const { question, cards, spreadPositions } = await request.json();
+    const cardInfo = cards
+      .map((c, i) => `[${i + 1}번 자리: ${spreadPositions[i].title}] ${c.name} (${c.isReversed ? '역방향' : '정방향'})`)
+      .join('\n');
 
-        const cardInfo = cards
-          .map((c, i) => `[${i + 1}번 자리: ${spreadPositions[i].title}] ${c.name} (${c.isReversed ? '역방향' : '정방향'})`)
-          .join('\n');
-
-        const prompt = `당신은 30년 경력의 타로 마스터입니다. 지금 손님 한 분이 당신 앞에 앉아 켈틱 크로스 10장을 펼쳤습니다.
+    const prompt = `당신은 30년 경력의 타로 마스터입니다. 지금 손님 한 분이 당신 앞에 앉아 켈틱 크로스 10장을 펼쳤습니다.
 
 손님의 고민: "${question}"
 
@@ -106,126 +108,138 @@ ${cardInfo}
 6. 마지막에는 손님의 마음에 힘이 되는 따뜻한 한마디로 마무리해 주세요.
 7. 전체 분량은 800자에서 1200자 사이로 해주세요.`;
 
-        const aiResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${env.AI_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: env.AI_MODEL_NAME || "llama3-70b-8192",
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
-          }),
-        });
+    const aiResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.AI_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: env.AI_MODEL_NAME || "llama3-70b-8192",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.7,
+      }),
+    });
 
-        const aiData = await aiResponse.json();
-        return json(cors, { interpretation: aiData.choices[0].message.content });
-      }
+    const aiData = await aiResponse.json();
+    if (!aiData?.choices?.[0]?.message?.content) {
+      return errorResponse(cors, "AI_EMPTY", "AI 응답이 비어있습니다.", 502,
+        "Groq 응답 구조를 확인하세요. env.AI_API_KEY / AI_MODEL_NAME 점검 필요.");
+    }
+    return json(cors, { interpretation: aiData.choices[0].message.content });
+  }
 
-      // ===== 현재 세션 유저 정보 =====
-      if (url.pathname === "/api/auth/me" && request.method === "GET") {
-        const user = await getUser(request, env);
-        if (!user) return json(cors, { user: null }, 401);
-        return json(cors, { user });
-      }
+  // ===== 현재 세션 유저 =====
+  if (url.pathname === "/api/auth/me" && request.method === "GET") {
+    const user = await getUser(request, env);
+    if (!user) return errorResponse(cors, "UNAUTHORIZED", "세션 만료", 401);
+    return json(cors, { user });
+  }
 
-      // ===== 인증 중계 =====
-      if (url.pathname.startsWith("/api/auth/")) {
-        const action = url.pathname.replace("/api/auth/", "");
-        const body = await request.json();
-        body.action = action;
+  // ===== 인증 중계 =====
+  if (url.pathname.startsWith("/api/auth/")) {
+    const action = url.pathname.replace("/api/auth/", "");
+    const body = await request.json();
+    body.action = action;
+    const { data, status } = await proxyJson(
+      `${env.SUPABASE_URL}/functions/v1/handle-auth`, request, env, body
+    );
+    return json(cors, data, status);
+  }
 
-        const { data, status } = await proxyJson(
-          `${env.SUPABASE_URL}/functions/v1/handle-auth`,
-          request,
-          env,
-          body,
-        );
-        return json(cors, data, status);
-      }
+  // ===== 리딩 저장 =====
+  if (url.pathname === "/api/readings" && request.method === "POST") {
+    const body = await request.json();
+    const { data, status } = await proxyJson(
+      `${env.SUPABASE_URL}/functions/v1/handle-readings`, request, env, body
+    );
+    return json(cors, data, status);
+  }
 
-      // ===== 리딩 저장 =====
-      if (url.pathname === "/api/readings" && request.method === "POST") {
-        const body = await request.json();
-        const { data, status } = await proxyJson(
-          `${env.SUPABASE_URL}/functions/v1/handle-readings`,
-          request,
-          env,
-          body,
-        );
-        return json(cors, data, status);
-      }
+  // ===== 내 리딩 이력 =====
+  if (url.pathname === "/api/my-readings" && request.method === "GET") {
+    const user = await getUser(request, env);
+    if (!user) {
+      return errorResponse(cors, "UNAUTHORIZED", "로그인이 필요합니다.", 401,
+        "Supabase 세션 토큰을 Authorization 헤더에 포함시키세요.");
+    }
+    const res = await fetch(
+      `${env.SUPABASE_URL}/rest/v1/readings?user_id=eq.${user.id}&order=created_at.desc&limit=50`,
+      { headers: { apikey: env.SUPABASE_ANON_KEY, Authorization: request.headers.get("Authorization") } }
+    );
+    const data = await res.json();
+    return json(cors, { data });
+  }
 
-      // ===== 내 리딩 이력 =====
-      if (url.pathname === "/api/my-readings" && request.method === "GET") {
-        const user = await getUser(request, env);
-        if (!user) return json(cors, { error: "로그인이 필요합니다." }, 401);
+  // ===== 관리자: 권한 체크 =====
+  if (url.pathname === "/api/admin/check" && request.method === "GET") {
+    const user = await getUser(request, env);
+    return json(cors, { isAdmin: isAdmin(user), email: user?.email || null });
+  }
 
-        const res = await fetch(
-          `${env.SUPABASE_URL}/rest/v1/readings?user_id=eq.${user.id}&order=created_at.desc&limit=50`,
-          {
-            headers: {
-              apikey: env.SUPABASE_ANON_KEY,
-              Authorization: request.headers.get("Authorization"),
-            },
-          },
-        );
-        const data = await res.json();
-        return json(cors, { data });
-      }
+  // ===== 관리자: 전체 리딩 =====
+  if (url.pathname === "/api/admin/readings" && request.method === "GET") {
+    const user = await getUser(request, env);
+    if (!isAdmin(user)) return errorResponse(cors, "FORBIDDEN", "관리자 권한이 필요합니다.", 403);
+    const page = parseInt(url.searchParams.get("page") || "1", 10);
+    const limit = 30;
+    const offset = (page - 1) * limit;
+    const res = await fetch(
+      `${env.SUPABASE_URL}/rest/v1/readings?order=created_at.desc&limit=${limit}&offset=${offset}&select=id,question,created_at,user_id,session_id`,
+      { headers: { apikey: env.SUPABASE_ANON_KEY, Authorization: request.headers.get("Authorization"), Prefer: "count=exact" } }
+    );
+    const data = await res.json();
+    const total = parseInt(res.headers.get("content-range")?.split("/")[1] || "0", 10);
+    return json(cors, { data, total });
+  }
 
-      // ===== 관리자 권한 확인 =====
-      if (url.pathname === "/api/admin/check" && request.method === "GET") {
-        const user = await getUser(request, env);
-        return json(cors, { isAdmin: isAdmin(user), email: user?.email || null });
-      }
+  // ===== 관리자: 유저 통계 =====
+  if (url.pathname === "/api/admin/users" && request.method === "GET") {
+    const user = await getUser(request, env);
+    if (!isAdmin(user)) return errorResponse(cors, "FORBIDDEN", "관리자 권한이 필요합니다.", 403);
+    const res = await fetch(`${env.SUPABASE_URL}/rest/v1/rpc/get_user_stats`, {
+      method: "POST",
+      headers: { apikey: env.SUPABASE_ANON_KEY, Authorization: request.headers.get("Authorization"), "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    });
+    const data = await res.json();
+    return json(cors, { data });
+  }
 
-      // ===== 관리자: 전체 리딩 =====
-      if (url.pathname === "/api/admin/readings" && request.method === "GET") {
-        const user = await getUser(request, env);
-        if (!isAdmin(user)) return json(cors, { error: "관리자 권한이 필요합니다." }, 403);
+  return errorResponse(cors, "NOT_FOUND", `경로를 찾을 수 없습니다: ${url.pathname}`, 404);
+}
 
-        const page = parseInt(url.searchParams.get("page") || "1", 10);
-        const limit = 30;
-        const offset = (page - 1) * limit;
+function logRequest(request, url, response, started, extra = {}) {
+  const entry = {
+    level: extra.level || "info",
+    ts: new Date().toISOString(),
+    method: request.method,
+    path: url.pathname,
+    status: response?.status ?? 0,
+    duration_ms: Date.now() - started,
+    ip: request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || null,
+    origin: request.headers.get("Origin") || null,
+    ua: request.headers.get("User-Agent") || null,
+    ...extra,
+  };
+  if (entry.level === "error") console.error(JSON.stringify(entry));
+  else console.log(JSON.stringify(entry));
+}
 
-        const res = await fetch(
-          `${env.SUPABASE_URL}/rest/v1/readings?order=created_at.desc&limit=${limit}&offset=${offset}&select=id,question,created_at,user_id,session_id`,
-          {
-            headers: {
-              apikey: env.SUPABASE_ANON_KEY,
-              Authorization: request.headers.get("Authorization"),
-              Prefer: "count=exact",
-            },
-          },
-        );
-        const data = await res.json();
-        const total = parseInt(res.headers.get("content-range")?.split("/")[1] || "0", 10);
-        return json(cors, { data, total });
-      }
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const cors = buildCors(request.headers.get("Origin"));
+    const started = Date.now();
 
-      // ===== 관리자: 유저 통계 =====
-      if (url.pathname === "/api/admin/users" && request.method === "GET") {
-        const user = await getUser(request, env);
-        if (!isAdmin(user)) return json(cors, { error: "관리자 권한이 필요합니다." }, 403);
-
-        const res = await fetch(`${env.SUPABASE_URL}/rest/v1/rpc/get_user_stats`, {
-          method: "POST",
-          headers: {
-            apikey: env.SUPABASE_ANON_KEY,
-            Authorization: request.headers.get("Authorization"),
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        });
-        const data = await res.json();
-        return json(cors, { data });
-      }
-
-      return new Response("Not Found", { status: 404, headers: cors });
+    try {
+      const response = await dispatch(request, env, url, cors);
+      logRequest(request, url, response, started);
+      return response;
     } catch (error) {
-      return json(cors, { error: error.message }, 500);
+      const response = errorResponse(cors, "INTERNAL", error.message || "서버 오류", 500);
+      logRequest(request, url, response, started, { level: "error", error: error.message, stack: error.stack });
+      return response;
     }
   },
 };

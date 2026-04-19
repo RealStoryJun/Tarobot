@@ -1,0 +1,19 @@
+{
+  "name": "AI 타로 마스터",
+  "short_name": "타로봇",
+  "description": "AI 타로 마스터 - 켈틱 크로스 프리미엄 리딩",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0a18",
+  "theme_color": "#0c0a18",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "ko"
+}

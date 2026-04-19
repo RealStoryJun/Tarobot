@@ -1,0 +1,8 @@
+node_modules/
+.wrangler/
+graphify-out/
+BG/
+card/
+supabase/.temp/
+*.min.js
+*.min.css

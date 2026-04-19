@@ -1,19 +1,24 @@
 import { apiCall } from './api.js';
 import { tarotDeck, spreadPositions } from './data.js';
+import { sleep, TIMING as T, shuffleDeck } from './utils.js';
+import { toast, installGlobalErrorHandler } from './toast.js';
 
-// Motion timing — style.css 의 --d-* 토큰과 대응
-const T = {
-    SNAP: 200,    // --d-snap
-    BASE: 500,    // --d-base
-    SLOW: 900,    // --d-slow
-    RITUAL: 1400, // --d-ritual
-};
+installGlobalErrorHandler();
+
+// SELECTING 중 실수 이탈 방지
+window.addEventListener('beforeunload', (e) => {
+    if (gameState === 'SELECTING' && selectedCards.length > 0) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
 
 // State
 let gameState = 'START';
 let shuffledDeck = [];
 let selectedCards = [];
 let sessionId = null;
+let reshuffleUsed = false;
 
 // Elements
 const getElements = () => ({
@@ -43,8 +48,6 @@ const getElements = () => ({
 });
 
 let elements = {};
-
-const sleep = ms => new Promise(res => setTimeout(res, ms));
 
 // === 엔터 키 & 버튼 플로우 ===
 
@@ -159,6 +162,12 @@ async function handleStart() {
     await sleep(200);
     elements.selectionInstruction.textContent = '회전하는 카드를 눌러 10장을 선택하세요.';
     elements.selectionInstruction.style.opacity = '1';
+
+    const reshuffleBtn = document.getElementById('reshuffle-btn');
+    if (reshuffleBtn && !reshuffleUsed) {
+        reshuffleBtn.classList.remove('hidden');
+    }
+
     gameState = 'SELECTING';
 }
 
@@ -186,6 +195,8 @@ function handleSelectCard() {
     if (selectedCards.length === 10) {
         gameState = 'READING';
         elements.selectionInstruction.style.opacity = '0';
+        const reshuffleBtn = document.getElementById('reshuffle-btn');
+        if (reshuffleBtn) reshuffleBtn.classList.add('hidden');
         setTimeout(() => initiateReadingProcess(), 600);
     }
 }
@@ -219,7 +230,16 @@ async function initiateReadingProcess() {
     // 8. AI 응답 처리
     elements.aiAdviceSection.classList.remove('hidden');
     elements.newReadingBar.classList.remove('hidden');
-    elements.recommendationTextContainer.innerHTML = `<div class="loader"></div><p class="text-left text-gray-400 w-full">타로 마스터가 당신의 카드를 깊이 읽고 있습니다...</p>`;
+    elements.recommendationTextContainer.innerHTML = `
+        <div class="reading-skeleton" aria-live="polite" aria-busy="true">
+            <div class="loader" aria-hidden="true"></div>
+            <p class="reading-skeleton-label">타로 마스터가 당신의 카드를 깊이 읽고 있습니다...</p>
+            <span class="skeleton w-full"></span>
+            <span class="skeleton w-3-4"></span>
+            <span class="skeleton w-full"></span>
+            <span class="skeleton w-1-2"></span>
+        </div>
+    `;
 
     try {
         const data = await aiPromise;
@@ -250,7 +270,53 @@ async function initiateReadingProcess() {
         saveReadingToSupabase(elements.questionInput.value, selectedCards, data.interpretation);
     } catch (error) {
         console.error('Reading Error:', error);
-        elements.recommendationTextContainer.innerHTML = `<p class="text-red-400 text-center">오류 발생: ${error.message}</p>`;
+        showReadingError(error.message);
+    }
+}
+
+function showReadingError(message) {
+    elements.recommendationTextContainer.innerHTML = `
+        <div class="reading-error" role="alert">
+            <p class="reading-error-msg">마스터와의 연결이 잠시 끊겼습니다.</p>
+            <p class="reading-error-detail">${message || '알 수 없는 오류'}</p>
+            <button type="button" id="reading-retry-btn" class="btn-primary">다시 시도</button>
+        </div>
+    `;
+    const retryBtn = document.getElementById('reading-retry-btn');
+    if (retryBtn) {
+        retryBtn.addEventListener('click', async () => {
+            retryBtn.disabled = true;
+            elements.recommendationTextContainer.innerHTML = `
+                <div class="reading-skeleton" aria-live="polite" aria-busy="true">
+                    <div class="loader" aria-hidden="true"></div>
+                    <p class="reading-skeleton-label">다시 연결하는 중...</p>
+                    <span class="skeleton w-full"></span>
+                    <span class="skeleton w-3-4"></span>
+                </div>
+            `;
+            try {
+                const retryData = await apiCall('/api/interpret', 'POST', {
+                    question: elements.questionInput.value,
+                    cards: selectedCards,
+                    spreadPositions: spreadPositions,
+                });
+                if (retryData.error) throw new Error(retryData.error.message || retryData.error);
+                elements.recommendationTextContainer.innerHTML = '';
+                if (window.marked) {
+                    elements.recommendationText.innerHTML = marked.parse(retryData.interpretation);
+                } else {
+                    elements.recommendationText.textContent = retryData.interpretation;
+                }
+                elements.recommendationTextContainer.appendChild(elements.recommendationText);
+                saveReadingToSupabase(
+                    elements.questionInput.value,
+                    selectedCards,
+                    retryData.interpretation
+                );
+            } catch (err) {
+                showReadingError(err.message);
+            }
+        });
     }
 }
 
@@ -410,10 +476,11 @@ function appendInterpretation(index) {
 
     const div = document.createElement('div');
     div.className = 'interpretation-item opacity-0 transition-all duration-500';
+    div.setAttribute('title', `${position.title}\n${position.description}\n\n${card.name} (${orientation})\n${meaning}`);
     div.innerHTML = `
         <div class="pos-title">${index + 1}. ${position.title}</div>
-        <div class="card-name-line" title="${card.name}">${card.name} <span class="text-[10px] text-yellow-500 opacity-60 ml-0.5">[${orientation}]</span></div>
-        <div class="meaning-line" title="${meaning}">${meaning}</div>
+        <div class="card-name-line">${card.name} <span class="orientation-tag">[${orientation}]</span></div>
+        <div class="meaning-line">${meaning}</div>
     `;
     
     elements.interpretationText.appendChild(div);
@@ -428,16 +495,25 @@ function displayFinalCards() {
     selectedCards.forEach((card, index) => {
         const positionClass = `pos${index + 1}`;
         const orientation = card.isReversed ? '역방향' : '정방향';
+        const meaning = card.isReversed ? card.reversed : card.upright;
+        const position = spreadPositions[index];
         const cardElement = document.createElement('div');
         cardElement.className = `final-card-container ${positionClass}`;
+        // Tooltip 내용 — title 속성 활용 (접근성 OK, 모바일은 터치 시 overlay 텍스트 충분)
+        cardElement.setAttribute(
+            'title',
+            `${position.title}: ${card.name} (${orientation})\n${meaning}\n\n${position.description}`
+        );
 
         const isLocal = card.image.startsWith('./');
-        const optimizedImage = isLocal ? card.image : `https://images.weserv.nl/?url=${encodeURIComponent(card.image.replace(/^http:\/\//i, 'https://'))}&w=200&q=70&output=webp`;
+        const optimizedImage = isLocal
+            ? card.image
+            : `https://images.weserv.nl/?url=${encodeURIComponent(card.image.replace(/^http:\/\//i, 'https://'))}&w=200&q=70&output=webp`;
 
-        const imageHtml = `<img src="${optimizedImage}" alt="${card.name}" style="${card.isReversed ? 'transform: rotate(180deg);' : ''}">`;
+        const imageHtml = `<img src="${optimizedImage}" alt="${card.name}" loading="lazy" decoding="async" style="${card.isReversed ? 'transform: rotate(180deg);' : ''}">`;
 
         cardElement.innerHTML = `
-            <div class="card-face card-face--back"></div>
+            <div class="card-face card-face--back" aria-hidden="true"></div>
             <div class="card-face card-face--front">
                 ${imageHtml}
                 <div class="final-card-overlay">
@@ -466,17 +542,6 @@ async function saveReadingToSupabase(question, cards, interpretation) {
     }
 }
 
-function shuffleDeck(deck) {
-    let newDeck = deck.map(card => ({ ...card, isReversed: Math.random() < 0.5 }));
-    for (let k = 0; k < 5; k++) {
-        for (let i = newDeck.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [newDeck[i], newDeck[j]] = [newDeck[j], newDeck[i]];
-        }
-    }
-    return newDeck;
-}
-
 // === 앱 초기화 ===
 
 function initializeApp() {
@@ -497,7 +562,89 @@ function initializeApp() {
     }
     
     elements.cardWheelContainer.addEventListener('click', handleSelectCard);
-    elements.newReadingButton.addEventListener('click', () => window.location.reload());
+    elements.newReadingButton.addEventListener('click', startNewReading);
+
+    const reshuffleBtn = document.getElementById('reshuffle-btn');
+    if (reshuffleBtn) reshuffleBtn.addEventListener('click', reshuffleDeckOnce);
+
+    const copyBtn = document.getElementById('copy-interpretation-btn');
+    if (copyBtn) copyBtn.addEventListener('click', async () => {
+        const text = elements.recommendationText?.textContent || '';
+        if (!text.trim()) {
+            toast('복사할 내용이 아직 없습니다.', 'warning');
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(text);
+            copyBtn.classList.add('copied');
+            copyBtn.textContent = '✓ 복사됨';
+            setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                copyBtn.textContent = '📋 복사';
+            }, 2000);
+            toast('조언 전문이 클립보드에 복사되었습니다.', 'success');
+        } catch (err) {
+            toast('복사 실패: ' + err.message, 'error');
+        }
+    });
+}
+
+function reshuffleDeckOnce() {
+    if (gameState !== 'SELECTING' || reshuffleUsed) return;
+    if (selectedCards.length > 0) {
+        if (!confirm('이미 선택한 카드가 초기화됩니다. 계속할까요?')) return;
+    }
+    reshuffleUsed = true;
+    selectedCards = [];
+    shuffledDeck = shuffleDeck([...tarotDeck]);
+    // 슬롯 비우기
+    initSelectionArea();
+    // 휠 카드 복구
+    document.querySelectorAll('.wheel-card.is-hidden').forEach((el) => el.classList.remove('is-hidden'));
+    elements.selectionInstruction.textContent = '새로 섞었습니다. 10장을 다시 골라 주세요.';
+    const reshuffleBtn = document.getElementById('reshuffle-btn');
+    if (reshuffleBtn) {
+        reshuffleBtn.disabled = true;
+        reshuffleBtn.textContent = '다시 섞기 사용됨';
+    }
+    toast('덱을 다시 섞었습니다.', 'info');
+}
+
+// 새 리딩 — 페이지 리로드 대신 상태 초기화 (soft reset)
+function startNewReading() {
+    gameState = 'START';
+    shuffledDeck = [];
+    selectedCards = [];
+
+    elements.readingPhase.classList.add('hidden');
+    elements.selectionZone.classList.add('hidden');
+    elements.aiAdviceSection.classList.add('hidden');
+    elements.newReadingBar.classList.add('hidden');
+    elements.celticCrossGrid.innerHTML = '';
+    elements.interpretationText.innerHTML = '';
+    elements.recommendationText.innerHTML = '';
+    elements.recommendationTextContainer.innerHTML = '';
+
+    const summaryArea = document.getElementById('interpretation-summary');
+    const summaryText = document.getElementById('summary-text');
+    if (summaryArea) summaryArea.classList.remove('is-visible', 'is-swapping');
+    if (summaryText) summaryText.textContent = '별들의 속삭임을 듣고 있습니다...';
+
+    const topHeader = document.querySelector('header');
+    if (topHeader) {
+        topHeader.style.display = '';
+        topHeader.style.opacity = '1';
+    }
+
+    document.body.classList.remove('reading-mode');
+    document.body.classList.add('bg-active');
+
+    elements.initialUiGroup.classList.remove('hidden');
+    elements.initialUiGroup.style.opacity = '1';
+    elements.questionInput.value = '';
+    elements.questionInput.focus();
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 window.onload = initializeApp;
