@@ -31,6 +31,7 @@ function buildCors(origin) {
     "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization, x-session-id",
+    "Access-Control-Max-Age": "86400",
     "Vary": "Origin",
   };
 }
@@ -77,6 +78,58 @@ async function proxyJson(targetUrl, request, env, body) {
   });
   const data = await res.json();
   return { data, status: res.status };
+}
+
+// Supabase GoTrue(Auth) REST 직접 호출 — Edge Function 우회로 레이턴시 단축
+async function gotrueRequest(env, path, method, extraHeaders, body) {
+  const res = await fetch(`${env.SUPABASE_URL}/auth/v1${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      apikey: env.SUPABASE_ANON_KEY,
+      ...extraHeaders,
+    },
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+  const text = await res.text();
+  let parsed;
+  try { parsed = text ? JSON.parse(text) : {}; }
+  catch { parsed = { msg: text }; }
+  return { status: res.status, body: parsed };
+}
+
+// GoTrue 응답을 Supabase JS SDK 형태 `{ data: { user, session }, error }` 로 정규화
+// 프론트(auth.js) 가 기대하는 shape 를 깨지 않기 위함
+function wrapAuthResponse(gotrue) {
+  const { status, body } = gotrue;
+  if (status >= 400) {
+    return {
+      data: { user: null, session: null },
+      error: {
+        message: body?.msg || body?.error_description || body?.error || "Authentication error",
+        status,
+        code: body?.error_code || body?.code || null,
+      },
+    };
+  }
+  let user = null;
+  let session = null;
+  if (body?.access_token) {
+    session = {
+      access_token: body.access_token,
+      token_type: body.token_type,
+      expires_in: body.expires_in,
+      expires_at: body.expires_at,
+      refresh_token: body.refresh_token,
+    };
+    user = body.user || null;
+  } else if (body?.user || body?.session) {
+    user = body.user || null;
+    session = body.session || null;
+  } else if (body?.id && body?.email) {
+    user = body;
+  }
+  return { data: { user, session }, error: null };
 }
 
 async function dispatch(request, env, url, cors) {
@@ -136,15 +189,36 @@ ${cardInfo}
     return json(cors, { user });
   }
 
-  // ===== 인증 중계 =====
-  if (url.pathname.startsWith("/api/auth/")) {
+  // ===== 인증: GoTrue 직접 호출 (Edge Function 우회) =====
+  if (url.pathname.startsWith("/api/auth/") && request.method === "POST") {
     const action = url.pathname.replace("/api/auth/", "");
-    const body = await request.json();
-    body.action = action;
-    const { data, status } = await proxyJson(
-      `${env.SUPABASE_URL}/functions/v1/handle-auth`, request, env, body
-    );
-    return json(cors, data, status);
+    const reqBody = await request.json();
+
+    if (action === "signup") {
+      const r = await gotrueRequest(env, "/signup", "POST", {}, { email: reqBody.email, password: reqBody.password });
+      return json(cors, wrapAuthResponse(r), 200);
+    }
+    if (action === "login") {
+      const r = await gotrueRequest(env, "/token?grant_type=password", "POST", {}, { email: reqBody.email, password: reqBody.password });
+      return json(cors, wrapAuthResponse(r), 200);
+    }
+    if (action === "reset") {
+      const redirectQ = reqBody.redirectTo ? `?redirect_to=${encodeURIComponent(reqBody.redirectTo)}` : "";
+      const r = await gotrueRequest(env, `/recover${redirectQ}`, "POST", {}, { email: reqBody.email });
+      if (r.status >= 400) {
+        return json(cors, { data: null, error: { message: r.body?.msg || "Reset failed", status: r.status } }, 200);
+      }
+      return json(cors, { data: {}, error: null }, 200);
+    }
+    if (action === "update") {
+      const authHeader = request.headers.get("Authorization");
+      if (!authHeader) {
+        return json(cors, { data: { user: null }, error: { message: "No authorization header" } }, 200);
+      }
+      const r = await gotrueRequest(env, "/user", "PUT", { Authorization: authHeader }, { password: reqBody.password });
+      return json(cors, wrapAuthResponse(r), 200);
+    }
+    return errorResponse(cors, "UNKNOWN_ACTION", `알 수 없는 인증 액션: ${action}`, 400);
   }
 
   // ===== 리딩 저장 =====

@@ -39,6 +39,18 @@ const validatePassword = (pw) => {
     return regex.test(pw);
 };
 
+// JWT payload decode — 서명 검증 없이 UI 힌트용으로만 사용. 실제 권한 검증은 Worker 가 Supabase 에 재검증.
+function decodeJwtPayload(token) {
+    try {
+        const part = token.split('.')[1];
+        if (!part) return null;
+        const b64 = part.replace(/-/g, '+').replace(/_/g, '/');
+        const padded = b64 + '==='.slice((b64.length + 3) % 4);
+        const bytes = Uint8Array.from(atob(padded), (c) => c.charCodeAt(0));
+        return JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    } catch { return null; }
+}
+
 // --- Modal Controls ---
 let _lastFocusBeforeModal = null;
 let _trappedModal = null;
@@ -406,15 +418,40 @@ async function initAuth() {
         btn.addEventListener('click', closeModal);
     });
 
-    // 저장된 토큰으로 현재 세션 확인
+    // 저장된 토큰으로 현재 세션 확인 — optimistic 복원 (JWT exp 기반) + 백그라운드 재검증
     if (authToken) {
-        const res = await apiCall('/api/auth/me', 'GET');
-        if (res?.user) {
-            currentUser = res.user;
+        const payload = decodeJwtPayload(authToken);
+        const stillValid = payload && typeof payload.exp === 'number' && payload.exp * 1000 > Date.now();
+        if (stillValid) {
+            // 즉시 UI 반영 — /api/auth/me 왕복 대기 없음
+            currentUser = {
+                id: payload.sub,
+                email: payload.email,
+                app_metadata: payload.app_metadata || {},
+                user_metadata: payload.user_metadata || {}
+            };
             updateAuthStateUI(currentUser);
+            // 백그라운드 재검증: 서버쪽 무효화/rotation 감지
+            apiCall('/api/auth/me', 'GET').then((res) => {
+                if (res?.user) {
+                    currentUser = res.user;
+                } else {
+                    localStorage.removeItem('sb-token');
+                    authToken = null;
+                    currentUser = null;
+                    updateAuthStateUI(null);
+                }
+            }).catch(() => { /* 네트워크 오류 — optimistic 유지 */ });
         } else {
-            localStorage.removeItem('sb-token');
-            authToken = null;
+            // 토큰 만료 or 파싱 실패 — 서버에 한번 더 확인 후 판정
+            const res = await apiCall('/api/auth/me', 'GET');
+            if (res?.user) {
+                currentUser = res.user;
+                updateAuthStateUI(currentUser);
+            } else {
+                localStorage.removeItem('sb-token');
+                authToken = null;
+            }
         }
     }
 }
