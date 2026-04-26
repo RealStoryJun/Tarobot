@@ -521,12 +521,14 @@ function displayFinalCards() {
         const imageHtml = `<img src="${optimizedImage}" alt="${card.name}" loading="lazy" decoding="async" style="${card.isReversed ? 'transform: rotate(180deg);' : ''}">`;
 
         cardElement.innerHTML = `
-            <div class="card-face card-face--back" aria-hidden="true"></div>
-            <div class="card-face card-face--front">
-                ${imageHtml}
-                <div class="final-card-overlay">
-                    <div class="final-card-name">${card.name}</div>
-                    <div class="final-card-orientation">${orientation}</div>
+            <div class="card-flipper">
+                <div class="card-face card-face--back" aria-hidden="true"></div>
+                <div class="card-face card-face--front">
+                    ${imageHtml}
+                    <div class="final-card-overlay">
+                        <div class="final-card-name">${card.name}</div>
+                        <div class="final-card-orientation">${orientation}</div>
+                    </div>
                 </div>
             </div>`;
         elements.celticCrossGrid.appendChild(cardElement);

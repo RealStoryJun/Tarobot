@@ -36,7 +36,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 4. **`body::before`** (BG 이미지) 는 `z-index: -1`, `body.bg-active` 에서 opacity 1
 5. **`body::after`** (별빛 커튼) 는 `z-index: 0`, `pointer-events: none` 필수
 6. **`gameState`** 3단계 상수 `'START' | 'SELECTING' | 'READING'` — 다른 값 사용 금지
-7. **카드 플립은 container 회전 없음** — `.card-face--back` 의 opacity + scale 페이드만. `backface-visibility: hidden` 절대 금지 (50% 지점 "팍" 튐)
+7. **카드 플립은 정석 3D 회전** — container 안 inner `.card-flipper` 가 `rotateY(180deg)` 회전, `.card-face` 두 장에 `backface-visibility: hidden`, `.card-face--front` 는 자체적으로 `rotateY(180deg)` 로 뒷면 시점에서 카메라 반대편에 위치. container 자체에는 회전을 걸지 말 것 (grid pos 의 `rotate(90deg)` 등과 충돌). 과거에 `backface-visibility: hidden` 으로 "팍 튐" 회귀가 있었던 적 있음 — 재발 시 `.final-card-container` 의 `perspective` (현재 800px) 와 inner flipper 의 `transform-style: preserve-3d` 를 우선 점검
 8. **셔플 → 휠 전환** 은 `#shuffling-container { position: absolute; inset: 0 }` 로 같은 중앙에 겹침. `is-ascending` 으로 살짝 상승
 9. **Master's Insight (`#interpretation-summary`)** 는 처음부터 렌더 (display:none 금지). 텍스트만 `is-swapping` 클래스로 크로스페이드
 
