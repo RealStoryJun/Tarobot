@@ -874,8 +874,8 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     color: var(--c-text-soft);
     font-style: italic;
     line-height: var(--lh-base);
-    /* 처음부터 풀 사이즈 점유 — 응답 도착 시 안에서만 채워지므로 카드 그리드를 밀지 않음 */
-    min-height: 13em;
+    min-height: 3em; /* 2~3줄 높이 선예약 — 레이아웃 시프트 방지 */
+    /* 텍스트가 길면 약 8줄까지만 보이고 그 이상은 스크롤 — 아래 카드 키워드 그리드 보호 */
     max-height: 13em;
     overflow-y: auto;
     /* 스크롤바를 살짝 보이게 (테마와 어울리는 얇은 스크롤바) */
