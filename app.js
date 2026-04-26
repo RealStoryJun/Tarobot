@@ -476,25 +476,11 @@ function animateCardSelection(index, startRect) {
     }, { once: true });
 }
 
+// 키워드 그리드의 i 번째 슬롯을 reveal — 슬롯은 displayFinalCards 가 미리 다 만들어둠
 function appendInterpretation(index) {
-    const card = selectedCards[index];
-    const meaning = card.isReversed ? card.reversed : card.upright;
-    const position = spreadPositions[index];
-    const orientation = card.isReversed ? '역방향' : '정방향';
-
-    const div = document.createElement('div');
-    div.className = 'interpretation-item opacity-0 transition-all duration-500';
-    div.setAttribute('title', `${position.title}\n${position.description}\n\n${card.name} (${orientation})\n${meaning}`);
-    div.innerHTML = `
-        <div class="pos-title">${index + 1}. ${position.title}</div>
-        <div class="card-name-line">${card.name} <span class="orientation-tag">[${orientation}]</span></div>
-        <div class="meaning-line">${meaning}</div>
-    `;
-    
-    elements.interpretationText.appendChild(div);
-    setTimeout(() => {
-        div.classList.remove('opacity-0');
-    }, 50);
+    const slot = elements.interpretationText.children[index];
+    if (!slot) return;
+    setTimeout(() => slot.classList.remove('opacity-0'), 50);
 }
 
 function displayFinalCards() {
@@ -505,6 +491,8 @@ function displayFinalCards() {
         const orientation = card.isReversed ? '역방향' : '정방향';
         const meaning = card.isReversed ? card.reversed : card.upright;
         const position = spreadPositions[index];
+
+        // 좌측: 켈틱크로스 카드 슬롯
         const cardElement = document.createElement('div');
         cardElement.className = `final-card-container ${positionClass}`;
         // Tooltip 내용 — title 속성 활용 (접근성 OK, 모바일은 터치 시 overlay 텍스트 충분)
@@ -532,6 +520,18 @@ function displayFinalCards() {
                 </div>
             </div>`;
         elements.celticCrossGrid.appendChild(cardElement);
+
+        // 우측: 키워드 그리드 슬롯 — 처음부터 10개 모두 만들어두고 opacity:0 으로 공간만 점유.
+        // revealCards() 가 카드 한 장씩 뒤집을 때 appendInterpretation(i) 가 슬롯의 opacity 만 1로.
+        const interpDiv = document.createElement('div');
+        interpDiv.className = 'interpretation-item opacity-0 transition-all duration-500';
+        interpDiv.setAttribute('title', `${position.title}\n${position.description}\n\n${card.name} (${orientation})\n${meaning}`);
+        interpDiv.innerHTML = `
+            <div class="pos-title">${index + 1}. ${position.title}</div>
+            <div class="card-name-line">${card.name} <span class="orientation-tag">[${orientation}]</span></div>
+            <div class="meaning-line">${meaning}</div>
+        `;
+        elements.interpretationText.appendChild(interpDiv);
     });
 }
 
