@@ -39,6 +39,84 @@ const validatePassword = (pw) => {
     return regex.test(pw);
 };
 
+// GoTrue / Supabase Auth 영문 에러를 한국어로 매핑.
+// 알 수 없는 코드는 원본 메시지를 그대로 노출해 디버그 흔적을 남김.
+function mapAuthError(err) {
+    if (!err) return '알 수 없는 오류가 발생했습니다.';
+    const code = (err.code || '').toString();
+    const msg = (err.message || '').toString();
+    const m = msg.toLowerCase();
+
+    if (code === 'invalid_credentials' || m.includes('invalid login credentials')) {
+        return '이메일 또는 비밀번호가 올바르지 않습니다.';
+    }
+    if (code === 'email_not_confirmed' || m.includes('email not confirmed')) {
+        return '이메일 인증이 완료되지 않았습니다. 받으신 메일의 인증 링크를 확인해 주세요.';
+    }
+    if (code === 'user_already_exists' || m.includes('already registered') || m.includes('user already')) {
+        return '이미 가입된 이메일입니다. 로그인해 주세요.';
+    }
+    if (code === 'weak_password' || m.includes('password should be')) {
+        return '비밀번호가 너무 약합니다. 영문+숫자+특수문자 8자 이상으로 설정해 주세요.';
+    }
+    if (m.includes('unable to validate email') || m.includes('invalid email')) {
+        return '이메일 형식이 올바르지 않습니다.';
+    }
+    if (code === 'over_email_send_rate_limit' || m.includes('email rate limit')) {
+        return '이메일 발송 제한에 도달했어요. 잠시 후 다시 시도해 주세요.';
+    }
+    if (m.includes('for security purposes') || m.includes('rate limit')) {
+        return '잠시 후 다시 시도해 주세요. (보안 제한)';
+    }
+    if (code === 'same_password' || m.includes('new password should be different')) {
+        return '기존 비밀번호와 다른 새 비밀번호를 입력해 주세요.';
+    }
+    return msg || '인증 중 오류가 발생했습니다.';
+}
+
+// 모달 인라인 에러 표시 — 토스트와 별개로 모달 안 시선에서 바로 보이게.
+// modalKey: 'login' | 'signup' | 'reset' | 'change-pw'
+const ERROR_FIELDS = {
+    'login':     { errorEl: 'login-error',     inputs: ['login-email', 'login-password'] },
+    'signup':    { errorEl: 'signup-error',    inputs: ['signup-email', 'signup-password', 'signup-password-confirm'] },
+    'reset':     { errorEl: 'reset-error',     inputs: ['reset-email'] },
+    'change-pw': { errorEl: 'change-pw-error', inputs: ['change-password', 'change-password-confirm'] },
+};
+
+function showAuthError(modalKey, message, opts = {}) {
+    const cfg = ERROR_FIELDS[modalKey];
+    if (!cfg) return;
+    const el = document.getElementById(cfg.errorEl);
+    if (el) {
+        el.textContent = message;
+        el.classList.remove('hidden');
+        // shake 재트리거
+        el.classList.remove('is-shake');
+        void el.offsetWidth;
+        el.classList.add('is-shake');
+    }
+    const fields = opts.fields || cfg.inputs;
+    fields.forEach((id) => {
+        const input = document.getElementById(id);
+        if (input) input.classList.add('is-error');
+    });
+}
+
+function clearAuthError(modalKey) {
+    const cfg = ERROR_FIELDS[modalKey];
+    if (!cfg) return;
+    const el = document.getElementById(cfg.errorEl);
+    if (el) {
+        el.textContent = '';
+        el.classList.add('hidden');
+        el.classList.remove('is-shake');
+    }
+    cfg.inputs.forEach((id) => {
+        const input = document.getElementById(id);
+        if (input) input.classList.remove('is-error');
+    });
+}
+
 // 버튼 로딩 상태 토글 — 클릭 즉시 비활성화 + 텍스트/스피너로 응답성 시그널.
 // CSS 의 `auth-btn[aria-busy=true]` 가 스피너를 그리고, disabled 가 hover/클릭을 막음.
 function setBusy(btn, busy, busyLabel) {
@@ -104,6 +182,9 @@ function openModal(modal) {
     [elements.loginModal, elements.signupModal, elements.resetModal, elements.profileModal].forEach(m => m.classList.add('hidden'));
     modal.classList.remove('hidden');
     _trappedModal = modal;
+
+    // 다른 모달에서 남은 에러 잔재 정리
+    ['login', 'signup', 'reset', 'change-pw'].forEach(clearAuthError);
     // 첫 포커스 가능한 요소로 이동
     requestAnimationFrame(() => {
         const focusables = getFocusables(modal);
@@ -131,19 +212,34 @@ function closeModal() {
 // --- Auth Logic via Worker Proxy ---
 
 async function handleSignup() {
-    const email = document.getElementById('signup-email').value;
+    clearAuthError('signup');
+    const email = document.getElementById('signup-email').value.trim();
     const password = document.getElementById('signup-password').value;
     const confirm = document.getElementById('signup-password-confirm').value;
 
-    if (!email || !password) return toast('모두 입력해 주세요.', 'warning');
-    if (password !== confirm) return toast('비밀번호가 일치하지 않습니다.', 'warning');
-    if (!validatePassword(password)) return toast('비밀번호 규칙 위반 — 영문+숫자+특수문자 8자 이상', 'warning');
+    if (!email || !password) {
+        const empty = [];
+        if (!email) empty.push('signup-email');
+        if (!password) empty.push('signup-password');
+        showAuthError('signup', '이메일과 비밀번호를 모두 입력해 주세요.', { fields: empty });
+        return;
+    }
+    if (password !== confirm) {
+        showAuthError('signup', '비밀번호가 일치하지 않습니다.', { fields: ['signup-password', 'signup-password-confirm'] });
+        return;
+    }
+    if (!validatePassword(password)) {
+        showAuthError('signup', '비밀번호는 영문+숫자+특수문자(@$!%*#?&) 포함 8자 이상이어야 합니다.', { fields: ['signup-password'] });
+        return;
+    }
 
     setBusy(elements.doSignup, true, '가입 중...');
     try {
         const result = await apiCall('/api/auth/signup', 'POST', { email, password });
         if (result.error) {
-            toast('가입 실패: ' + result.error.message, 'error');
+            const msg = mapAuthError(result.error);
+            showAuthError('signup', msg);
+            toast('가입 실패: ' + msg, 'error');
         } else {
             toast('회원가입 성공! 메일 확인이 필요할 수 있습니다.', 'success');
             closeModal();
@@ -154,14 +250,29 @@ async function handleSignup() {
 }
 
 async function handleLogin() {
-    const email = document.getElementById('login-email').value;
+    clearAuthError('login');
+    const email = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
+
+    if (!email || !password) {
+        const empty = [];
+        if (!email) empty.push('login-email');
+        if (!password) empty.push('login-password');
+        showAuthError('login', '이메일과 비밀번호를 모두 입력해 주세요.', { fields: empty });
+        return;
+    }
 
     setBusy(elements.doLogin, true, '로그인 중...');
     try {
         const result = await apiCall('/api/auth/login', 'POST', { email, password });
         if (result.error) {
-            toast('로그인 실패: ' + result.error.message, 'error');
+            const msg = mapAuthError(result.error);
+            // 자격증명 오류는 두 인풋 모두 강조, 그 외는 텍스트만
+            const code = (result.error.code || '').toString();
+            const m = (result.error.message || '').toLowerCase();
+            const credError = code === 'invalid_credentials' || m.includes('invalid login credentials');
+            showAuthError('login', msg, credError ? undefined : { fields: [] });
+            toast('로그인 실패: ' + msg, 'error');
         } else {
             if (result.data?.session) {
                 authToken = result.data.session.access_token;
@@ -184,7 +295,12 @@ async function handleLogout() {
 }
 
 async function handleResetPassword() {
-    const email = document.getElementById('reset-email').value;
+    clearAuthError('reset');
+    const email = document.getElementById('reset-email').value.trim();
+    if (!email) {
+        showAuthError('reset', '이메일을 입력해 주세요.');
+        return;
+    }
     setBusy(elements.doReset, true, '메일 보내는 중...');
     try {
         const result = await apiCall('/api/auth/reset', 'POST', {
@@ -193,7 +309,9 @@ async function handleResetPassword() {
         });
 
         if (result.error) {
-            toast('실패: ' + result.error.message, 'error');
+            const msg = mapAuthError(result.error);
+            showAuthError('reset', msg);
+            toast('실패: ' + msg, 'error');
         } else {
             toast('이메일을 확인해 주세요.', 'success');
             closeModal();
@@ -204,17 +322,30 @@ async function handleResetPassword() {
 }
 
 async function handlePasswordChange() {
+    clearAuthError('change-pw');
     const password = document.getElementById('change-password').value;
     const confirm = document.getElementById('change-password-confirm').value;
 
-    if (password !== confirm) return toast('비밀번호가 일치하지 않습니다.', 'warning');
-    if (!validatePassword(password)) return toast('비밀번호 규칙 위반', 'warning');
+    if (!password) {
+        showAuthError('change-pw', '새 비밀번호를 입력해 주세요.', { fields: ['change-password'] });
+        return;
+    }
+    if (password !== confirm) {
+        showAuthError('change-pw', '비밀번호가 일치하지 않습니다.', { fields: ['change-password', 'change-password-confirm'] });
+        return;
+    }
+    if (!validatePassword(password)) {
+        showAuthError('change-pw', '비밀번호는 영문+숫자+특수문자(@$!%*#?&) 포함 8자 이상이어야 합니다.', { fields: ['change-password'] });
+        return;
+    }
 
     setBusy(elements.doChangePw, true, '변경 중...');
     try {
         const result = await apiCall('/api/auth/update', 'POST', { password });
         if (result.error) {
-            toast('변경 실패: ' + result.error.message, 'error');
+            const msg = mapAuthError(result.error);
+            showAuthError('change-pw', msg);
+            toast('변경 실패: ' + msg, 'error');
         } else {
             toast('비밀번호 변경 완료', 'success');
             closeModal();
@@ -461,6 +592,30 @@ async function initAuth() {
     
     document.querySelectorAll('.modal-close-btn').forEach(btn => {
         btn.addEventListener('click', closeModal);
+    });
+
+    // 인풋 입력 시 해당 모달의 에러 자동 클리어 (사용자가 수정 시작했음을 신호)
+    Object.entries(ERROR_FIELDS).forEach(([modalKey, cfg]) => {
+        cfg.inputs.forEach((id) => {
+            const input = document.getElementById(id);
+            if (!input) return;
+            input.addEventListener('input', () => {
+                if (input.classList.contains('is-error')) clearAuthError(modalKey);
+            });
+            // Enter 키로 제출 (모달 안에서 자연스럽게)
+            input.addEventListener('keydown', (e) => {
+                if (e.key !== 'Enter') return;
+                e.preventDefault();
+                const submitMap = {
+                    'login': elements.doLogin,
+                    'signup': elements.doSignup,
+                    'reset': elements.doReset,
+                    'change-pw': elements.doChangePw,
+                };
+                const btn = submitMap[modalKey];
+                if (btn && !btn.disabled) btn.click();
+            });
+        });
     });
 
     // 저장된 토큰으로 현재 세션 확인 — optimistic 복원 (JWT exp 기반) + 백그라운드 재검증

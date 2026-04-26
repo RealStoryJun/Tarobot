@@ -171,6 +171,7 @@
         <h2 id="login-title" class="text-2xl font-title text-[#f0e68c] mb-6 text-center">로그인</h2>
         <input type="email" id="login-email" class="auth-input" placeholder="이메일 주소">
         <input type="password" id="login-password" class="auth-input" placeholder="비밀번호">
+        <p id="login-error" class="auth-error hidden" role="alert"></p>
         <button id="do-login-btn" class="auth-btn mb-4">로그인</button>
         <div class="flex justify-between px-1">
             <span class="auth-link text-xs" id="go-reset-btn">비밀번호 찾기</span>
@@ -185,7 +186,7 @@
         <input type="email" id="signup-email" class="auth-input" placeholder="이메일 주소">
         <input type="password" id="signup-password" class="auth-input" placeholder="비밀번호 (영문+숫자+특수문자 8자↑)">
         <input type="password" id="signup-password-confirm" class="auth-input" placeholder="비밀번호 확인">
-        <p id="signup-error" class="text-xs text-red-400 mb-2 hidden"></p>
+        <p id="signup-error" class="auth-error hidden" role="alert"></p>
         <button id="do-signup-btn" class="auth-btn mb-4">가입하기</button>
         <p class="text-center text-xs text-gray-400">이미 계정이 있으신가요? <span class="auth-link" id="go-login-btn">로그인</span></p>
         <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
@@ -196,6 +197,7 @@
         <h2 class="text-2xl font-title text-[#f0e68c] mb-6 text-center">비밀번호 찾기</h2>
         <p class="text-xs text-gray-400 mb-4 text-center">가입하신 이메일로 초기화 링크를 보내드립니다.</p>
         <input type="email" id="reset-email" class="auth-input" placeholder="이메일 주소">
+        <p id="reset-error" class="auth-error hidden" role="alert"></p>
         <button id="do-reset-btn" class="auth-btn mb-4">초기화 메일 보내기</button>
         <p class="text-center text-xs text-gray-400"><span class="auth-link" id="back-to-login">로그인으로 돌아가기</span></p>
         <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
@@ -215,6 +217,7 @@
         <h3 class="text-sm text-[#f0e68c] mb-3">비밀번호 변경</h3>
         <input type="password" id="change-password" class="auth-input" placeholder="새 비밀번호 (영문+숫자+특수문자 8자↑)">
         <input type="password" id="change-password-confirm" class="auth-input" placeholder="비밀번호 확인">
+        <p id="change-pw-error" class="auth-error hidden" role="alert"></p>
         <button id="do-change-pw-btn" class="auth-btn mb-4">비밀번호 변경하기</button>
         <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
     </div>

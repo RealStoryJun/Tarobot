@@ -1380,6 +1380,32 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     border-color: var(--accent-gold);
 }
 
+.auth-input.is-error {
+    border-color: var(--c-danger);
+    background: rgba(243, 163, 163, 0.06);
+}
+.auth-input.is-error:focus {
+    border-color: var(--c-danger);
+    box-shadow: 0 0 0 2px rgba(243, 163, 163, 0.18);
+}
+
+.auth-error {
+    color: var(--c-danger);
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+    margin: -0.25rem 0 0.75rem 0.15rem;
+    min-height: 1.2em;
+}
+.auth-error.is-shake {
+    animation: auth-error-shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes auth-error-shake {
+    10%, 90% { transform: translateX(-1px); }
+    20%, 80% { transform: translateX(2px); }
+    30%, 50%, 70% { transform: translateX(-3px); }
+    40%, 60% { transform: translateX(3px); }
+}
+
 .auth-btn {
     width: 100%;
     background: linear-gradient(135deg, var(--c-gold) 0%, var(--c-gold-soft) 100%);
