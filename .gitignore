@@ -49,6 +49,9 @@ build/
 *.log
 logs/
 
+# ===== Playwright MCP — 브라우저 자동화 산출물 (snapshot/console 에 자격증명 노출 위험) =====
+.playwright-mcp/
+
 # ===== graphify-ts =====
 # 큰 캐시와 시각화 HTML 은 제외, 쿼리용 graph.json / GRAPH_REPORT.md / manifest.json 은 커밋
 graphify-out/cache/
