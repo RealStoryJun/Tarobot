@@ -1401,6 +1401,33 @@ p  { font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base)); line-hei
     box-shadow: 0 6px 18px var(--c-gold-glow);
 }
 
+.auth-btn:disabled,
+.auth-btn[aria-busy="true"] {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: none;
+    transform: none;
+    box-shadow: none;
+}
+
+.auth-btn[aria-busy="true"]::after {
+    content: "";
+    display: inline-block;
+    width: 0.95em;
+    height: 0.95em;
+    margin-left: 0.55em;
+    vertical-align: -0.15em;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: auth-btn-spin 0.7s linear infinite;
+}
+
+@keyframes auth-btn-spin {
+    to { transform: rotate(360deg); }
+}
+
 header {
     height: 60px;
     display: flex;

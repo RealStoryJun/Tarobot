@@ -39,6 +39,25 @@ const validatePassword = (pw) => {
     return regex.test(pw);
 };
 
+// 버튼 로딩 상태 토글 — 클릭 즉시 비활성화 + 텍스트/스피너로 응답성 시그널.
+// CSS 의 `auth-btn[aria-busy=true]` 가 스피너를 그리고, disabled 가 hover/클릭을 막음.
+function setBusy(btn, busy, busyLabel) {
+    if (!btn) return;
+    if (busy) {
+        if (!btn.dataset.originalLabel) btn.dataset.originalLabel = btn.textContent;
+        if (busyLabel) btn.textContent = busyLabel;
+        btn.setAttribute('aria-busy', 'true');
+        btn.disabled = true;
+    } else {
+        btn.removeAttribute('aria-busy');
+        btn.disabled = false;
+        if (btn.dataset.originalLabel) {
+            btn.textContent = btn.dataset.originalLabel;
+            delete btn.dataset.originalLabel;
+        }
+    }
+}
+
 // JWT payload decode — 서명 검증 없이 UI 힌트용으로만 사용. 실제 권한 검증은 Worker 가 Supabase 에 재검증.
 function decodeJwtPayload(token) {
     try {
@@ -91,6 +110,12 @@ function openModal(modal) {
         if (focusables[0]) focusables[0].focus();
     });
     document.addEventListener('keydown', trapFocusHandler);
+
+    // 인증 모달(로그인/가입/리셋)이 열리는 순간 Worker prewarm — 사용자가 입력하는 동안
+    // cold start 비용을 흡수해 실제 제출 시점엔 warm path 로 떨어지게 함.
+    if (modal === elements.loginModal || modal === elements.signupModal || modal === elements.resetModal) {
+        apiCall('/api/auth/me', 'GET').catch(() => { /* prewarm; 응답은 버림 */ });
+    }
 }
 
 function closeModal() {
@@ -114,12 +139,17 @@ async function handleSignup() {
     if (password !== confirm) return toast('비밀번호가 일치하지 않습니다.', 'warning');
     if (!validatePassword(password)) return toast('비밀번호 규칙 위반 — 영문+숫자+특수문자 8자 이상', 'warning');
 
-    const result = await apiCall('/api/auth/signup', 'POST', { email, password });
-    if (result.error) {
-        toast('가입 실패: ' + result.error.message, 'error');
-    } else {
-        toast('회원가입 성공! 메일 확인이 필요할 수 있습니다.', 'success');
-        closeModal();
+    setBusy(elements.doSignup, true, '가입 중...');
+    try {
+        const result = await apiCall('/api/auth/signup', 'POST', { email, password });
+        if (result.error) {
+            toast('가입 실패: ' + result.error.message, 'error');
+        } else {
+            toast('회원가입 성공! 메일 확인이 필요할 수 있습니다.', 'success');
+            closeModal();
+        }
+    } finally {
+        setBusy(elements.doSignup, false);
     }
 }
 
@@ -127,17 +157,22 @@ async function handleLogin() {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    const result = await apiCall('/api/auth/login', 'POST', { email, password });
-    if (result.error) {
-        toast('로그인 실패: ' + result.error.message, 'error');
-    } else {
-        if (result.data?.session) {
-            authToken = result.data.session.access_token;
-            localStorage.setItem('sb-token', authToken);
-            currentUser = result.data.user;
-            updateAuthStateUI(currentUser);
+    setBusy(elements.doLogin, true, '로그인 중...');
+    try {
+        const result = await apiCall('/api/auth/login', 'POST', { email, password });
+        if (result.error) {
+            toast('로그인 실패: ' + result.error.message, 'error');
+        } else {
+            if (result.data?.session) {
+                authToken = result.data.session.access_token;
+                localStorage.setItem('sb-token', authToken);
+                currentUser = result.data.user;
+                updateAuthStateUI(currentUser);
+            }
+            closeModal();
         }
-        closeModal();
+    } finally {
+        setBusy(elements.doLogin, false);
     }
 }
 
@@ -150,16 +185,21 @@ async function handleLogout() {
 
 async function handleResetPassword() {
     const email = document.getElementById('reset-email').value;
-    const result = await apiCall('/api/auth/reset', 'POST', { 
-        email, 
-        redirectTo: window.location.origin + window.location.pathname + '?type=recovery' 
-    });
-    
-    if (result.error) {
-        toast('실패: ' + result.error.message, 'error');
-    } else {
-        toast('이메일을 확인해 주세요.', 'success');
-        closeModal();
+    setBusy(elements.doReset, true, '메일 보내는 중...');
+    try {
+        const result = await apiCall('/api/auth/reset', 'POST', {
+            email,
+            redirectTo: window.location.origin + window.location.pathname + '?type=recovery'
+        });
+
+        if (result.error) {
+            toast('실패: ' + result.error.message, 'error');
+        } else {
+            toast('이메일을 확인해 주세요.', 'success');
+            closeModal();
+        }
+    } finally {
+        setBusy(elements.doReset, false);
     }
 }
 
@@ -170,12 +210,17 @@ async function handlePasswordChange() {
     if (password !== confirm) return toast('비밀번호가 일치하지 않습니다.', 'warning');
     if (!validatePassword(password)) return toast('비밀번호 규칙 위반', 'warning');
 
-    const result = await apiCall('/api/auth/update', 'POST', { password });
-    if (result.error) {
-        toast('변경 실패: ' + result.error.message, 'error');
-    } else {
-        toast('비밀번호 변경 완료', 'success');
-        closeModal();
+    setBusy(elements.doChangePw, true, '변경 중...');
+    try {
+        const result = await apiCall('/api/auth/update', 'POST', { password });
+        if (result.error) {
+            toast('변경 실패: ' + result.error.message, 'error');
+        } else {
+            toast('비밀번호 변경 완료', 'success');
+            closeModal();
+        }
+    } finally {
+        setBusy(elements.doChangePw, false);
     }
 }
 
