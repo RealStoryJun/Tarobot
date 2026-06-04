@@ -5,22 +5,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 아키텍처 한눈에
 
 ```
-브라우저 (정적 HTML/JS @ tarot.realstoryjun.co.kr, Cloudflare Pages)
-  └─ fetch ─▶ Cloudflare Worker "taroai" (workers/tarobot-api/)
+브라우저 @ tarot.realstoryjun.co.kr
+  │  정적 자산(public/) + /api/* 를 같은 Cloudflare Worker "taroai" 가 서빙 (same-origin)
+  └─ fetch(/api/*) ─▶ Worker "taroai" (workers/tarobot-api/index.js · wrangler.toml@root, assets=public/)
                 ├─ Groq API (AI 리딩, /api/interpret)
                 └─ Supabase
                     ├─ Auth REST (/auth/v1/user, /rest/v1/readings)
                     └─ Edge Functions (handle-auth, handle-readings)
 ```
 
-핵심 흐름: **프론트는 Worker 에만 말하고**, Worker 가 Groq / Supabase 를 중계한다. 프론트에서 Supabase 를 직접 호출하는 경로는 **없다**.
+핵심 흐름: **프론트는 같은 origin 의 Worker 에만 말하고**(상대경로 `/api/*`), Worker 가 정적 자산(`public/`)·Groq·Supabase 를 중계한다. 프론트에서 Supabase 를 직접 호출하는 경로는 **없다**. (2026-06 Pages→Worker 통합: 정적도 Worker 가 서빙하는 **same-origin** 구조라 CORS 불필요. `api.js` 의 `WORKER_URL` 은 상대경로 `''`.)
 
 ## 레이어별 책임 (경계를 흐리지 말 것)
 
 | 레이어 | 맡는 것 | 맡지 않는 것 |
 |---|---|---|
-| 프론트 (`app.js`, `auth.js`, `admin.html`) | UI, 사용자 입력, `apiCall` 호출, localStorage 토큰/세션 | 직접 Supabase/Groq 호출, 시크릿 보관 |
-| Worker (`workers/tarobot-api/index.js`) | 라우팅, CORS, JWT 검증 후 `isAdmin` 판단, Groq 프롬프트 조립 | 비즈니스 DB 로직 (Edge Functions 로 위임) |
+| 프론트 (`public/app.js`, `public/auth.js`, `public/admin.html`) | UI, 사용자 입력, `apiCall` 호출, localStorage 토큰/세션 | 직접 Supabase/Groq 호출, 시크릿 보관 |
+| Worker (`workers/tarobot-api/index.js`) | 정적 자산(`public/`) 서빙, 라우팅, JWT 검증 후 `isAdmin` 판단, Groq 프롬프트 조립 | 비즈니스 DB 로직 (Edge Functions 로 위임) |
 | Edge Functions (`supabase/functions/*/index.ts`) | DB 쓰기/검증, payload 화이트리스트, `user_id` 서버측 주입 | CORS (Worker 가 프론트 대면) |
 | DB (`supabase/schema.sql`) | RLS 로 회원/세션 격리 | 클라이언트 신뢰 |
 
@@ -44,25 +45,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 1. **`user_id` 는 서버에서만 결정**. 클라이언트 payload 의 `user_id` 는 무시 — `handle-readings/index.ts` 에서 JWT 검증 성공한 경우에만 `row.user_id = user.id` 로 덮어씀.
 2. **DB insert 는 화이트리스트**: `{question, cards, interpretation, user_id, session_id}` 외 컬럼은 받지 않음 (raw payload 그대로 insert 금지).
-3. **CORS 는 정확 일치 + `.pages.dev` suffix 만**. `startsWith` 패턴은 우회 가능하므로 쓰지 말 것 (`workers/tarobot-api/index.js:16 isOriginAllowed`).
-4. **시크릿은 코드에 없음**: Groq/Supabase 키는 Cloudflare Worker Settings (대시보드) + Supabase Edge Function Secrets 에만 존재. `API's.md` 는 `.gitignore` 차단 (로컬 메모용).
+3. **same-origin (2026-06 통합 후)**: 프론트와 `/api/*` 가 같은 Worker origin 이라 CORS 는 사실상 불필요. `index.js` 의 CORS 로직(`isOriginAllowed` 등)은 무해하게 잔존 — 외부 origin 직접 호출만 차단. (구버전: "CORS 정확 일치 + `.pages.dev` suffix".)
+4. **시크릿은 코드에 없음**: Groq/Supabase 키는 Cloudflare Worker Settings (대시보드) + Supabase Edge Function Secrets 에만 존재. `API's.md`/`.env.supabase` 는 `.gitignore` 차단(로컬 메모용). ⚠️ **wrangler assets 는 `.gitignore` 무관하게 디스크를 업로드** — 정적 자산은 반드시 `public/` 안에만 두고, 시크릿/소스/문서는 `public/` 밖에 둔다 (화이트리스트 = 노출 원천 차단).
 
 ## 자동 배포 경로
 
 | 변경 경로 | 배포 엔진 | 트리거 |
 |---|---|---|
-| `workers/**` | Cloudflare Workers Builds (Git 연동) | `main` push |
+| `public/**` (정적) + `workers/**` + `wrangler.toml` | Cloudflare Workers Builds (Git 연동, deploy: `npx wrangler deploy`) | `main` push |
 | `supabase/functions/**`, `supabase/config.toml` | GitHub Actions (`.github/workflows/deploy.yml`) | `main` push |
-| 프론트 정적 파일 (루트) | Cloudflare Pages (Git 연동) | `main` push |
 
-**중요**: 코드 수정 후 수동 배포 커맨드를 돌릴 필요 없음. `git push` 가 유일한 트리거. 로컬에서만 돌려보고 싶을 때는 `npm run dev:worker` (wrangler dev) / `npm run dev` (정적 서버).
+**중요**: 2026-06 Pages→Worker 통합 후 **정적도 Worker `taroai` 가 서빙**(same-origin). 도메인 `tarot.realstoryjun.co.kr` 는 Worker custom domain. 코드 수정 후 `git push` 가 유일한 트리거. 로컬은 `npm run dev` (= `wrangler dev`, 정적+API 동시). (Pages 프로젝트 `tarobot` 은 도메인 분리 후 폐기 대상.)
 
 ## 개발/배포 커맨드
 
 ```bash
-npm run dev              # 정적 파일 로컬 서빙 (프론트)
-npm run dev:worker       # Worker 로컬 실행 (wrangler dev)
-npm run deploy:worker    # 수동 Worker 배포 (Git 연동이 정석)
+npm run dev              # wrangler dev — 정적(public/) + API 동시 서빙 (same-origin 로컬 재현)
+npm run deploy:worker    # 수동 Worker 배포 (wrangler deploy, Git 연동이 정석)
 npm run deploy:functions # 수동 Edge Function 배포
 npm run deploy:schema    # supabase db push (마이그레이션 있을 때)
 
