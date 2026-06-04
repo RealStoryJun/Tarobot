@@ -1,4 +1,6 @@
-const DEFAULT_WORKER_URL = 'https://taroai.god8night.workers.dev';
+// same-origin: 정적 자산과 API 를 같은 Worker 가 서빙하므로 기본값은 상대경로('').
+// 로컬 분리 실행 등에서는 window.CONFIG.WORKER_URL 로 절대 origin override 가능.
+const DEFAULT_WORKER_URL = '';
 const WORKER_URL = (typeof window !== 'undefined' && window.CONFIG?.WORKER_URL) || DEFAULT_WORKER_URL;
 
 export async function apiCall(path, method = 'POST', body = null) {

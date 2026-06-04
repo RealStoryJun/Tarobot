@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "AI 타로 마스터 - 프리미엄 리딩",
   "scripts": {
-    "dev": "npx -y serve .",
-    "start": "npx -y serve .",
-    "dev:worker": "wrangler dev --config workers/tarobot-api/wrangler.toml",
-    "deploy:worker": "wrangler deploy --config workers/tarobot-api/wrangler.toml",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "deploy:worker": "wrangler deploy",
     "deploy:functions": "supabase functions deploy handle-auth && supabase functions deploy handle-readings",
     "deploy:schema": "supabase db push",
     "deploy:all": "npm run deploy:worker && npm run deploy:functions",

@@ -1,0 +1,12 @@
+name = "taroai"
+main = "workers/tarobot-api/index.js"
+compatibility_date = "2024-04-03"
+workers_dev = true
+
+# 정적 자산 — public/ 디렉토리만 same-origin 으로 서빙 (화이트리스트).
+# 시크릿(.env.supabase, API's.md)·소스(workers/·supabase/)·문서·.git 은
+# public/ 밖이라 애초에 자산 후보가 아님 → 노출 원천 차단.
+# 라우팅: 정적 자산 우선 → 매칭 없으면(/api/*) Worker fetch 핸들러로 폴백.
+[assets]
+directory = "public"
+not_found_handling = "404-page"
