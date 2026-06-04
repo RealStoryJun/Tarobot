@@ -1611,3 +1611,180 @@ header {
 #recommendationText {
     white-space: normal !important;
 }
+
+/* ============================================================
+   Tailwind CDN 제거 — 사용 유틸 + Preflight 핵심 직접 이식
+   cdn.tailwindcss.com 런타임 의존 제거. 값은 표준 Tailwind 기본과 동일.
+   ⚠️ unlayered 로 파일 끝에 둔다 — 기존 컴포넌트(.btn-primary 등)도
+      unlayered 이므로 동일 특이도에서 "나중 선언" 우선으로 유틸이 이긴다
+      (CDN 이 유틸을 나중에 주입하던 동작을 재현). @layer 로 감싸면 안 됨.
+   ⚠️ .hidden(이미 위에 !important), .font-title 등 커스텀은 재정의하지 않음.
+   ============================================================ */
+
+/* ── Preflight 핵심 (이전엔 CDN Preflight 에 의존했음) ── */
+*, ::before, ::after { box-sizing: border-box; }
+body, h1, h2, h3, h4, h5, h6, p, figure, blockquote { margin: 0; }
+button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+}
+button, [type='button'], [type='submit'] {
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* ── Display / position ── */
+.flex{display:flex}
+.grid{display:grid}
+.fixed{position:fixed}
+.absolute{position:absolute}
+.flex-col{flex-direction:column}
+.flex-shrink-0{flex-shrink:0}
+.items-start{align-items:flex-start}
+.items-center{align-items:center}
+.justify-start{justify-content:flex-start}
+.justify-center{justify-content:center}
+.justify-between{justify-content:space-between}
+.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.inset-0{top:0;right:0;bottom:0;left:0}
+.top-0{top:0}
+.top-4{top:1rem}
+.right-0{right:0}
+.right-6{right:1.5rem}
+.left-0{left:0}
+.z-50{z-index:50}
+.overflow-x-auto{overflow-x:auto}
+
+/* ── Sizing ── */
+.w-full{width:100%}
+.w-5{width:1.25rem}
+.h-full{height:100%}
+.h-5{height:1.25rem}
+.h-16{height:4rem}
+.max-w-xs{max-width:20rem}
+.max-w-6xl{max-width:72rem}
+.min-h-screen{min-height:100vh}
+.min-h-\[2\.5rem\]{min-height:2.5rem}
+.min-h-\[100px\]{min-height:100px}
+
+/* ── Margin ── */
+.mx-auto{margin-left:auto;margin-right:auto}
+.mb-1{margin-bottom:.25rem}
+.mb-2{margin-bottom:.5rem}
+.mb-3{margin-bottom:.75rem}
+.mb-4{margin-bottom:1rem}
+.mb-6{margin-bottom:1.5rem}
+.mb-8{margin-bottom:2rem}
+.mb-10{margin-bottom:2.5rem}
+.mt-4{margin-top:1rem}
+.mt-12{margin-top:3rem}
+
+/* ── Padding ── */
+.p-2{padding:.5rem}
+.p-4{padding:1rem}
+.p-6{padding:1.5rem}
+.p-8{padding:2rem}
+.px-1{padding-left:.25rem;padding-right:.25rem}
+.px-3{padding-left:.75rem;padding-right:.75rem}
+.px-4{padding-left:1rem;padding-right:1rem}
+.px-6{padding-left:1.5rem;padding-right:1.5rem}
+.py-1{padding-top:.25rem;padding-bottom:.25rem}
+.py-8{padding-top:2rem;padding-bottom:2rem}
+.pt-4{padding-top:1rem}
+.pt-10{padding-top:2.5rem}
+.pt-24{padding-top:6rem}
+.pb-12{padding-bottom:3rem}
+
+/* ── Gap ── */
+.gap-2{gap:.5rem}
+.gap-3{gap:.75rem}
+.gap-4{gap:1rem}
+.gap-8{gap:2rem}
+
+/* ── Space-between (수직) ── */
+.space-y-3 > :not([hidden]) ~ :not([hidden]){margin-top:.75rem}
+.space-y-4 > :not([hidden]) ~ :not([hidden]){margin-top:1rem}
+
+/* ── Typography ── */
+.text-xs{font-size:.75rem;line-height:1rem}
+.text-sm{font-size:.875rem;line-height:1.25rem}
+.text-lg{font-size:1.125rem;line-height:1.75rem}
+.text-xl{font-size:1.25rem;line-height:1.75rem}
+.text-2xl{font-size:1.5rem;line-height:2rem}
+.text-3xl{font-size:1.875rem;line-height:2.25rem}
+.text-4xl{font-size:2.25rem;line-height:2.5rem}
+.text-center{text-align:center}
+.text-left{text-align:left}
+.font-bold{font-weight:700}
+.italic{font-style:italic}
+.underline{text-decoration-line:underline}
+.leading-relaxed{line-height:1.625}
+.drop-shadow-lg{filter:drop-shadow(0 10px 8px rgba(0,0,0,.04)) drop-shadow(0 4px 3px rgba(0,0,0,.1))}
+
+/* ── Text color ── */
+.text-white{color:#fff}
+.text-gray-200{color:#e5e7eb}
+.text-gray-300{color:#d1d5db}
+.text-gray-400{color:#9ca3af}
+.text-gray-500{color:#6b7280}
+.text-red-400{color:#f87171}
+.text-\[\#f0e68c\]{color:#f0e68c}
+.text-\[\#1a1a2e\]{color:#1a1a2e}
+
+/* ── Background (Tailwind opacity 메커니즘 재현) ── */
+.bg-transparent{background-color:transparent}
+.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity))}
+.bg-\[\#f0e68c\]{--tw-bg-opacity:1;background-color:rgb(240 230 140 / var(--tw-bg-opacity))}
+.bg-opacity-20{--tw-bg-opacity:.2}
+.bg-opacity-30{--tw-bg-opacity:.3}
+.bg-opacity-80{--tw-bg-opacity:.8}
+
+/* ── Border ── */
+.border{border-width:1px;border-style:solid}
+.border-t{border-top-width:1px;border-style:solid}
+.border-none{border-style:none}
+.border-gray-700{--tw-border-opacity:1;border-color:rgb(55 65 81 / var(--tw-border-opacity))}
+.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity))}
+.border-\[\#f0e68c\]{--tw-border-opacity:1;border-color:rgb(240 230 140 / var(--tw-border-opacity))}
+.border-opacity-30{--tw-border-opacity:.3}
+
+/* ── Radius ── */
+.rounded{border-radius:.25rem}
+.rounded-lg{border-radius:.5rem}
+.rounded-2xl{border-radius:1rem}
+
+/* ── Effects ── */
+.opacity-0{opacity:0}
+.backdrop-blur-sm{-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.backdrop-blur-xl{-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
+.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}
+.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}
+.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}
+.duration-500{transition-duration:500ms}
+.duration-700{transition-duration:700ms}
+
+/* ── Hover / focus ── */
+.hover\:underline:hover{text-decoration-line:underline}
+.hover\:opacity-80:hover{opacity:.8}
+.hover\:text-white:hover{color:#fff}
+.hover\:bg-yellow-300:hover{--tw-bg-opacity:1;background-color:rgb(253 224 71 / var(--tw-bg-opacity))}
+.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}
+.focus\:ring-0:focus{box-shadow:none}
+
+/* ── Responsive (md ≥ 768px) ── */
+@media (min-width:768px){
+    .md\:flex-row{flex-direction:row}
+    .md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .md\:p-8{padding:2rem}
+    .md\:px-8{padding-left:2rem;padding-right:2rem}
+    .md\:text-sm{font-size:.875rem;line-height:1.25rem}
+    .md\:text-4xl{font-size:2.25rem;line-height:2.5rem}
+    .md\:text-5xl{font-size:3rem;line-height:1}
+}

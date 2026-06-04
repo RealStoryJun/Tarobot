@@ -30,7 +30,9 @@ const elements = {
     doLogin: document.getElementById('do-login-btn'),
     doSignup: document.getElementById('do-signup-btn'),
     doReset: document.getElementById('do-reset-btn'),
-    doChangePw: document.getElementById('do-change-pw-btn')
+    doChangePw: document.getElementById('do-change-pw-btn'),
+    recoveryModal: document.getElementById('recovery-modal'),
+    doRecovery: document.getElementById('do-recovery-btn')
 };
 
 // Helper: Validation
@@ -81,6 +83,7 @@ const ERROR_FIELDS = {
     'signup':    { errorEl: 'signup-error',    inputs: ['signup-email', 'signup-password', 'signup-password-confirm'] },
     'reset':     { errorEl: 'reset-error',     inputs: ['reset-email'] },
     'change-pw': { errorEl: 'change-pw-error', inputs: ['change-password', 'change-password-confirm'] },
+    'recovery':  { errorEl: 'recovery-error',  inputs: ['recovery-password', 'recovery-password-confirm'] },
 };
 
 function showAuthError(modalKey, message, opts = {}) {
@@ -151,6 +154,9 @@ function decodeJwtPayload(token) {
 // --- Modal Controls ---
 let _lastFocusBeforeModal = null;
 let _trappedModal = null;
+// recovery 진입으로 sb-token 에 임시 토큰을 심었으나 아직 비번 변경을 안 한 상태.
+// 이 상태에서 모달을 닫고 이탈하면 토큰을 폐기해야 함 (잔존 시 정상 세션 오인 위험).
+let _recoveryPending = false;
 
 function getFocusables(root) {
     return Array.from(
@@ -179,12 +185,12 @@ function openModal(modal) {
     if (!elements.overlay) return;
     _lastFocusBeforeModal = document.activeElement;
     elements.overlay.classList.add('is-active');
-    [elements.loginModal, elements.signupModal, elements.resetModal, elements.profileModal].forEach(m => m.classList.add('hidden'));
+    [elements.loginModal, elements.signupModal, elements.resetModal, elements.profileModal, elements.recoveryModal].forEach(m => m.classList.add('hidden'));
     modal.classList.remove('hidden');
     _trappedModal = modal;
 
     // 다른 모달에서 남은 에러 잔재 정리
-    ['login', 'signup', 'reset', 'change-pw'].forEach(clearAuthError);
+    ['login', 'signup', 'reset', 'change-pw', 'recovery'].forEach(clearAuthError);
     // 첫 포커스 가능한 요소로 이동
     requestAnimationFrame(() => {
         const focusables = getFocusables(modal);
@@ -199,8 +205,17 @@ function openModal(modal) {
     }
 }
 
+// recovery 진입으로 심은 임시 토큰을, 비번 변경 없이 이탈할 때 폐기
+function discardRecoveryToken() {
+    if (!_recoveryPending) return;
+    localStorage.removeItem('sb-token');
+    authToken = null;
+    _recoveryPending = false;
+}
+
 function closeModal() {
     if (!elements.overlay) return;
+    discardRecoveryToken();
     elements.overlay.classList.remove('is-active');
     _trappedModal = null;
     document.removeEventListener('keydown', trapFocusHandler);
@@ -355,6 +370,91 @@ async function handlePasswordChange() {
     }
 }
 
+// --- 비밀번호 재설정 메일 링크 진입 처리 ---
+
+// 재설정 메일 링크로 돌아온 진입을 감지. Supabase 가 토큰을 hash(#access_token=...&type=recovery)
+// 또는 query 로 실어 보내므로 양쪽 모두 파싱. recovery 진입이면 토큰을 임시 보관하고
+// 전용 모달을 열어 true 반환 → initAuth 의 기존 세션 복원 로직을 건너뛴다.
+function handleRecoveryEntry() {
+    const hp = new URLSearchParams(location.hash.replace(/^#/, ''));
+    const qp = new URLSearchParams(location.search);
+    const get = (k) => hp.get(k) || qp.get(k);
+
+    const type = get('type');
+    const accessToken = get('access_token');
+    const errorCode = get('error_code') || get('error');
+
+    // 정상 recovery 진입 — 토큰을 sb-token 에 임시 저장 후 URL 흔적 제거
+    if (type === 'recovery' && accessToken) {
+        history.replaceState(null, '', location.pathname);
+        localStorage.setItem('sb-token', accessToken);
+        authToken = accessToken;
+        _recoveryPending = true;
+        openModal(elements.recoveryModal);
+        return true;
+    }
+
+    // 만료·무효 링크 (Supabase 가 error 파라미터로 리다이렉트)
+    if (errorCode && get('error_description')) {
+        history.replaceState(null, '', location.pathname);
+        const desc = get('error_description');
+        toast(
+            desc ? decodeURIComponent(desc.replace(/\+/g, ' '))
+                 : '재설정 링크가 만료되었거나 유효하지 않습니다. 다시 요청해 주세요.',
+            'error', 5000
+        );
+        openModal(elements.resetModal);
+        return true;
+    }
+
+    return false;
+}
+
+// recovery 모달에서 새 비밀번호 제출. 기존 /api/auth/update 재활용 (apiCall 이 sb-token 을
+// Authorization 으로 자동 부착). 성공 시 임시 세션을 폐기하고 재로그인을 유도한다.
+async function handleRecoverySubmit() {
+    clearAuthError('recovery');
+    const password = document.getElementById('recovery-password').value;
+    const confirm = document.getElementById('recovery-password-confirm').value;
+
+    if (!password) {
+        showAuthError('recovery', '새 비밀번호를 입력해 주세요.', { fields: ['recovery-password'] });
+        return;
+    }
+    if (password !== confirm) {
+        showAuthError('recovery', '비밀번호가 일치하지 않습니다.', { fields: ['recovery-password', 'recovery-password-confirm'] });
+        return;
+    }
+    if (!validatePassword(password)) {
+        showAuthError('recovery', '비밀번호는 영문+숫자+특수문자(@$!%*#?&) 포함 8자 이상이어야 합니다.', { fields: ['recovery-password'] });
+        return;
+    }
+
+    setBusy(elements.doRecovery, true, '변경 중...');
+    try {
+        const result = await apiCall('/api/auth/update', 'POST', { password });
+        if (result.error) {
+            // recovery 토큰 만료/무효 가능 — 안내 후 재요청 유도
+            const msg = mapAuthError(result.error);
+            showAuthError('recovery', msg);
+            toast('변경 실패: ' + msg, 'error');
+            return;
+        }
+        // 성공 — recovery 임시 세션 폐기 후 재로그인 유도
+        _recoveryPending = false;
+        localStorage.removeItem('sb-token');
+        authToken = null;
+        currentUser = null;
+        updateAuthStateUI(null);
+        document.getElementById('recovery-password').value = '';
+        document.getElementById('recovery-password-confirm').value = '';
+        toast('비밀번호가 변경되었습니다. 새 비밀번호로 로그인해 주세요.', 'success');
+        openModal(elements.loginModal);
+    } finally {
+        setBusy(elements.doRecovery, false);
+    }
+}
+
 function getDisplayName(user) {
     return localStorage.getItem('tarobot_display_name') || user.email.split('@')[0];
 }
@@ -405,40 +505,6 @@ async function checkAdminStatus() {
 
 // 내 리딩 이력 로드 + 클라이언트 검색
 let _allHistory = [];
-
-function renderHistoryItems(items) {
-    const historyList = document.getElementById('history-list');
-    if (!historyList) return;
-    if (items.length === 0) {
-        historyList.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-state-icon" aria-hidden="true">✧</div>
-                <p class="empty-state-msg">일치하는 리딩이 없습니다.</p>
-            </div>
-        `;
-        return;
-    }
-    historyList.innerHTML = items.map(r => {
-        const date = new Date(r.created_at).toLocaleString('ko-KR', {
-            year: 'numeric', month: 'short', day: 'numeric',
-            hour: '2-digit', minute: '2-digit'
-        });
-        const questionText = r.question || '질문 없음';
-        const preview = (r.interpretation || '해석 없음').substring(0, 500);
-        const hasMore = (r.interpretation || '').length > 500;
-        return `
-            <div class="history-item" role="button" tabindex="0" onclick="this.querySelector('.detail').classList.toggle('hidden')">
-                <div class="history-item-head">
-                    <p class="history-item-q">${escapeHtml(questionText)}</p>
-                    <span class="history-item-date">${date}</span>
-                </div>
-                <div class="detail hidden history-item-body">
-                    <p>${escapeHtml(preview)}${hasMore ? '...' : ''}</p>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
 
 async function loadMyHistory() {
     const historyOverlay = document.getElementById('history-modal-overlay');
@@ -540,12 +606,15 @@ async function initAuth() {
     if (elements.goReset) elements.goReset.addEventListener('click', () => openModal(elements.resetModal));
     if (elements.goLogin) elements.goLogin.addEventListener('click', () => openModal(elements.loginModal));
     if (elements.backToLogin) elements.backToLogin.addEventListener('click', () => openModal(elements.loginModal));
+    const recoveryBackBtn = document.getElementById('recovery-back-to-login');
+    if (recoveryBackBtn) recoveryBackBtn.addEventListener('click', () => { discardRecoveryToken(); openModal(elements.loginModal); });
     
     // Actions
     if (elements.doSignup) elements.doSignup.addEventListener('click', handleSignup);
     if (elements.doLogin) elements.doLogin.addEventListener('click', handleLogin);
     if (elements.doReset) elements.doReset.addEventListener('click', handleResetPassword);
     if (elements.doChangePw) elements.doChangePw.addEventListener('click', handlePasswordChange);
+    if (elements.doRecovery) elements.doRecovery.addEventListener('click', handleRecoverySubmit);
     if (elements.navLogoutBtn) elements.navLogoutBtn.addEventListener('click', handleLogout);
 
     // 내 이력 버튼
@@ -611,12 +680,17 @@ async function initAuth() {
                     'signup': elements.doSignup,
                     'reset': elements.doReset,
                     'change-pw': elements.doChangePw,
+                    'recovery': elements.doRecovery,
                 };
                 const btn = submitMap[modalKey];
                 if (btn && !btn.disabled) btn.click();
             });
         });
     });
+
+    // 비밀번호 재설정 메일 링크 진입이면 recovery 모달을 열고, 아래 세션 복원은 건너뜀
+    // (recovery 토큰을 정상 세션으로 오인해 로그인 UI 가 깜빡이는 것을 방지)
+    if (handleRecoveryEntry()) return;
 
     // 저장된 토큰으로 현재 세션 확인 — optimistic 복원 (JWT exp 기반) + 백그라운드 재검증
     if (authToken) {

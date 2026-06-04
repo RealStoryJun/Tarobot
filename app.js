@@ -211,6 +211,32 @@ function handleSelectCard() {
 
 // === 리딩 프로세스 (Phase 2 → Phase 3, 같은 공간에서) ===
 
+// 스켈레톤 로더 마크업 — 본 로딩 / 재시도 양쪽 공통
+function readingSkeleton(label) {
+    return `
+        <div class="reading-skeleton" aria-live="polite" aria-busy="true">
+            <div class="loader" aria-hidden="true"></div>
+            <p class="reading-skeleton-label">${label}</p>
+            <span class="skeleton w-full"></span>
+            <span class="skeleton w-3-4"></span>
+            <span class="skeleton w-full"></span>
+            <span class="skeleton w-1-2"></span>
+        </div>
+    `;
+}
+
+// AI 해석을 본문에 렌더 + Supabase 저장 (성공/재시도 공통)
+function applyInterpretation(interpretation) {
+    elements.recommendationTextContainer.innerHTML = '';
+    if (window.marked) {
+        elements.recommendationText.innerHTML = marked.parse(interpretation);
+    } else {
+        elements.recommendationText.textContent = interpretation;
+    }
+    elements.recommendationTextContainer.appendChild(elements.recommendationText);
+    saveReadingToSupabase(elements.questionInput.value, selectedCards, interpretation);
+}
+
 async function initiateReadingProcess() {
     // 1. AI 호출 시작 (병렬)
     const aiPromise = apiCall('/api/interpret', 'POST', {
@@ -238,28 +264,13 @@ async function initiateReadingProcess() {
     // 8. AI 응답 처리
     elements.aiAdviceSection.classList.remove('hidden');
     elements.newReadingBar.classList.remove('hidden');
-    elements.recommendationTextContainer.innerHTML = `
-        <div class="reading-skeleton" aria-live="polite" aria-busy="true">
-            <div class="loader" aria-hidden="true"></div>
-            <p class="reading-skeleton-label">타로 마스터가 당신의 카드를 깊이 읽고 있습니다...</p>
-            <span class="skeleton w-full"></span>
-            <span class="skeleton w-3-4"></span>
-            <span class="skeleton w-full"></span>
-            <span class="skeleton w-1-2"></span>
-        </div>
-    `;
+    elements.recommendationTextContainer.innerHTML = readingSkeleton('타로 마스터가 당신의 카드를 깊이 읽고 있습니다...');
 
     try {
         const data = await aiPromise;
         if (data.error) throw new Error(data.error.message || data.error);
 
-        elements.recommendationTextContainer.innerHTML = '';
-        if (window.marked) {
-            elements.recommendationText.innerHTML = marked.parse(data.interpretation);
-        } else {
-            elements.recommendationText.textContent = data.interpretation;
-        }
-        elements.recommendationTextContainer.appendChild(elements.recommendationText);
+        applyInterpretation(data.interpretation);
 
         const summaryArea = document.getElementById('interpretation-summary');
         const summaryText = document.getElementById('summary-text');
@@ -274,8 +285,6 @@ async function initiateReadingProcess() {
             summaryArea.classList.remove('is-swapping');
             summaryArea.classList.add('is-visible');
         }
-
-        saveReadingToSupabase(elements.questionInput.value, selectedCards, data.interpretation);
     } catch (error) {
         console.error('Reading Error:', error);
         showReadingError(error.message);
@@ -294,14 +303,7 @@ function showReadingError(message) {
     if (retryBtn) {
         retryBtn.addEventListener('click', async () => {
             retryBtn.disabled = true;
-            elements.recommendationTextContainer.innerHTML = `
-                <div class="reading-skeleton" aria-live="polite" aria-busy="true">
-                    <div class="loader" aria-hidden="true"></div>
-                    <p class="reading-skeleton-label">다시 연결하는 중...</p>
-                    <span class="skeleton w-full"></span>
-                    <span class="skeleton w-3-4"></span>
-                </div>
-            `;
+            elements.recommendationTextContainer.innerHTML = readingSkeleton('다시 연결하는 중...');
             try {
                 const retryData = await apiCall('/api/interpret', 'POST', {
                     question: elements.questionInput.value,
@@ -309,18 +311,7 @@ function showReadingError(message) {
                     spreadPositions: spreadPositions,
                 });
                 if (retryData.error) throw new Error(retryData.error.message || retryData.error);
-                elements.recommendationTextContainer.innerHTML = '';
-                if (window.marked) {
-                    elements.recommendationText.innerHTML = marked.parse(retryData.interpretation);
-                } else {
-                    elements.recommendationText.textContent = retryData.interpretation;
-                }
-                elements.recommendationTextContainer.appendChild(elements.recommendationText);
-                saveReadingToSupabase(
-                    elements.questionInput.value,
-                    selectedCards,
-                    retryData.interpretation
-                );
+                applyInterpretation(retryData.interpretation);
             } catch (err) {
                 showReadingError(err.message);
             }
@@ -513,12 +504,7 @@ function displayFinalCards() {
             `${position.title}: ${card.name} (${orientation})\n${meaning}\n\n${position.description}`
         );
 
-        const isLocal = card.image.startsWith('./');
-        const optimizedImage = isLocal
-            ? card.image
-            : `https://images.weserv.nl/?url=${encodeURIComponent(card.image.replace(/^http:\/\//i, 'https://'))}&w=200&q=70&output=webp`;
-
-        const imageHtml = `<img src="${optimizedImage}" alt="${card.name}" loading="lazy" decoding="async" style="${card.isReversed ? 'transform: rotate(180deg);' : ''}">`;
+        const imageHtml = `<img src="${card.image}" alt="${card.name}" loading="lazy" decoding="async" style="${card.isReversed ? 'transform: rotate(180deg);' : ''}">`;
 
         cardElement.innerHTML = `
             <div class="card-flipper">

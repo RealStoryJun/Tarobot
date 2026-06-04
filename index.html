@@ -47,10 +47,9 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 마크다운 파서 -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 마크다운 파서 — 리딩 결과 시점에만 필요하므로 defer (초기 파싱 비블로킹) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
 </head>
 <body>
 <header>
@@ -219,6 +218,18 @@
         <input type="password" id="change-password-confirm" class="auth-input" placeholder="비밀번호 확인">
         <p id="change-pw-error" class="auth-error hidden" role="alert"></p>
         <button id="do-change-pw-btn" class="auth-btn mb-4">비밀번호 변경하기</button>
+        <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
+    </div>
+
+    <!-- 비밀번호 재설정(복구) 모달 — 메일 링크 진입 시 자동 오픈 -->
+    <div id="recovery-modal" class="auth-modal hidden">
+        <h2 class="text-2xl font-title text-[#f0e68c] mb-6 text-center">새 비밀번호 설정</h2>
+        <p class="text-xs text-gray-400 mb-4 text-center">재설정 링크로 접속하셨습니다. 새 비밀번호를 입력해 주세요.</p>
+        <input type="password" id="recovery-password" class="auth-input" placeholder="새 비밀번호 (영문+숫자+특수문자 8자↑)">
+        <input type="password" id="recovery-password-confirm" class="auth-input" placeholder="비밀번호 확인">
+        <p id="recovery-error" class="auth-error hidden" role="alert"></p>
+        <button id="do-recovery-btn" class="auth-btn mb-4">새 비밀번호 설정하기</button>
+        <p class="text-center text-xs text-gray-400"><span class="auth-link" id="recovery-back-to-login">로그인으로 돌아가기</span></p>
         <button class="modal-close-btn absolute top-4 right-6 text-gray-500 hover:text-white">✕</button>
     </div>
 </div>
