@@ -10,3 +10,8 @@ workers_dev = true
 [assets]
 directory = "public"
 not_found_handling = "404-page"
+
+# Cron Trigger — 매일 1회 Supabase keepalive (무료 플랜 7일 비활동 pause 방지).
+# 18:00 UTC = 한국 03:00. index.js 의 scheduled() 가 가벼운 REST 쿼리 전송.
+[triggers]
+crons = ["0 18 * * *"]

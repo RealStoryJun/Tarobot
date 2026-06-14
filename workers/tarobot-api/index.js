@@ -317,4 +317,16 @@ export default {
       return response;
     }
   },
+
+  // Supabase 무료 플랜 inactivity pause 방지 — Cron Trigger 로 매일 1회
+  // 가벼운 REST 쿼리를 보내 DB 활동을 발생시킨다. (wrangler.toml [triggers].crons)
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(
+      fetch(`${env.SUPABASE_URL}/rest/v1/readings?select=id&limit=1`, {
+        headers: { apikey: env.SUPABASE_ANON_KEY },
+      })
+        .then((r) => console.log(JSON.stringify({ level: "info", cron: "supabase-keepalive", status: r.status, ts: new Date().toISOString() })))
+        .catch((e) => console.error(JSON.stringify({ level: "error", cron: "supabase-keepalive", error: e.message })))
+    );
+  },
 };
